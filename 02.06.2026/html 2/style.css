@@ -1,0 +1,62 @@
+:root,html,body{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    font-size: 40px;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    margin: 0 auto ;
+    width: 50%;
+    padding: 40px;
+    gap: 80px;
+
+}
+
+.left , .right{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 80px;
+}
+
+.left .up{
+    width: 100%;
+    height: 55%;
+    border: 8px solid black;
+    color: black;
+    padding: 20px 0px 0px 20px;
+}
+.left .down{
+    width: 100%;
+    height: 45%;
+    border: 8px solid red;
+    color: red;
+    padding: 20px 0px 0px 20px;
+}
+
+.right .up{
+    width: 100%;
+    height: 20%;
+    border: 8px solid skyblue;
+    color: skyblue;
+    padding: 20px 0px 0px 20px;
+}
+
+.right .middle{
+    width: 100%;
+    height: 55%;
+    border: 8px solid orange;
+    color: orange;
+    padding: 20px 0px 0px 20px;
+}
+
+.right .down{
+    width: 100%;
+    height: 25%;
+    border: 8px solid pink;
+    color: pink;
+    padding: 20px 0px 0px 20px;
+}

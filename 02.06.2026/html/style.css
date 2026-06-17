@@ -1,0 +1,45 @@
+:root,html,body{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+header{
+    width: 100%;
+    height: 20%;
+    background-color: red;
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+}
+.container{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    border: 4px solid white;
+}
+
+.left , .middle ,.right{
+    width: 100%;
+    height: 100%;
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+}
+.left{
+    background-color: yellow;
+}
+.middle{
+    background-color: green;
+}
+.right{
+    background-color: lightgreen;
+}
+
+footer{
+    width: 100%;
+    height: 20%;
+    background-color: grey;
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+}

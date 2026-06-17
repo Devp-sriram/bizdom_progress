@@ -1,0 +1,143 @@
+:root, html ,body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600 700;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: 'Heading';
+    src: url(./Montserrat-Variable.woff2);
+    font-weight: 700 800;
+    font-display: swap;
+}
+
+a {
+    font-weight: 600;
+    padding: 10px;
+}
+
+h2{
+    font-size: 48px;
+    font-weight: 700;
+    text-wrap: balance;
+    font-family: 'Heading',sans-serif;
+    line-height: 0.95;
+    letter-spacing: -.025em;
+}
+
+.nav-button{
+    border: none;
+    font-family: 'Heading',sans-serif;
+}
+
+.nav-button:hover{
+     border-top: 2px solid #ff2b85;
+}
+
+.active{
+    border-top: 2px solid #ff2b85;
+}
+
+video{
+    object-fit :cover;
+    height: 70vh;
+}
+
+.overlay{
+    bottom: 60px;
+    left: 100px;
+    font-size: 86px;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+.subHero{
+    color:black;
+    margin: 4rem 6rem;
+    width: 75%;
+    /* font-size: 48px;
+    font-weight: 700;
+    text-wrap: balance;
+    font-family: 'Heading',sans-serif;
+    line-height: 0.95;
+    letter-spacing: -.025em; */
+}
+
+.container-md{
+    margin: 0px 6rem;
+}
+
+.palet{
+    margin: 12rem 6rem;
+    gap: 48px;
+}
+.palet-button , .location{
+    font-family: 'Heading',sans-serif;
+    background-color: #ff2b85;
+    color: white;
+    border-radius: 50px;
+    padding:5px 12px;
+    border: none;
+    margin: 0px 10px;
+}
+
+.palet img{
+    object-fit: cover;
+}
+
+/* .palet h2{
+    font-size: 48px;
+    font-weight: 700;
+    text-wrap: balance;
+    font-family: 'Heading',sans-serif;
+    line-height: 0.95;
+    letter-spacing: -.025em;
+} */
+
+.palet-content > * {
+    padding: 12px;
+}
+.bottom-line{
+       border-bottom: 2px solid #ff2b85;
+}
+
+input{
+    border-radius: 50px;
+    border: 2px solid #ff2b85;
+}
+
+.motion{
+    transition: all 0.5s ease-in;
+}
+
+footer{
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+.swiper-wrapper{
+    gap: 22px;
+}
+.swiper-slide{
+    height: 600px;
+    max-width: 500px;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    width: 100vw;   
+}
+
+footer ul{
+    list-style-type: none;
+}

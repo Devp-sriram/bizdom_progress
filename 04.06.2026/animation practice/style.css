@@ -1,0 +1,61 @@
+:root{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    margin: auto;
+    margin-top:30vh;
+    width: 80%;
+    height: 40vh;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
+
+.card{
+    width: 500px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    transition-property: scale;
+}
+
+.card span{
+    width: 36px;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    background-color: #5e59d6;
+    color: white;
+    border-radius: 50px;
+}
+
+.card div h3{
+    font-size: 24px;
+    color: #5e59d6;
+}
+
+.card div p{
+    font-size: 18px;
+    font-weight: 600;
+    color: gray;
+}
+
+.card:hover{
+    border: 2px solid #5e59d6;
+    box-shadow:  -2px 4px 30px 1px #817ecf,4px 6px 8px 2px #8887bb ;
+    scale: 1.01;
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover span{
+    box-shadow:  0px 1px 1px 0px #8583c9 ,0px 2px 2px 1px #9998c2 ;
+}   

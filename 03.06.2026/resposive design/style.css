@@ -1,0 +1,65 @@
+:root{
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+}
+
+div{
+    height: 100vh;
+}
+
+.container{
+    display : flex;
+    width: 67%;
+}
+
+.left{
+    background-color: yellow;
+    width: 33%;
+}
+.main{
+    background-color: orangered;
+    width: 50%;
+}
+.right{
+    background-color: orange;
+    width: 50%;
+}
+
+@media only screen and (max-width : 1024px){
+    body{
+       flex-direction: column;
+    } 
+    .container{
+        width: 100%;
+    }
+    .left{
+        width: 100%;
+    }
+    .main{
+        width: 100%;
+    }
+    .right{
+        width: 100%;
+    }
+    div{
+        height: 50vh;
+    }
+}
+
+@media only screen and (max-width : 720px){
+   .container{
+    flex-direction: column;
+   }
+    .left{
+        width: 100%;
+    }
+   
+     div{
+        height: 33vh;
+    }
+}

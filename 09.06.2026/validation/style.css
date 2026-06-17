@@ -1,0 +1,75 @@
+:root{
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+}
+
+form{
+    display: grid;
+    height: 100%;
+    grid-template-areas: 'name phone'
+                         'email email'
+                         'service blank'
+                         'note note'
+                         'note note'
+                         'button button';
+    width: 50%;
+    margin: 24px auto;
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+fieldset{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: none;
+}
+label{
+    color: rgb(132, 0, 255);
+}
+span{
+    color: red;
+}
+
+input , select{
+    height: 40px;
+    border-radius: 8px;
+}
+button{
+    margin: 8px;
+    height: 50px;
+    grid-area: button;
+    border-radius: 8px;
+    width: 97%;
+    background-color: rgb(132, 0, 255);
+    color: aliceblue;
+}
+#note{
+    height: 150px;
+}
+
+#name{
+    grid-area: name;
+}
+
+#phone{
+    grid-area: phone;
+}
+
+#email{
+    grid-area: email;
+}
+#service{
+    grid-area: service;
+}
+
+#note{
+    grid-area: note;
+}
+
+.alert{
+    display: none;
+}

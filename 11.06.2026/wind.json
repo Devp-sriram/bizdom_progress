@@ -1,0 +1,86 @@
+[
+  {
+    "studentId": 101,
+    "name": "Nithish Kumar",
+    "age": 22,
+    "gender": "Male",
+    "email": "nithish@gmail.com",
+    "isActive": true,
+
+    "address": {
+      "city": "Chennai",
+      "state": "Tamil Nadu"
+    },
+
+    "course": {
+      "courseName": "Computer Science",
+      "fees": 150000
+    },
+
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Angular"
+    ],
+
+    "projects": [
+      {
+        "projectId": 1,
+        "projectName": "Student Management System",
+        "technology": "HTML, CSS, JavaScript"
+      },
+      {
+        "projectId": 2,
+        "projectName": "Online Pharmacy",
+        "technology": "Angular, ASP.NET Core"
+      }
+    ],
+
+    "attendance": {
+      "percentage": 95
+    }
+  },
+
+  {
+    "studentId": 102,
+    "name": "Priya Sharma",
+    "age": 21,
+    "gender": "Female",
+    "email": "priya@gmail.com",
+    "isActive": false,
+
+    "address": {
+      "city": "Bangalore",
+      "state": "Karnataka"
+    },
+
+    "course": {
+      "courseName": "Information Technology",
+      "fees": 140000
+    },
+
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "SQL"
+    ],
+
+    "projects": [
+      {
+        "projectId": 1,
+        "projectName": "Hospital Management System",
+        "technology": "Java, MySQL"
+      },
+      {
+        "projectId": 2,
+        "projectName": "E-Commerce Website",
+        "technology": "Spring Boot, React"
+      }
+    ],
+
+    "attendance": {
+      "percentage": 89
+    }
+  }
+]

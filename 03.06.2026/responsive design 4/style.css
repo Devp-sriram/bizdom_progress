@@ -1,0 +1,77 @@
+:root,
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-areas: 'header nav nav nav'
+        'hero hero hero hero'
+        'main main blank image'
+        'main main blank extra'
+        "banner banner banner banner";
+}
+
+body>* {
+    height: 115px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+}
+
+header {
+    height: 70px;
+    grid-area: header;
+    background-color: rgb(3, 3, 41);
+}
+
+nav {
+    height: 70px;
+    grid-area: nav;
+    background-color: rgb(255, 80, 80);
+}
+
+.hero {
+    grid-area: hero;
+    height: 56vh;
+    background-color: rgba(24, 124, 255, 0.637);
+}
+
+main {
+    grid-area: main;
+    height: 100%;
+    background-color: rgb(49, 49, 129);
+}
+
+img {
+    grid-area: image;
+    background-color: rgba(125, 255, 179, 0.432);
+}
+
+.extra {
+    grid-area: extra;
+    background-color: rgb(128, 255, 181);
+}
+
+.banner {
+    grid-area: banner;
+    background-color: tan;
+}
+
+@media screen and (max-width:1024) {
+    body {
+        display: grid;
+        grid-template-areas: 'header nav nav nav'
+            'hero hero hero hero'
+            'main main blank image'
+            'main main blank extra'
+            "banner banner banner banner";
+    }
+}

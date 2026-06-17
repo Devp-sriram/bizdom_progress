@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <header class="container-lg w-100 d-flex justify-content-between p-2">
+        <img src="https://www.foodpanda.com/wp-content/uploads/2023/06/foodpanda_logo_2023.svg" alt="logo" />
+        <nav class="d-flex p-1">
+            <a class="nav-button active" onclick="setActive()">Home</a>
+            <a class="nav-button" onclick="setActive()">About</a>
+            <a class="nav-button" onclick="setActive()">Newsroom</a>
+            <a class="nav-button" onclick="setActive()">Partners</a>
+            <a class="nav-button" onclick="setActive()">panda ads</a>
+            <a class="nav-button" onclick="setActive()">Contact</a>
+            <a class="nav-button" onclick="setActive()">Carrers</a>
+            <div class="dropdown p-2">
+                <button class="btn location dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose location
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item bottom-line" href="#">Bangladesh</a>
+                    <a class="dropdown-item bottom-line" href="#">Cambodia</a>
+                    <a class="dropdown-item bottom-line" href="#">Hong Kong</a>
+                    <a class="dropdown-item bottom-line" href="#">Laos</a>
+                    <a class="dropdown-item bottom-line" href="#">Malaysia</a>
+                    <a class="dropdown-item bottom-line" href="#">Myanmar</a>
+                    <a class="dropdown-item bottom-line" href="#">Pakistan</a>
+                    <a class="dropdown-item bottom-line" href="#">Philippines</a>
+                    <a class="dropdown-item bottom-line" href="#">Singapore</a>
+                    <a class="dropdown-item bottom-line" href="#">Taiwan</a>
+                    <a class="dropdown-item bottom-line" href="#">Thailand</a>
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <a class="d-flex flex-row-reverse motion" data-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        class="hidden md:inline-block open-search cursor-pointer overflow-hidden search-icon"
+                        id="open-search" data-search-init="1">
+                        <path
+                            d="M19.762 18.348l-5.395-5.395a8.03 8.03 0 00-1.028-10.945 8.03 8.03 0 00-10.988.343 8.027 8.027 0 0010.602 12.016l5.395 5.395a.999.999 0 001.414-1.414zM2.055 8.055a6 6 0 116 6 6.006 6.006 0 01-6-6z"
+                            fill="#FF2B85" fill-rule="nonzero"></path>
+                    </svg>
+
+                    <form class='collapse' id="collapseExample">
+                        <input type="search" name="s" placeholder="Search" id="search-input">
+                    </form>
+                </a>
+            </div>
+        </nav>
+
+    </header>
+    <main class="w-100">
+        <div class="position-relative ">
+            <video class='w-100' poster="https://www.foodpanda.com/wp-content/uploads/2025/04/fp-home-video-poster.webp"
+                data-lazy-type="video"
+                data-poster="https://www.foodpanda.com/wp-content/uploads/2025/04/fp-home-video-poster.webp"
+                class="bg-video__content" autoplay="" muted="" loop="">
+                <source class="lazy lazy-hidden lazy lazy-hidden"
+                    src="https://player.vimeo.com/progressive_redirect/playback/887673049/rendition/720p/file.mp4?loc=external&amp;log_user=0&amp;signature=01e93bdd482c18d9e437c0cfc867ddf242690ae4e9819149a92bd5c8046f8e7e"
+                    type="video/mp4">
+            </video>
+            <h1 class="position-absolute overlay text-light">food <br />
+                and groceries <br />
+                in a tap
+            </h1>
+        </div>
+        <h2 class="subHero">
+            We’re here to help you live life the panda way.<br />
+            Spend more time doing what you love – we’ll <br />
+            take care of tasty meals, fresh groceries and <br />
+            new flavours.
+        </h2>
+        <div class="palet d-flex">
+            <img loading="lazy" decoding="async" width="912" height="513"
+                src="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home.webp" data-lazy-type="image"
+                data-src="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home.webp" alt=""
+                class="wp-image-3855 size-full lazy-loaded"
+                srcset="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home.webp 912w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-900x506.webp 900w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-768x432.webp 768w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-90x51.webp 90w"
+                data-srcset="" sizes="auto, (max-width: 912px) 100vw, 912px">
+            <div class="palet-content d-flex flex-column justify-content-center align-items-start">
+                <h2>Meet the next <br /> generation of delivery!</h2>
+                <p>What makes quick commerce quick? We stand for swift personalised delivery <br /> solutions for our
+                    customers, partners and employees. Learn how we empower <br /> authentic lifestyles and drive
+                    innovation across the globe.</p>
+                <a class="palet-button" href="#">about</a>
+            </div>
+        </div>
+
+        <div class="palet d-flex">
+            <div class="palet-content d-flex flex-column justify-content-center align-items-start">
+                <h2>Taste the convenience.</h2>
+                <p>Try us out! Delicious food and speedy groceries are at your fingertips. Go ahead,<br> download
+                    foodpanda now.</p>
+                <div class="d-flex">
+                    <figure><a href="https://apps.apple.com/app/foodpanda-food-delivery/id758103884?l=en"
+                            target="_blank" rel=" noreferrer noopener"><img loading="lazy" decoding="async" width="132"
+                                height="44" src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple.png"
+                                data-lazy-type="image"
+                                data-src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple.png" alt=""
+                                class="wp-image-643 lazy-loaded"
+                                srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple.png 132w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple-90x30.png 90w"
+                                data-srcset="" sizes="auto, (max-width: 132px) 100vw, 132px"><noscript><img
+                                    loading="lazy" decoding="async" width="132" height="44"
+                                    src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple.png" alt=""
+                                    class="wp-image-643"
+                                    srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple.png 132w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-apple-90x30.png 90w"
+                                    sizes="auto, (max-width: 132px) 100vw, 132px" /></noscript></a></figure>
+
+
+
+                    <figure><a href="https://play.google.com/store/apps/details?id=com.global.foodpanda.android"
+                            target="_blank" rel=" noreferrer noopener"><img loading="lazy" decoding="async" width="148"
+                                height="44" src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-google.png"
+                                data-lazy-type="image"
+                                data-src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-google.png" alt=""
+                                class="wp-image-644 lazy-loaded"
+                                srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-google.png 148w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-google-90x27.png 90w"
+                                data-srcset="" sizes="auto, (max-width: 148px) 100vw, 148px"><noscript><img
+                                    loading="lazy" decoding="async" width="148" height="44"
+                                    src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-google.png" alt=""
+                                    class="wp-image-644"
+                                    srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-google.png 148w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-google-90x27.png 90w"
+                                    sizes="auto, (max-width: 148px) 100vw, 148px" /></noscript></a></figure>
+
+
+
+                    <figure><a href="https://appgallery.huawei.com/app/C101812091" target="_blank"
+                            rel=" noreferrer noopener"><img loading="lazy" decoding="async" width="148" height="44"
+                                src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei.png"
+                                data-lazy-type="image"
+                                data-src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei.png" alt=""
+                                class="wp-image-642 lazy-loaded"
+                                srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei.png 148w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei-90x27.png 90w"
+                                data-srcset="" sizes="auto, (max-width: 148px) 100vw, 148px"><noscript><img
+                                    loading="lazy" decoding="async" width="148" height="44"
+                                    src="https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei.png" alt=""
+                                    class="wp-image-642"
+                                    srcset="https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei.png 148w, https://www.foodpanda.com/wp-content/uploads/2023/02/app-huawei-90x27.png 90w"
+                                    sizes="auto, (max-width: 148px) 100vw, 148px" /></noscript></a></figure>
+                </div>
+            </div>
+            <img loading="lazy" decoding="async" width="1024" height="576"
+                src="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2.webp" data-lazy-type="image"
+                data-src="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2.webp" alt=""
+                class="wp-image-3856 size-full lazy-loaded"
+                srcset="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2.webp 1024w, https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2-900x506.webp 900w, https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2-768x432.webp 768w, https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-2-90x51.webp 90w"
+                data-srcset="" sizes="auto, (max-width: 1024px) 100vw, 1024px">
+        </div>
+
+        <div class="palet d-flex">
+            <img loading="lazy" decoding="async" width="1024" height="683"
+                src="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3.webp" data-lazy-type="image"
+                data-src="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3.webp" alt=""
+                class="wp-image-3857 size-full lazy-loaded"
+                srcset="https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3.webp 1024w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3-900x600.webp 900w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3-768x512.webp 768w, https://www.foodpanda.com/wp-content/uploads/2025/07/fp-home-3-90x60.webp 90w"
+                data-srcset="" sizes="auto, (max-width: 1024px) 100vw, 1024px">
+            <div class="palet-content d-flex flex-column justify-content-center align-items-start">
+                <h2>Find the job you’d love</h2>
+                <p>Hungry to make a difference? There’s a seat at our table! <br /> <br /> <br /> Find out how we
+                    connect tech, passions, projects and people – explore international career opportunities at
+                    foodpanda.</p>
+                <a class="palet-button" href="#">Join us!</a>
+            </div>
+        </div>
+
+        <div class="swiper">
+            <h2 class="text-center">Have you heard?</h2>
+            <p class="text-center">The industry is changing fast! Stay up to date with foodpanda press. Catch up on the
+                lates news, updates and reports here.</p>
+            <div class="swiper-wrapper d-flex ">
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group" aria-label="1 / 18">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+                <div class="swiper-slide"
+                    style="background-image: url(&quot;https://www.foodpanda.com/wp-content/uploads/2024/10/fp-about-2.webp&quot;); width: 222.667px; margin-right: 24px;"
+                    role="group">
+                    <div class="d-flex justify-content-end flex-column h-100 p-4">
+                        <aside class=" z-10">
+                            <span class="text-white font-bold">Business</span>
+                        </aside>
+
+                        <aside class="z-10">
+                            <a
+                                href="https://www.foodpanda.com/newsroom/foodpanda-partners-with-fiserv-to-enable-more-streamlined-and-secure-ecommerce-payments-across-asia/">
+                                <h3 class="text-light">foodpanda Partners with Fiserv to Enable More Streamlined and
+                                    Secure eCommerce Payments Across Asia</h3>
+                                <hr>
+                                <div class="text-light my-0 py-0 d-flex">
+                                    <span>23.10.2024</span>
+                                </div>
+                            </a>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="palet d-flex justify-content-between">
+            <div class="palet-content d-flex flex-column justify-content-center align-items-start">
+                <h2>Feed your team.</h2>
+                <p>Treat your talented team to their favourite meals. Let them pick! Explore flexible <br /> corporate
+                    food delivery options and tasty employee perks.</p>
+                <button class="palet-button">Explore</button>
+            </div>
+            <img loading="lazy" decoding="async" width="608" height="342"
+                src="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-4.webp" data-lazy-type="image"
+                data-src="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-4.webp" alt=""
+                class="w-50 h-100"
+                srcset="https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-4.webp 608w, https://www.foodpanda.com/wp-content/uploads/2025/07/foodpanda-home-4-90x51.webp 90w"
+                data-srcset="" sizes="auto, (max-width: 608px) 100vw, 608px">
+        </div>
+
+    </main>
+    <footer class="mx-auto">
+        <div class="p-4">
+            <div class="w-100">
+                <img src="https://www.foodpanda.com/wp-content/uploads/2023/06/foodpanda_logo_2023.svg"
+                    alt="foodpanda logo">
+            </div>
+
+            <div class="d-flex justify-content-between p-4">
+                <div>
+                    <h3>Navigate</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Contact</li>
+                        <li>Newsroom</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Collaborate</h3>
+                    <ul>
+                        <li>Explore careers</li>
+                        <li>Become a rider</li>
+                        <li>Feed your team</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Follow us on</h3>
+                    <ul class="d-flex">
+                        <li class="social-icon inline-block pb-4">
+                            <a target="_blank" rel="noopener" aria-label="Visit us on Facebook"
+                                title="Visit us on Facebook"
+                                href="https://www.facebook.com/profile.php?id=273039666130793">
+                                <svg width="14" height="24" viewBox="0 0 14 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8.90929 24V13.0703H12.971L13.5747 8.79094H8.90929V6.06518C8.90929 4.83032 9.28829 3.98485 11.2405 3.98485H13.7143V0.169586C12.5107 0.0524886 11.3008 -0.00405133 10.0903 0.00022559C6.50018 0.00022559 4.03526 1.98987 4.03526 5.64245V8.78294H0V13.0623H4.04407V24H8.90929Z"
+                                        fill="white"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social-icon inline-block pb-4">
+                            <a target="_blank" rel="noopener" aria-label="Visit us on Linkedin"
+                                title="Visit us on Linkedin" href="https://www.linkedin.com/company/foodpanda">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5.37276 24H0.396871V7.97657H5.37276V24ZM2.88182 5.79086C1.2909 5.79086 0 4.47257 0 2.88171C0 2.11744 0.303619 1.38446 0.844065 0.844035C1.38451 0.303608 2.11751 0 2.88182 0C3.64612 0 4.37912 0.303608 4.91957 0.844035C5.46002 1.38446 5.76363 2.11744 5.76363 2.88171C5.76363 4.47257 4.47273 5.79086 2.88182 5.79086ZM23.9957 24H19.031V16.2C19.031 14.3409 18.9932 11.9571 16.444 11.9571C13.8571 11.9571 13.4602 13.9766 13.4602 16.0663V24H8.48945V7.97657H13.2613V10.1623H13.3308C13.9951 8.90314 15.6177 7.57457 18.0384 7.57457C23.0743 7.57457 24 10.8909 24 15.198V24H23.9957Z"
+                                        fill="white"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="social-icon inline-block pb-4">
+                            <a target="_blank" rel="noopener" aria-label="Visit us on Instagram"
+                                title="Visit us on Instagram" href="https://www.instagram.com/foodpandasg">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M7.05273 0.072C8.33236 0.0130909 8.74036 0 12 0C15.2596 0 15.6676 0.0141818 16.9462 0.072C18.2247 0.129818 19.0975 0.333818 19.8611 0.629455C20.6607 0.931636 21.3862 1.404 21.9862 2.01491C22.5971 2.61382 23.0684 3.33818 23.3695 4.13891C23.6662 4.90255 23.8691 5.77527 23.928 7.05164C23.9869 8.33346 24 8.74145 24 12C24 15.2596 23.9858 15.6676 23.928 16.9473C23.8702 18.2236 23.6662 19.0964 23.3695 19.86C23.0684 20.6608 22.5963 21.3864 21.9862 21.9862C21.3862 22.5971 20.6607 23.0684 19.8611 23.3695C19.0975 23.6662 18.2247 23.8691 16.9484 23.928C15.6676 23.9869 15.2596 24 12 24C8.74036 24 8.33236 23.9858 7.05273 23.928C5.77636 23.8702 4.90364 23.6662 4.14 23.3695C3.33919 23.0683 2.61362 22.5963 2.01382 21.9862C1.40332 21.3869 0.930889 20.6617 0.629455 19.8611C0.333818 19.0975 0.130909 18.2247 0.072 16.9484C0.0130909 15.6665 0 15.2585 0 12C0 8.74036 0.0141818 8.33236 0.072 7.05382C0.129818 5.77527 0.333818 4.90255 0.629455 4.13891C0.931334 3.33827 1.40413 2.61307 2.01491 2.01382C2.61386 1.40346 3.3387 0.931029 4.13891 0.629455C4.90255 0.333818 5.77527 0.130909 7.05164 0.072H7.05273ZM10.4673 15.6993C11.3233 16.0556 12.2764 16.1037 13.1639 15.8353C14.0514 15.567 14.8182 14.9988 15.3334 14.2279C15.8485 13.457 16.0801 12.5311 15.9884 11.6085C15.8968 10.6858 15.4876 9.82361 14.8309 9.16909C14.4123 8.7507 13.906 8.43034 13.3487 8.23107C12.7914 8.0318 12.1968 7.95858 11.6078 8.01667C11.0188 8.07477 10.45 8.26274 9.94233 8.56705C9.43468 8.87136 9.00081 9.28445 8.67197 9.77657C8.34312 10.2687 8.12748 10.8276 8.04056 11.413C7.95365 11.9985 7.99762 12.596 8.16932 13.1624C8.34101 13.7288 8.63616 14.2501 9.03351 14.6888C9.43087 15.1275 9.92054 15.4726 10.4673 15.6993ZM7.63855 7.63855C8.2113 7.06579 8.89126 6.61146 9.6396 6.30149C10.3879 5.99151 11.19 5.83197 12 5.83197C12.81 5.83197 13.6121 5.99151 14.3604 6.30149C15.1087 6.61146 15.7887 7.06579 16.3615 7.63855C16.9342 8.2113 17.3885 8.89126 17.6985 9.6396C18.0085 10.3879 18.168 11.19 18.168 12C18.168 12.81 18.0085 13.6121 17.6985 14.3604C17.3885 15.1087 16.9342 15.7887 16.3615 16.3615C15.2047 17.5182 13.6359 18.168 12 18.168C10.3641 18.168 8.79527 17.5182 7.63855 16.3615C6.48182 15.2047 5.83197 13.6359 5.83197 12C5.83197 10.3641 6.48182 8.79527 7.63855 7.63855ZM19.536 6.75055C19.6779 6.61666 19.7916 6.45565 19.8701 6.27706C19.9487 6.09847 19.9907 5.90593 19.9935 5.71083C19.9964 5.51574 19.9601 5.32205 19.8867 5.14125C19.8134 4.96044 19.7045 4.79619 19.5665 4.65822C19.4285 4.52026 19.2643 4.41137 19.0835 4.33802C18.9027 4.26467 18.709 4.22834 18.5139 4.23118C18.3188 4.23403 18.1263 4.27599 17.9477 4.35458C17.7691 4.43317 17.6081 4.5468 17.4742 4.68873C17.2138 4.96476 17.0712 5.33141 17.0768 5.71083C17.0823 6.09026 17.2355 6.4526 17.5038 6.72092C17.7721 6.98924 18.1345 7.14243 18.5139 7.14796C18.8933 7.15349 19.26 7.01093 19.536 6.75055Z"
+                                        fill="white"></path>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <ul class="mt-4 md:mt-12 text-inverted">
+                    <li>Copyright © 2026 <a href="https://foodpanda.com" target="_blank"
+                            class="no-underline">foodpanda</a></li>
+                </ul>
+                <div class="menu-footer-legal-container">
+                    <ul class="footer__legal mt-4 md:mt-12 flex gap-4 md:justify-end md:text-right text-inverted">
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-651">
+                            <a href="https://www.foodpanda.com/privacy-policy/">Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+
+    <script type="module">
+        import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.mjs'
+
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    </script>
+</body>
+
+</html>

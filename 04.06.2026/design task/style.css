@@ -1,0 +1,47 @@
+:root{
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    display: flex;
+    background-image:linear-gradient(to right , rgba(153, 177, 255, 0.788) , white);
+    margin:0px 100px;
+}
+
+.cards{
+    width: 50%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.card{
+    padding: 50px;
+    
+}
+.card img{
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    border-radius: 100%;
+    padding: 20px;
+}
+.card h2{
+    font-weight: 700;
+    margin: 10px 0px;
+    font-size: 48px;
+}
+
+.card p {
+    margin-top:60px;
+    font-size: 32px;
+}
+
+.left-img{
+    margin-top : 100px;
+    height: 80vh;
+    width: auto;
+}

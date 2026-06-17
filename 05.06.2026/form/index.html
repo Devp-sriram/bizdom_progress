@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <form id="register">
+        <h3>Registration</h3>
+        <div class="textinp">
+            <fieldset>
+                <label>Full Name</label>
+                <input name='name' id='name' type="text" placeholder="Enter your name"/>
+            </fieldset>
+            <fieldset>
+                <label>Username</label>
+                <input name='username' type="text" placeholder="Enter your username"/>
+            </fieldset>
+           <fieldset>
+                <label>Email</label>
+                <input name='email' type="text" placeholder="Enter your email"/>
+            </fieldset>
+            <fieldset>
+                <label>Phone Number</label>
+                <input name='number' type="text" placeholder="Enter your number"/>
+            </fieldset>
+            <fieldset>
+                <label>Password</label>
+                <input name='password' type="text" placeholder="Enter your password"/>
+            </fieldset>
+            <fieldset>
+                <label>Confirm Password</label>
+                <input name='confirmPassword' type="text" placeholder="confirm your password"/>
+            </fieldset>
+        </div>
+        <h3>Gender</h3>
+        <div class="radioinp">
+            <fieldset>
+                 <input type="radio" name="radio" value="male"/>
+                 <label for="male">Male</label>
+             </fieldset>
+              <fieldset>
+                 <input type="radio" name="radio" value="female"/>
+                 <label for="female">Female</label>
+             </fieldset>
+              <fieldset>
+                 <input type="radio" name="radio" value="nottosay"/>
+                 <label for="nottosay">Prefer not to say</label>
+             </fieldset>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <script src="./script.js"></script>
+</body>
+</html>

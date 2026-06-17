@@ -1,0 +1,20 @@
+:root{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+}
+
+ul{
+    width: 200px;
+}
+
+
+.menu{
+    min-width: 250px;
+    height: 90vh;
+    color: #51565f;
+}

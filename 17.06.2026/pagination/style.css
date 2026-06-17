@@ -1,0 +1,16 @@
+tfoot button{
+    border:none;
+    background: transparent;
+}
+
+.active{
+    color: #007bff;
+}
+
+tbody tr td{
+    padding: 10px auto;
+}
+
+input{
+    width: 400px;
+}

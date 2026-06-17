@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href='./style.css'>
+    <title>Login</title>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="container bg-light border rounded-3 h-full w-25 p-4 mx-2">
+        <form id="login">
+            <h1 class="text-center">Login</h1>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+                    placeholder="Enter email">
+                <p id="emailError" class="text-danger m-2" style="display: none;"> email Required</p>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                <p id="passwordError" class="text-danger m-2" style="display: none;"> password Required</p>
+            </div>
+            <p id='not-found' class="text-danger" style="display: none;">Email or password wrong</p>
+            <button type="submit" class="btn btn-success w-100 p-2">Submit</button>
+            <p class="my-2">Don't have a account <a href="./signin.html">Signin here</a></p>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        const loginForm = document.getElementById('login');
+        const notFound = document.getElementById('not-found');
+
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const formData = new FormData(loginForm)
+            const userData = Object.fromEntries(formData.entries())
+            if (userData.email === "") {
+                emailError.style.display = 'block'
+            }
+            if (userData.password === "") {
+                passwordError.style.display = 'block'
+            }
+            if (userData.email && userData.password) {
+                 emailError.style.display = 'none'
+                 passwordError.style.display = 'none'
+                const users = JSON.parse(localStorage.getItem('userData')) || [];
+                const loggedInUser = users.find(user => user.email === userData.email && user.password === userData.password)
+
+                if (!loggedInUser) {
+                    notFound.style.display = 'block'
+                } else {
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
+                    setTimeout(() => {
+                        window.location.href = '/home.html'
+                    }, 1000)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
