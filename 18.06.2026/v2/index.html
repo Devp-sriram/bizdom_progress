@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, sans-serif;
+            font-weight: 600;
+        }
+        aside {
+            width: 300px;
+            height: 100vh;
+            background-color: #f8f9fa;
+            border-left: 1px solid #333;
+        }
+
+        .active {
+            border-radius: 5px;
+            background-color: #755acf;
+            color: #ffffff;
+        }
+
+        ul li a,
+        ul li a:hover {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            color: #606060;
+        }
+
+        iframe{
+            height: 100vh;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body class="d-flex">
+    <aside class="border-end" style="min-width: 300px;">
+        <div class="d-flex gap-2 align-items-center p-3">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h3 class="m-0">Access Control</h3>
+        </div>
+        <hr>
+        <ul class="list-unstyled p-3" style="width: 200px;">
+            <li class="p-2 active"><a>Dashboard</a></li>
+            <li class="p-2"><a>Users</a></li>
+            <li class="p-2"><a>Roles</a></li>
+            <li class="p-2"><a>Permissions</a></li>
+        </ul>
+    </aside>
+    <main class="w-100">
+        <header class="w-100">
+            <div class="m-0 p-2">
+                <h3 class="m-0">Order Management</h3>
+                <p class="m-0">Manage your orders</p>
+            </div>
+        </header>
+        <hr class="my-2">
+        <iframe src="./form.html" class="w-100 h-100"></iframe>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const listItems = document.querySelectorAll('ul li')
+        listItems.forEach(item => {
+            item.addEventListener('click', () => {
+                listItems.forEach(item => item.classList.remove('active'))
+                item.classList.add('active')
+            })
+        })
+    </script>
+</body>
+
+</html>
