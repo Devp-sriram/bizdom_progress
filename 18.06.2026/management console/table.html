@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body class="px-5">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary text-light">
+                    <h1 class="modal-title fs-5"><span id="modalName"></span>'s Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Data will be injected here -->
+                    <p class="text-danger">Are you sure , you want to delete <span id="modalName"></span>'s data? </p>
+                    <!-- <p>Name : <span id="modalName"></span></p>
+                    <p>Age : <span id="modalAge"></span></p>
+                    <p>Email : <span id="modalEmail"></span></p> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                        onclick="markRed()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative">
+        <i class="fa-solid fa-magnifying-glass position-absolute" style="top:22px; left: 28px;" id="searchIcon"></i>
+        <input id="search" type="text" class="m-2 p-2 px-5 rounded-pill" placeholder="Search order" />
+        <button onclick='toggleSearch()' class="btn p-2" style="border: 2px solid grey; border-radius: 50px">
+            Advanced search
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <div id='advSearch' class=" mx-auto mt-5 p-4 border" style="display: none;">
+        <div class="container-lg d-flex mx-auto">
+            <div class="d-flex flex-column">
+                <label class="p-2">Name</label>
+                <input name='name' id="name" type="text" class="m-2 p-2 rounded-pill" placeholder="name..." />
+            </div>
+
+            <div class="d-flex flex-column">
+                <label class="p-2">email</label>
+                <input name='email' id="email" type="text" class="m-2 p-2 rounded-pill" placeholder="email..." />
+            </div>
+
+            <div class="d-flex flex-column">
+                <label class="p-2">Department</label>
+                <input name='department' id="department" type="text" class="m-2 p-2 rounded-pill"
+                    placeholder="department..." />
+            </div>
+
+            <div class="d-flex flex-column">
+                <label class="p-2">city</label>
+                <input name='city' id="city" type="text" class="m-2 p-2 rounded-pill" placeholder="city..." />
+            </div>
+            <button id='advSearchSubmit' class="btn text-light p-2 mx-2 mt-5 rounded-pill"
+                style="height: fit-content;background-color: #755acf;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                search
+            </button>
+            <button onclick="reset()" class="btn text-dark p-2 mx-2 mt-5 border" style="height: fit-content;">
+                <i class="fa-solid fa-rotate-right"></i>
+                reset
+            </button>
+        </div>
+    </div>
+
+    <div id='table' class="mx-auto mt-5 border">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>order ID</td>
+                    <td>Date</td>
+                    <td>Customer</td>
+                    <td>Store</td>
+                    <td>Total</td>
+                    <td>status</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="./table.js"></script>
+</body>
+
+</html>

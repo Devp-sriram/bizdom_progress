@@ -1,0 +1,56 @@
+:root,html,body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: helvetica, sans-serif;
+  font-weight: 700;
+
+}
+
+body{
+    min-height: 100vh;
+}
+
+
+li a {
+    display: block;
+    width: 100%;
+    box-sizing: border-box; 
+    text-decoration: none;
+    color: #61616177;
+}
+
+li a:hover {
+   color: #61616177;
+}
+
+ul {
+    width: 200px;
+    list-style: none;
+    padding: 0;
+}
+
+.active{
+    border-radius: 5px;
+    background-color: #cccccc4b;
+    color: #755acf;
+}
+
+#logo{
+    margin-bottom: 30px;
+}
+
+header div h1{
+    color: #755acf;
+}
+
+header div p{
+    font-size: 14px;
+     color: #61616177;
+}
+
+span{
+     color: #755acf;
+     font-weight: 500;
+     font-size: 11px;
+}

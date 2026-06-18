@@ -1,0 +1,41 @@
+:root {
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+}
+
+#active-btn{
+    padding: 0px 4px;
+    border-radius: 50px;
+}
+
+#delete{
+    border: none;
+    background: transparent;
+}
+
+table tbody .del{
+    background-color: red;
+}
+
+#searchIcon{
+    left: 35px;
+}
+
+#clear{
+    right: 40px;
+    border: none;
+    background-color: transparent;
+}
+
+#advSearch{
+    border-radius: 30px;
+}
+
+#table , table thead tr{
+    border-radius: 20px;
+}
