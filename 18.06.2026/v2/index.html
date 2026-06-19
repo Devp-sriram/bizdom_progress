@@ -18,9 +18,10 @@
             font-weight: 600;
         }
 
-        body{
+        body {
             min-height: 100vh;
         }
+
         aside {
             width: 300px;
             height: 100vh;
@@ -42,14 +43,15 @@
             color: #606060;
         }
 
-        iframe{
+        iframe {
             height: 100vh;
         }
 
         h3 {
             color: #755acf;
         }
-        .icon{
+
+        .icon {
             background-color: #755acf;
         }
     </style>
@@ -74,7 +76,7 @@
                 <h3 class="m-0">Order Management</h3>
                 <p class="m-0">Manage your orders</p>
             </div>
-            <div class="icon m-3 border rounded-circle position-relative d-flex justify-content-center align-items-center" 
+            <div class="icon m-3 border rounded-circle position-relative d-flex justify-content-center align-items-center"
                 style="width: 41px;">
                 <i class="fa-solid fa-user text-light"></i>
                 <p class="m-0  position-absolute top-100 left-50">admin</p>
@@ -90,10 +92,16 @@
 
     <script>
         const listItems = document.querySelectorAll('ul li')
+        const iframe = document.querySelector('iframe')
         listItems.forEach(item => {
             item.addEventListener('click', () => {
                 listItems.forEach(item => item.classList.remove('active'))
                 item.classList.add('active')
+                if (item.textContent.trim() === 'Orders') {
+                    iframe.src = './form.html'
+                } else {
+                    iframe.src = './table.html'
+                }
             })
         })
     </script>

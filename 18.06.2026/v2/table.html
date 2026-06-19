@@ -17,29 +17,149 @@
     <title>Document</title>
 </head>
 
-<body class="p-4">
+<body class="p-4 d-flex flex-column gap-4">
     <div class="d-flex gap-4">
         <div class="position-relative">
-            <input type="text" class="border rounded-pill px-5 h-100" placeholder="Search order / customer">
+            <input id='search' type="text" class="border rounded-pill px-5 h-100" placeholder="Search order / customer">
             <i class="fa-solid fa-magnifying-glass position-absolute" style="left: 10px; top: 14px;"></i>
         </div>
-        <button class="border rounded-pill p-2 px-4">Advanced</button>
+        <button onclick="toggle()" class="border rounded-pill p-2 px-4">Advanced</button>
     </div>
 
-    <form class="w-100 border" style="border-radius: 50px;">
-        <div class="form-group">
-            <label for="formGroupExampleInput">Example label</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    <form class="w-100 border gap-4 p-4" style="border-radius: 20px; display: none;">
+        <div class="form-group gap-2">
+            <label for="id">Order ID</label>
+            <input type="text" class="form-control" style="min-width: 200px; border-radius: 10px;" id="id" name="id"
+                placeholder="">
+            <p class="text-danger" style="display: none">ID required</p>
         </div>
-        <div class="form-group">
-            <label for="formGroupExampleInput2">Another label</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+        <div class="form-group gap-2">
+            <label for="date">Order Date</label>
+            <input type="date" class="form-control" style="min-width: 200px; border-radius: 10px;" id="date"
+                name="date">
+            <p class="text-danger" style="display: none">Date required</p>
+        </div>
+        <div class="form-group gap-2">
+            <label for="customer">Customer</label>
+            <input type="text" class="form-control" style="min-width: 200px; border-radius: 10px;" id="customer"
+                name="customer" placeholder="Customer name...">
+            <p class="text-danger" style="display: none">Customer required</p>
+        </div>
+        <div class="form-group gap-2">
+            <label for="store">Store</label>
+            <select class="form-select" style="min-width: 200px; border-radius: 10px;" id="store" name="store">
+                <option value="">Select Store</option>
+                <option>Karapakkam</option>
+                <option>Sholinganallur</option>
+                <option>Pammal</option>
+            </select>
+            <p class="text-danger" style="display: none">Store required</p>
+        </div>
+        <!-- <div class="form-group gap-2">
+            <label for="status">Status</label>
+            <input  id="status" name="status" type="text" class="form-control" style="border-radius: 10px;"
+                placeholder="Another input">
+            <p class="text-danger" style="display: none">Status required</p>
+        </div> -->
+        <div class="d-flex w-100 gap-4 py-2">
+            <button type="submit" class="btn rounded-pill px-4"
+                style="background-color: #755acf; color: white;">Submit</button>
+            <button type="button" class="rounded-pill px-4" onclick="resetForm()">Reset</button>
         </div>
     </form>
+    <div class='border' style="border-radius: 20px;">
+        <table class="table table-hover w-100 gap-4 p-4">
+            <thead>
+                <tr>
+                    <td style="border-radius: 20px 0 0 0;">Order ID</td>
+                    <td>Order Date</td>
+                    <td>Customer</td>
+                    <td>Store</td>
+                    <td style="border-radius: 0 20px 0 0;">Status</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+         <script src="./router.js"></script>
+    <script>
+        const form = document.querySelector('form');
+        const errorList = document.querySelectorAll('.text-danger');
+        const tbody = document.querySelector('tbody');
+        const search = document.getElementById('search');
+
+        let isToggleOpen = false;
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let filteredOrders = orders
+
+
+        window.onload = render()
+
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            filteredOrders =[]
+            for(let feild in data){
+                let matched = []
+                matched = orders.filter(order=>{
+                    return order[feild] == data[feild]
+                })
+                console.log(matched)
+                filteredOrders = [...filteredOrders ,...matched]
+            }
+            render()
+        })
+
+        search.addEventListener("input",(e)=>{
+            const inp = e.target.value;
+            console.log(inp)
+            filteredOrders = orders.filter( order=>{
+                return [order.id , order.date , order.customer , order.store ].join('').toLowerCase().includes(inp)
+            })
+            render()
+        })
+
+        function render() {
+            if (filteredOrders.length === 0) return
+
+            tbody.innerHTML = ''
+            filteredOrders.forEach((order) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>ORD-${order.id}</td>
+                    <td>${order.date}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.store}</td>
+                    <td><p class="badge border m-0" style='background-color: #00800069; color: green;'>${order.status}</p></td>
+                `
+                tbody.appendChild(tr);
+            })
+        }
+
+        function toggle() {
+            if (!isToggleOpen) {
+                form.style.display = 'flex'
+                isToggleOpen = true
+            } else {
+                form.style.display = 'none'
+                isToggleOpen = false
+            }
+        }
+
+        function resetForm() {
+            form.reset()
+            filteredOrders = orders
+            render()
+        }
+
+    </script>
 </body>
 
 </html>
