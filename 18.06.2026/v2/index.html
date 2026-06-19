@@ -17,6 +17,10 @@
             font-family: Helvetica, sans-serif;
             font-weight: 600;
         }
+
+        body{
+            min-height: 100vh;
+        }
         aside {
             width: 300px;
             height: 100vh;
@@ -41,6 +45,13 @@
         iframe{
             height: 100vh;
         }
+
+        h3 {
+            color: #755acf;
+        }
+        .icon{
+            background-color: #755acf;
+        }
     </style>
     <title>Document</title>
 </head>
@@ -48,22 +59,25 @@
 <body class="d-flex">
     <aside class="border-end" style="min-width: 300px;">
         <div class="d-flex gap-2 align-items-center p-3">
-            <i class="fa-solid fa-chart-pie"></i>
+            <i class="fa-solid fa-chart-pie" style="color: #755acf;"></i>
             <h3 class="m-0">Access Control</h3>
         </div>
         <hr>
         <ul class="list-unstyled p-3" style="width: 200px;">
-            <li class="p-2 active"><a>Dashboard</a></li>
+            <li class="p-2 active"><a>Orders</a></li>
             <li class="p-2"><a>Users</a></li>
-            <li class="p-2"><a>Roles</a></li>
-            <li class="p-2"><a>Permissions</a></li>
         </ul>
     </aside>
     <main class="w-100">
-        <header class="w-100">
+        <header class="d-flex justify-content-between w-100 px-4">
             <div class="m-0 p-2">
                 <h3 class="m-0">Order Management</h3>
                 <p class="m-0">Manage your orders</p>
+            </div>
+            <div class="icon m-3 border rounded-circle position-relative d-flex justify-content-center align-items-center" 
+                style="width: 41px;">
+                <i class="fa-solid fa-user text-light"></i>
+                <p class="m-0  position-absolute top-100 left-50">admin</p>
             </div>
         </header>
         <hr class="my-2">
