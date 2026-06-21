@@ -1,0 +1,143 @@
+<!-- 17:56 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        body {
+            height: 100vh
+        }
+          form p{
+            display: none;
+        }
+        
+        #adv{
+            display: none;
+        }
+    </style>
+    <title>Table</title>
+</head>
+
+<body>
+    <div class="d-flex gap-3 m-4">
+        <input type="text" class="w-25 p-2 px-5 from-control rounded-pill" placeholder="Search ..." />
+        <button class="btn btn-brand rounded-pill" onclick="toggleSerach()">Advanced Search</button>
+    </div>
+
+    <form id="adv" action="submit" class="form row w-100 p-3 m-2 border rounded-5">
+            <div class="from-group col-12 col-md-2">
+                <label>Order Date</label>
+                <input type="date" name="date" class="from-control rounded-pill w-100 p-2">
+
+            </div>
+            <div class="from-group col-12 col-md-2">
+                <label>Customer name</label>
+                <input type="text" name='name' class="from-control rounded-pill w-100 p-2">
+            </div>
+            <div class="from-group col-12 col-md-2">
+                <label>Shop</label>
+                <select name='shop' class="from-select rounded-pill w-100 p-2">
+                    <option value="">Select Shop</option>
+                    <option>Karappakam</option>
+                    <option>Shozhilganallur</option>
+                    <option>pammal</option>
+                </select>
+            </div>
+            <div class="from-group col-12 col-md-2">
+                <label>Total</label>
+                <input type="text" name="total" class="from-control rounded-pill w-100 p-2">
+            </div>
+            <div class="col-6 col-md-1 mt-auto px-3">
+                <button type="submit" class="btn btn-brand rounded-pill p-2 px-4">Search</button>
+            </div>
+            <div class="col-6 col-md-1 mt-auto">
+                <button type='button' class="btn border rounded-pill p-2 px-4" onclick="formReset()">Reset</button>
+            </div>
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Order id</td>
+                <td>Order Date</td>
+                <td>Customer Name</td>
+                <td>Shop</td>    
+                <td>Total</td>
+                <td>Status</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script>
+        const form = document.querySelector('form')
+        const advSearch = document.getElementById('adv')
+        const tbody = document.querySelector('tbody')
+        
+        let advsearchState = false
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let filteredOrders = orders
+        
+        render()
+
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            console.log(data)
+            filteredOrders = []
+            for(let feild in data){
+                if(data[feild]){
+                    let matched = []
+                    matched = orders.filter(order=> order[feild] === data[feild])
+                    filteredOrders = [...filteredOrders, ...matched]
+                }
+            }
+            render()
+        })
+
+        function render(){
+            tbody.innerHTML = '';
+            filteredOrders.forEach(order=>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td>ORD-${order.id}</td>
+                <td>${order.date}</td>
+                <td>${order.name}</td>
+                <td>${order.shop}</td>
+                <td>${order.total}</td>
+                <td>${order.status}</td>
+                `
+                tbody.appendChild(tr)
+            })
+        }
+
+        function formReset(){
+            form.reset()
+        }
+        
+        function toggleSerach(){
+            if(advsearchState){
+                advsearchState = false;
+                advSearch.style.display = 'none'
+            }else{
+                advsearchState = true;
+                advSearch.style.display = 'flex'
+            }
+        }
+    </script>
+</body>
+
+</html>

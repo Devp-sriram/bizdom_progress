@@ -1,0 +1,65 @@
+<!-- 15.33 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        body{
+            height: 100vh
+        }
+        .active{
+            background-color: var(--bs-brand);
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body class="row p-0">
+    <aside class="col-12 col-md-2 border-end h-100">
+        <div class="d-flex gap-3 justify-content-evenly text-brand py-3 border-bottom">
+            <i class="fa-solid fa-chart-pie fa-lg p-3"></i>
+            <h3>Access Control</h3>
+        </div>
+        <ul class="list-unstyled p-3">
+            <li class="w-100 p-2 active">Order</li>
+            <li class="w-100 p-2">Users</li>
+        </ul>
+    </aside>
+    <div class="col-12 col-md-10 p-0">
+        <header class="row border-bottom px-4">
+            <div class="col-11 p-2">
+                <h3 class="mb-0 text text-brand">Management Console</h3>
+                <p class="mb-0">access , manage , replicate</p>
+            </div>
+            <div class="col-1 m-auto">
+                <i class="fa-regular fa-user fa-lg mx-2 text-brand rounded-circle shadow"></i>
+                <p class="mb-0">Admin</p>
+            </div>
+        </header>
+        <iframe src="./form.html" width="100%" height="100%"></iframe>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        const navlinks = document.querySelectorAll('ul li')
+        const iframe = document.querySelector('iframe')
+        navlinks.forEach(nav=>{
+            nav.addEventListener('click',()=>{
+                navlinks.forEach(nav=>nav.classList.remove('active'));
+                nav.classList.add('active')
+
+                if(nav.textContent.trim() === 'Order'){
+                    iframe.src = './form.html'
+                }else{
+                    iframe.src  ='./table.html'
+                }
+            })
+        })
+    </script>
+</body>
+</html>

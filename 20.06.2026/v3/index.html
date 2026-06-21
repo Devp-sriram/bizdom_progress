@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        ul li:hover {
+            background-color: var(--bs-brand);
+            color: white;
+        }
+
+        .logo {
+            width: fit-content;
+            border: 2px var(--bs-brand);
+        }
+
+        .active{
+            background-color: var(--bs-brand);
+            color: white;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body class="row w-100">
+    <aside class="col-12 col-md-2 border p-0">
+        <div class="d-flex align-items-center gap-3 p-2 m-3">
+            <i class="fa-solid fa-chart-pie fa-lg text-brand"></i>
+            <h3 class="text-brand mb-0">Acces control</h3>
+        </div>
+        <hr class="w-100" />
+        <ul class="list-unstyled p-2 mx-3">
+            <li class="p-2 w-100 rounded-3 active">Order</li>
+            <li class="p-2 w-100 rounded-3">Users</li>
+        </ul>
+    </aside>
+    <div class="col-12 col-md-10 border p-0">
+        <header class="row border-bottom px-3">
+            <div class="col-11 p-2">
+                <h3 class="text-brand">Management console</h3>
+                <p class="text-secondary mb-0">manage outlier suplies</p>
+            </div>
+            <div class="logo col-1 shadow rounded-circle m-auto p-0 text-brand ">
+                <i class="fa-solid fa-user fa-xl mx-2"></i>
+                <p class="mb-0">Admin</p>
+            </div>
+        </header>
+        <iframe src="./form.html" class="w-100" style="height:100vh;"></iframe>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const navLinks = document.querySelectorAll('ul li');
+        const iframe = document.querySelector('iframe');
+
+        navLinks.forEach(nav=>{
+            nav.addEventListener('click',()=>{
+                navLinks.forEach(nav=> nav.classList.remove('active'))
+                nav.classList.add('active') 
+
+                if(nav.textContent === 'Order'){
+                    iframe.src = '/form.html'
+                }else{
+                     iframe.src = '/table.html'
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>
