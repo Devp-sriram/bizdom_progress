@@ -1,0 +1,122 @@
+<!-- 16:13 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        body{
+            height: 100vh;
+        }
+        form{
+            border-radius: 40px;
+        }
+        form p{
+            display: none;
+        }
+    </style>
+    <title>Form</title>
+</head>
+<body>
+    <form class="form p-3 m-2 border">
+        <h3>Create Order</h3>
+        <div class="row w-100 mb-3">
+            <div class="from-group col-12 col-md-6">
+                <label>Order Id</label>
+                <input id='id' name='id' type="number" class="from-control rounded-pill w-100 p-2" disabled>
+            </div>
+            <div class="from-group col-12 col-md-6">
+                <label>Order Date</label>
+                <input type="date" name="date" class="from-control rounded-pill w-100 p-2">
+                <p id="date" class="text-danger">Date reequired</p>
+            </div>
+        </div>
+        <div class="row w-100 mb-3">
+            <div class="from-group col-12 col-md-6">
+                <label>Customer name</label>
+                <input type="text" name='name' class="from-control rounded-pill w-100 p-2">
+                <p id="name" class="text-danger">Name reequired</p>
+            </div>
+            <div class="from-group col-12 col-md-6">
+                <label>Shop</label>
+                <select name='shop' class="from-select rounded-pill w-100 p-2">
+                    <option value="">Select Shop</option>
+                    <option>Karappakam</option>
+                    <option>Shozhilganallur</option>
+                    <option>pammal</option>
+                </select>
+                <p id="shop" class="text-danger">Shop required</p>
+            </div>
+        </div>
+        <div class="row w-100 mb-3">
+            <div class="from-group col-12 col-md-6">
+                <label>Total</label>
+                <input type="text" name="total" class="from-control rounded-pill w-100 p-2">
+                <p id="total" class="text-danger">Total reequired</p>
+            </div>
+            <div class="from-group col-12 col-md-6">
+                <label>status</label>
+                <select name='status' class="from-select rounded-pill w-100 p-2">
+                    <option>pending</option>
+                    <option>successful</option>
+                    <option>rejected</option>
+                </select>
+                <p id="status" class="text-danger">Status required</p>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-brand rounded-pill px-3">Save</button>
+            <button class="btn border rounded-pill" onclick="formReset()">Reset</button>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+        const form = document.querySelector('form')
+        const id = document.getElementById('id')
+        const errors = document.querySelectorAll('form p')
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let uid = JSON.parse(localStorage.getItem('uid')) || 0;
+        id.value = uid + 1
+
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            console.log(data)
+            if(validate(data)){
+                console.log("submit")
+                data.id = uid + 1;
+                uid += 1
+                orders.push(data);
+                localStorage.setItem('orders',JSON.stringify(orders));
+                localStorage.setItem('uid',uid)
+                formReset()
+                id.value = uid + 1
+                window.location.href = '/table.html'
+            }
+        })
+
+        function validate(data){
+            let legit = true
+
+            for(let feild in data){
+                if(data[feild] === ""){
+                    legit = false
+                    errors.forEach(err=> err.id === feild ? err.style.display = 'block' : "");
+                }
+            }
+            console.log(legit)
+            return legit
+        }
+
+        function formReset(){
+            form.reset()
+            errors.forEach(err => err.style.display = 'none')
+        }
+    </script>
+</body>
+</html>

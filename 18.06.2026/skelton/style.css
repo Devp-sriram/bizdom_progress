@@ -1,0 +1,114 @@
+/* ===========================================================
+   Shared stylesheet
+   - One brand color variable, reused everywhere (no hardcoding)
+   - Minimal sane reset (no :root padding/margin trick)
+   - Common pieces (sidebar, badges, pill inputs) live here once
+   =========================================================== */
+
+:root {
+  --brand: #755acf;
+  --brand-light: #755acf1a; /* 10% alpha tint, handy for hover/active bg */
+  --text-muted: #606060;
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-input: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+label {
+  font-size: 14px;
+}
+
+/* ---- Layout shell (used on index.html) ---- */
+aside {
+  width: 300px;
+  min-width: 300px;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.active {
+  border-radius: 5px;
+  background-color: var(--brand);
+  color: #ffffff;
+}
+
+aside ul li a,
+aside ul li a:hover {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+main iframe {
+  height: 100vh;
+  border: none;
+}
+
+h3.brand-heading {
+  color: var(--brand);
+}
+
+.icon-avatar {
+  background-color: var(--brand);
+  width: 41px;
+  height: 41px;
+}
+
+/* ---- Form helpers (form.html / table.html filter form) ---- */
+.rounded-pill-input {
+  border-radius: var(--radius-pill);
+}
+
+.rounded-card {
+  border-radius: var(--radius-card);
+}
+
+.rounded-field {
+  border-radius: var(--radius-input);
+}
+
+.btn-brand {
+  background-color: var(--brand);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-brand:hover {
+  background-color: #614aad;
+  color: #ffffff;
+}
+
+/* ---- Status badges (table.html) ----
+   Map status -> color instead of hardcoding one green badge for everything */
+.badge-status {
+  border: 1px solid transparent;
+  font-weight: 600;
+}
+
+.badge-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-status.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}

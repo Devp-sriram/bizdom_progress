@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Orders</title>
+</head>
+
+<body class="p-4 d-flex flex-column gap-4">
+    <div class="d-flex gap-4">
+        <div class="position-relative">
+            <input id="search" type="text" class="form-control rounded-pill-input ps-5"
+                style="border-radius: 999px;" placeholder="Search order / customer">
+            <i class="fa-solid fa-magnifying-glass position-absolute" style="left: 18px; top: 12px;"></i>
+        </div>
+        <button id="advancedToggle" class="btn border rounded-pill px-4">Advanced</button>
+    </div>
+
+    <form id="filterForm" class="w-100 border gap-4 p-4 rounded-card" style="display: none;">
+        <div class="form-group gap-2">
+            <label for="f-id">Order ID</label>
+            <input type="text" class="form-control rounded-field" style="min-width: 200px;" id="f-id" name="id">
+        </div>
+        <div class="form-group gap-2">
+            <label for="f-date">Order Date</label>
+            <input type="date" class="form-control rounded-field" style="min-width: 200px;" id="f-date" name="date">
+        </div>
+        <div class="form-group gap-2">
+            <label for="f-customer">Customer</label>
+            <input type="text" class="form-control rounded-field" style="min-width: 200px;" id="f-customer"
+                name="customer" placeholder="Customer name...">
+        </div>
+        <div class="form-group gap-2">
+            <label for="f-store">Store</label>
+            <select class="form-select rounded-field" style="min-width: 200px;" id="f-store" name="store">
+                <option value="">Select Store</option>
+                <option>Karapakkam</option>
+                <option>Sholinganallur</option>
+                <option>Pammal</option>
+            </select>
+        </div>
+
+        <div class="d-flex w-100 gap-4 py-2">
+            <button type="submit" class="btn btn-brand rounded-pill px-4">Submit</button>
+            <button type="button" id="filterResetBtn" class="btn btn-outline-secondary rounded-pill px-4">Reset</button>
+        </div>
+    </form>
+
+    <div class="border rounded-card">
+        <table class="table table-hover w-100 mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="border-radius: 20px 0 0 0;">Order ID</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Store</th>
+                    <th scope="col" style="border-radius: 0 20px 0 0;">Status</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody">
+                <!-- rows rendered here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="./assets/js/storage.js"></script>
+    <script>
+        // Practice notes from the review, fix these as you build it out:
+        // 1. render() should clear tbody BEFORE checking for empty results,
+        //    and show a "no results" row instead of returning early —
+        //    otherwise stale rows stay on screen after a failed search.
+        // 2. Lowercase BOTH sides when comparing search input vs order fields.
+        // 3. Decide AND vs OR semantics for the advanced filter on purpose,
+        //    don't let it fall out of how the loop happens to be written.
+        // 4. Map order.status -> badge class, e.g.:
+        //    `badge-status ${order.status.toLowerCase()}`
+        //    (matches the .pending / .completed / .rejected classes in style.css)
+
+        const ordersBody = document.getElementById('ordersBody');
+        const orders = Storage.getOrders();
+
+        function statusBadge(status) {
+            return `<span class="badge badge-status ${status.toLowerCase()}">${status}</span>`;
+        }
+
+        function render(list) {
+            ordersBody.innerHTML = '';
+            if (list.length === 0) {
+                ordersBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No orders found</td></tr>`;
+                return;
+            }
+            list.forEach((order) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>ORD-${order.id}</td>
+                    <td>${order.date}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.store}</td>
+                    <td>${statusBadge(order.status)}</td>
+                `;
+                ordersBody.appendChild(tr);
+            });
+        }
+
+        render(orders);
+
+        document.getElementById('advancedToggle').addEventListener('click', () => {
+            const form = document.getElementById('filterForm');
+            form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+        });
+    </script>
+</body>
+
+</html>
