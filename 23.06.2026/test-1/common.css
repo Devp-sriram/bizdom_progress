@@ -1,0 +1,38 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+:root{
+    --bs-brand : #6f3bff;
+}
+
+body{
+    min-height: 100%
+}
+.text-brand{
+    color : var(--bs-brand)
+}
+
+.bg-brand{
+    background-color: var(--bs-brand);
+    color: white;
+}
+
+.btn-brand{
+    --bs-btn-bg :var(--bs-brand);
+    --bs-btn-border-bg :var(--bs-brand);
+
+    --bs-btn-hover-bg :var(--bs-brand);
+    --bs-btn-hover-border-bg :var(--bs-brand);
+
+    --bs-btn-active-bg :var(--bs-brand);
+    --bs-btn-active-border-bg :var(--bs-brand);
+
+    --bs-btn-focus-bg :var(--bs-brand);
+
+    --bs-btn-color:white;
+    --bs-btn-hover-color:white;
+    --bs-btn-active-color:white;
+}
