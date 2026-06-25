@@ -22,9 +22,10 @@
             border-radius: 10px;
         }
 
+        /* 
         form {
             display: none;
-        }
+        } */
 
         form p {
             display: none;
@@ -34,21 +35,115 @@
             display: none;
         }
 
-        td{
+        thead tr td {
             min-width: 200px;
+            background-color: var(--bs-brand) !important;
+            color: white !important;
+        }
+
+        table {
+            display: none;
+        }
+
+        #cardContainer {
+            display: block;
+        }
+
+        #cardContainer > div {
+            margin-bottom: 16px;
+        }
+
+        @media screen and (width > 768px) {
+            table {
+                display: block;
+            }
+
+            #cardContainer {
+                display: none;
+            }
+
         }
     </style>
     <title>Document</title>
 </head>
 
 <body class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add a New Employee</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <div class="row p-2">
+                            <div class="form-group col-12 col-md-6">
+                                <label>Employee Id</label>
+                                <input name='id' type="text" class="w-100 form-control rounded-pill"
+                                    placeholder="EMP-....">
+                                <p id='id' class="text-danger">Id Required</p>
+                            </div>
+                            <div class="form-group col-12 col-md-6">
+                                <label>Employee Name</label>
+                                <input name='name' type="text" class="w-100 form-control rounded-pill"
+                                    placeholder="John ...">
+                                <p id='name' class="text-danger">Name Required</p>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="form-group col-12 col-md-6">
+                                <label>Department</label>
+                                <select name='department' class="w-100 form-select rounded-pill">
+                                    <option value="">Select a Department</option>
+                                    <option>Enginnering</option>
+                                    <option>Sales</option>
+                                    <option>Marketing</option>
+                                    <option>HR</option>
+                                    <option>IT</option>
+                                </select>
+                                <p id='department' class="text-danger">Department Required</p>
+                            </div>
+                            <div class="form-group col-12 col-md-6">
+                                <label>Employee Email</label>
+                                <input name='email' type="email" class="w-100 form-control rounded-pill"
+                                    placeholder="john@mail.com">
+                                <p id='email' class="text-danger">Email Required</p>
+                            </div>
+                        </div>
+                        <div id="create" class="p-2">
+                            <button class="btn btn-success rounded-pill">Save</button>
+                            <button type="button" onclick="resetForm()"
+                                class="btn btn-danger border rounded-pill">Reset</button>
+                        </div>
+                        <div id="update" class="p-2">
+                            <button type="button" onclick="updateItem()" class="btn btn-warning rounded-pill">
+                                Update
+                            </button>
+                            <button type="button" onclick="resetPrev()" class="btn btn-danger border rounded-pill">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <h3 class="text-brand p-3">Employees</h3>
     <div class="m-2">
         <div class="p-2 ">
-            <button onclick='toggleAdd()' class="btn btn-brand rounded-pill"><i class="fa-solid fa-plus "></i> Add
-                Employees
+            <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="fa-solid fa-plus "></i> Add Employees
             </button>
         </div>
-        <form class="form border rounded-5 p-2 mb-5">
+        <!-- <form class="form border p-2 mb-5">
             <div class="row p-2">
                 <div class="form-group col-12 col-md-6">
                     <label>Employee Id</label>
@@ -89,14 +184,14 @@
                 <button type="button" onclick="updateItem()" class="btn btn-warning rounded-pill">Update</button>
                 <button type="button" onclick="resetPrev()" class="btn btn-danger border rounded-pill">Reset</button>
             </div>
-        </form>
+        </form> -->
 
         <div class="p-2 position-relative">
             <i class="fa-solid fa-plus position-absolute" style="left: 20px; top: 20px;"></i>
             <input id="search" class="border p-2 rounded-pill px-5" placeholder="Search..." />
         </div>
 
-        <table class="table table-hover border rounded-3">
+        <table class="table table-hover border">
             <thead class="bg-brand">
                 <tr>
                     <td>Employee Id</td>
@@ -111,6 +206,9 @@
 
             </tbody>
         </table>
+        <div id="cardContainer">
+
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -123,6 +221,8 @@
         const search = document.getElementById('search');
         const createButtons = document.getElementById('create');
         const updateButtons = document.getElementById('update');
+        const modal = document.getElementById('exampleModal')
+        const cardContainer = document.getElementById('cardContainer')
 
         let isAddOpen = false;
         let idToupdate;
@@ -131,7 +231,7 @@
         render();
 
         search.addEventListener('input', (e) => {
-            const inpValue = e.target.value;
+            const inpValue = e.target.value.toLowerCase();
             if (inpValue === "") {
                 employees = JSON.parse(localStorage.getItem('employees')) || []
                 render()
@@ -145,6 +245,9 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             if (validate(data)) {
+                const modalInstance = bootstrap.Modal.getInstance(modal);
+                console.log(modalInstance)
+                modalInstance.hide();
                 employees.push(data)
                 localStorage.setItem('employees', JSON.stringify(employees))
                 resetForm()
@@ -183,14 +286,14 @@
             employees.forEach(emp => {
                 const tr = document.createElement('tr');
                 let itemText = '';
-                emp.items ? emp.items.forEach(item => itemText += `<li class='p-2 m-2 bg-brand rounded-pill'>${item}</li>`) : ""
+                emp.items ? emp.items.forEach(item => itemText += `<li class='p-2 mb-1 bg-brand rounded-pill'>${item}</li>`) : ""
                 tr.innerHTML = `
                     <td>${emp.id}</td>
                     <td>${emp.name}</td>
                     <td>${emp.department}</td>
                     <td>${emp.email}</td>
                     <td>
-                        <ul class='list-unstyled'>
+                        <ul class='list-unstyled mb-0'>
                         ${itemText ? itemText : '-'}
                         </ul>
                     </td>
@@ -201,16 +304,43 @@
                 `
                 tbody.appendChild(tr)
             })
+
+            cardContainer.innerHTML = ''
+            employees.forEach(emp => {
+                const div = document.createElement('div');
+                div.classList.add('card')
+                div.classList.add('p-3')
+                let li = ''
+                
+                emp.items ? emp.items.forEach(item => li += `<li class='rounded-pill mb-1 p-2 bg-brand'>${item}</li>`): li = '-'
+                div.innerHTML = `
+                    <h4>${emp.id}-${emp.name}</h4>
+                    <p>${emp.department}</p>
+                    <p>${emp.email}</p>
+                    <div>
+                        <ul class='list-unstyled'>
+                        ${li}
+                        </ul>
+                    </div>
+                    <div> 
+                        <button type="button" onclick="updateItemOpen(${emp.id})" class="btn btn-warning rounded-pill"><i class="fa-solid fa-pencil"></i> Edit</button>
+                        <button type="button" onclick="deleteItem(${emp.id})" class="btn btn-danger border rounded-pill"><i class="fa-solid fa-trash"></i> Delete</button>
+                    </div> 
+                `
+                cardContainer.appendChild(div)
+            })
         }
 
         function updateItemOpen(id) {
             idToupdate = id
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
             createButtons.style.display = 'none'
             updateButtons.style.display = 'block'
             const inputs = document.querySelectorAll('form input')
             const selects = document.querySelectorAll('form select')
             const data = employees.find(emp => emp.id === String(id))
-            toggleAdd();
+            // toggleAdd();
             // inputs.forEach(input => console.log(input))
             // selects.forEach(select => console.log(select))
             inputs.forEach(input => input.value = data[input.name])
@@ -230,6 +360,8 @@
             const formData = new FormData(form)
             const data = Object.fromEntries(formData.entries());
             if (validate(data)) {
+                const modalInstance = bootstrap.Modal.getInstance(modal);
+                modalInstance.hide();
                 employees = employees.map(emp => emp.id === String(idToupdate) ? { ...emp, ...data } : emp)
                 localStorage.setItem('employees', JSON.stringify(employees))
                 createButtons.style.display = 'block'
