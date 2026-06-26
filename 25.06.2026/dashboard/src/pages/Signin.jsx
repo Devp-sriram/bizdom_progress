@@ -1,7 +1,7 @@
 import './Signin.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 export default function Signin() {
     const navigate = useNavigate()
     const [data, setData] = useState({
@@ -28,25 +28,26 @@ export default function Signin() {
         if (validate()) {
             let users = JSON.parse(localStorage.getItem('users')) || [];
             users.push(data)
-            localStorage.setItem('users',JSON.stringify(users))
+            localStorage.setItem('users', JSON.stringify(users))
             setData({
                 name: "",
                 email: "",
                 password: ""
             })
-            navigate.to('/login')
+            navigate('/login')
         }
     }
     const validate = () => {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const newErrors = {};
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/
+        const error = {};
         if (!data.name) error.name = "Name required";
         if (!data.email) error.email = "email required";
         if (!emailRegex.test(data.email)) error.email = "not a valid email";
-        if (!data.password.length < 8) error.password = "Password should be 8 or above characters";
+        if (data.password.length < 8) error.password = "Password should be 8 or above characters";
 
-        setError(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setError(error);
+        console.log(error);
+        return Object.keys(error).length === 0;
     };
     return (
         <div className='outbox d-flex justify-content-center align-items-center'>
@@ -59,7 +60,7 @@ export default function Signin() {
                 </div>
                 <div className='form-group m-2 text-start'>
                     <label className='p-2'>Email</label>
-                    <input type='email' name='email' className='form-control' value={data.email} onChange={(e) => handleChange(e)} />
+                    <input type='text' name='email' className='form-control' value={data.email} onChange={(e) => handleChange(e)} />
                     {error.email && <p className='text-danger'>{error.email}</p>}
                 </div>
                 <div className='form-group m-2 text-start'>
@@ -69,6 +70,7 @@ export default function Signin() {
                 </div>
                 <div className='m-2'>
                     <button type='submit' className='w-100 btn btn-primary'>Submit</button>
+                    <p>Already signed up login here <Link to='/login'>here</Link></p>
                 </div>
             </form>
         </div>

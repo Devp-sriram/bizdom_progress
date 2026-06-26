@@ -9,7 +9,9 @@ function Employee() {
     name: "",
     department: "",
     email: ""
-  })
+  });
+
+  const [employees, setEmployees] = useState([]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -19,9 +21,9 @@ function Employee() {
     setEmployee(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  // useEffect(() => {
-  //   setEmployee(JSON.parse(localStorage.getItem('employee')) || [])
-  // }, [])
+  useEffect(() => {
+    setEmployees(JSON.parse(localStorage.getItem('employees')) || [])
+  }, [])
 
 
   return (
@@ -33,6 +35,7 @@ function Employee() {
       </div>
 
       <Modal
+        size="xl"
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -42,7 +45,7 @@ function Employee() {
           <Modal.Title>Add new Employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form className='form'>
+          <form className='form' onSubmit={(e) => handleSubmit(e)}>
             <div className='row py-2'>
               <div className='form-group col-12 col-md-6'>
                 <label className='mb-2'>Employee ID</label>
@@ -53,10 +56,14 @@ function Employee() {
                 <input type='text' name='name' className='form-control' value={employee.name} onChange={(e) => handleChange(e)} />
               </div>
             </div>
-             <div className='row py-2'>
+            <div className='row py-2'>
               <div className='form-group col-12 col-md-6'>
                 <label className='mb-2'>Department</label>
-                <input type='text' name='department' className='form-control' value={employee.department} onChange={(e) => handleChange(e)} />
+                <select type='text' name='department' className='form-select' value={employee.department} onChange={(e) => handleChange(e)} >
+                    <option value='engineering'>Engineering</option>
+                    <option value='sales'>Sales</option>
+                    <option value='content creation'>Content Creation</option>
+                </select>
               </div>
               <div className='form-group col-12 col-md-6'>
                 <label className='mb-2'>Email</label>

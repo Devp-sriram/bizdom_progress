@@ -1,7 +1,9 @@
 .outbox{
+    background: linear-gradient(to left , #c04a87 , #ad77d9);
     min-height: 100vh;
 }
 .box {
+    background-color: white;
     width: 25%;
     height: fit-content;
 }

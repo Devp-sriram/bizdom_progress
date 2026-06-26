@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
 
-function Header() {
+import Dropdown from 'react-bootstrap/Dropdown';
+
+function Header({ username }) {
 
     const [show, setShow] = useState(false);
 
@@ -16,8 +18,8 @@ function Header() {
     const handleShow = () => setShow(true);
     return <header className="d-flex px-4 p-3 justify-content-between border">
         <div className="d-flex gap-2 align-items-center">
-            <Button className='hamburger' variant="primary" onClick={handleShow}><HiOutlineMenu /></Button>
-            <h3 className="mb-0">Dash</h3>
+            <Button className='hamburger btn btn-light' onClick={handleShow}><HiOutlineMenu /></Button>
+            <h2 className="mb-0">Dashboard</h2>
         </div>
 
 
@@ -26,19 +28,30 @@ function Header() {
             </Offcanvas.Header>
             <Offcanvas.Body>
                 <ul className="list-unstyled m-3 text-none">
-                    <Link to="/" onClick={handleClose}><li className='w-100 p-2 text-start'>Home</li></Link>
-                    <Link to="/employee" onClick={handleClose}><li className='w-100 p-2 text-start'>Employees</li></Link>
-                    <Link to="/contact" onClick={handleClose}><li className='w-100 p-2 text-start'>contact</li></Link>
-                    <Link to="/qoeifoeif" onClick={handleClose}><li className='w-100 p-2 text-start'>notFound</li></Link>
+                    <Link to="/home" onClick={handleClose}><li className='w-100 p-2 text-start'>Home</li></Link>
+                    <Link to="/home/employee" onClick={handleClose}><li className='w-100 p-2 text-start'>Employees</li></Link>
+                    <Link to="/home/contact" onClick={handleClose}><li className='w-100 p-2 text-start'>contact</li></Link>
+                    <Link to="/home/qoeifoeif" onClick={handleClose}><li className='w-100 p-2 text-start'>notFound</li></Link>
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
         <IconContext.Provider value={{ size: "2rem", className: "global-class-name" }}>
             <div>
-                <FaUserCircle />
+                <Dropdown>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center">
+                        <div>
+                            <FaUserCircle />
+                            {username && <p className="mb-0 username">{username}</p>}
+                        </div>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="./">Logout</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
         </IconContext.Provider>
-    </header>
+    </header >
 }
 
 export default Header
