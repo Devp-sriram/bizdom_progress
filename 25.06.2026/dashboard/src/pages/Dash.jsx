@@ -5,28 +5,28 @@ export default function Dash() {
     const items = [{
         title: 'Employee',
         count: '7',
-        to: './about'
+        to: './Employee'
     },
     {
         title: 'Asserts',
+        count: '3',
+        to: './contact'
+    },
+    {
+        title: 'Avilable',
         count: '7',
         to: './about'
     },
     {
-        title: 'Employee',
+        title: 'Assinged',
         count: '7',
-        to: './about'
-    },
-    {
-        title: 'Employee',
-        count: '7',
-        to: './about'
+        to: './not-found'
     }]
     return (
         <div className='w-100 m-2'>
             <h3 className='text-primary text-start p-2'>Dashboard</h3>
-            <div className='border rounded p-2 d-flex gap-2'>
-                {items.map(item => (<Card item={item} />))}
+            <div className='border rounded m-2 p-2 row gap-2'>
+                {items.map(item => (<Card key={item.title} item={item} className='col-12 col-md-3 ' />))}
             </div>
         </div>
     )

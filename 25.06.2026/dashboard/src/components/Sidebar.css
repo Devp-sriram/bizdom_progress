@@ -1,20 +1,28 @@
-aside{
+aside {
+    display: none;
     width: 12rem;
     min-height: 100vh;
 }
 
-ul li a {
- text-decoration: none;
- color: black;
+ul a {
+    text-decoration: none;
+    color: black;
 }
 
-li{
+li {
     border-radius: 10px;
 }
 
-li:hover {
-    a{
-        color: white;
+ul a:hover {
+    color: white;
+
+    li {
+        background-color: var(--bs-primary);
     }
-    background-color: var(--bs-primary);
+}
+
+@media screen and ( width > 768px) {
+    aside {
+        display: block;
+    }
 }

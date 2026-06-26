@@ -1,0 +1,19 @@
+.outbox{
+    min-height: 100vh;
+}
+.box {
+    width: 25%;
+    height: fit-content;
+}
+
+@media screen and (width < 1024px) {
+    .box {
+        width: 50%;
+    }
+}
+
+@media screen and (width < 768px) {
+    .box {
+        width: 100%;
+    }
+}

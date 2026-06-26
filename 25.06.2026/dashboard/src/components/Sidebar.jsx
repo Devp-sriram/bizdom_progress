@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 function Sidebar() {
     return <aside className='border-end aside'>
         <ul className="list-unstyled m-3 text-none">
-            <li className='w-100 p-2 text-start'><Link to="/">Home</Link></li>
-            <li className='w-100 p-2 text-start'><Link to="/about">About</Link></li>
-            <li className='w-100 p-2 text-start'><Link to="/contact">contact</Link></li>
-            <li className='w-100 p-2 text-start'><Link to="/qoeifoeif">notFound</Link></li>
+            <Link to="/"><li className='w-100 p-2 text-start'>Home</li></Link>
+            <Link to="/employee"><li className='w-100 p-2 text-start'>Employees</li></Link>
+            <Link to="/contact"><li className='w-100 p-2 text-start'>contact</li></Link>
+            <Link to="/qoeifoeif"><li className='w-100 p-2 text-start'>notFound</li></Link>
         </ul>
     </aside>
 }
