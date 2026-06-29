@@ -1,0 +1,9 @@
+.card {
+    width: '100%'!important;
+}
+
+@media screen and (width > 768px) {
+    .card {
+        width: '18rem' !important;
+    }
+}
