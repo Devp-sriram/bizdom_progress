@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { TiPlus } from "react-icons/ti";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { GoStack } from "react-icons/go";
+import { CiSearch } from "react-icons/ci";
+
 import Card from '../components/Card'
-import { Table, Button, Modal, Form, Pagination ,Collapse } from 'react-bootstrap'
+import { Table, Button, Modal, Form, Pagination, Collapse } from 'react-bootstrap'
 import './Dash.css'
 
 export default function Dash() {
@@ -43,8 +48,8 @@ export default function Dash() {
     const [isEdit, setIsEdit] = useState(0);
     const [isDelete, setIsDelete] = useState(0)
     const handleClose = () => setShow(false);
-    const handleCloseUp = () =>{
-           setIsEdit(0);
+    const handleCloseUp = () => {
+        setIsEdit(0);
         setUser({
             id: "",
             name: "",
@@ -112,17 +117,40 @@ export default function Dash() {
         }
     }
     const validate = () => {
-        //  const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/; 
         const error = {};
-        if (!user.name) error.name = "Name required";
-        if (!user.email) error.email = "email required";
-        if (!user.phone) error.phone = "phone required"
-        if (!user.website) error.website = "website required"
+        const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;;
+     
+        const isEmpty = (value) => !value || value.trim() === "";
 
+        const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
+
+        if (isEmpty(user.name)) {
+            error.name = "Name required";
+        } else if (isTooShort(user.name)) {
+            error.name = "Name must be at least 2 characters";
+        }
+        if (isEmpty(user.email)) {
+            error.email = "Email required";
+        } else if (isTooShort(user.email, 3)) {
+            error.email = "Please enter a valid email";
+        }else{
+            if (!emailRegex.test(user.email)) error.email = "not a valid email";
+        }
+        
+        if (isEmpty(user.phone)) {
+            error.phone = "Phone required";
+
+        } else if (isTooShort(user.phone, 5)) {
+            error.phone = "Please enter a valid phone number";
+        }
+        if (isEmpty(user.website)) {
+            error.website = "Website required";
+        } else if (isTooShort(user.website, 4))
+            error.website = "Please enter a valid website";
 
         setError(error);
         return Object.keys(error).length === 0;
-    };
+    }
 
     const handleEdit = (id) => {
         handleShow()
@@ -210,9 +238,14 @@ export default function Dash() {
         <section className='w-100 m-4'>
             <div className='d-flex justify-content-between mb-4'>
                 <div className='d-flex gap-4'>
-                    <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded ps-4 my-2' placeholder='search' />
+                    <div className='position-relative'>
+                        <CiSearch className='position-absolute' style={{ left: "8px", top: '23px' }} />
+                        <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded ps-4 my-2' placeholder='search' />
+                    </div>
                     <Button variant="primary" className='m-2 cus-ani' onClick={() => setAdvShow(!advShow)}>
-                        AdvanceSearch
+                        <div className='d-flex gap-2'>
+                            <GoStack className='m-1' /> AdvanceSearch
+                        </div>
                     </Button>
                 </div>
                 <Button variant="primary" onClick={handleShow} className='m-2 cus-ani'>
@@ -220,46 +253,49 @@ export default function Dash() {
                 </Button>
             </div>
             <Collapse in={advShow}>
-            <div className='border rounded-3 my-4 p-2 text-start '>
-                <Form onSubmit={(e) => handleAdvSearch(e)}>
-                    <Form.Group className='row py-2'>
-                        {/* <Form.Group className='form-group col-12 col-md-2'>
+                <div className='border rounded-3 my-4 p-2 text-start '>
+                    <Form onSubmit={(e) => handleAdvSearch(e)}>
+                        <Form.Group className='row py-2'>
+                            {/* <Form.Group className='form-group col-12 col-md-2'>
                             <Form.Label className='mb-2'>user ID</Form.Label>
                             <Form.Control type='number' name='id' value={searchuser.id} onChange={(e) => handleAdvChange(e)} />
                         </Form.Group> */}
-                        <Form.Group className='form-group col-12 col-md-2'>
-                            <Form.Label className='mb-2'>Name</Form.Label>
-                            <Form.Control type='text' name='name' value={searchuser.name} onChange={(e) => handleAdvChange(e)} />
-                            {error.name && <Form.Text className='text-danger'>{error.name}</Form.Text>}
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Name</Form.Label>
+                                <Form.Control type='text' name='name' value={searchuser.name} onChange={(e) => handleAdvChange(e)} />
+                                {error.name && <Form.Text className='text-danger'>{error.name}</Form.Text>}
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Email</Form.Label>
+                                <Form.Control type='text' name='email' value={searchuser.email} onChange={(e) => handleAdvChange(e)} />
+                                {error.email && <Form.Text className='text-danger'>{error.email}</Form.Text>}
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Phone</Form.Label>
+                                <Form.Control type='text' name='phone' value={searchuser.phone} onChange={(e) => handleAdvChange(e)} />
+                                {error.phone && <Form.Text className='text-danger'>{error.phone}</Form.Text>}
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Website</Form.Label>
+                                <Form.Control type='text' name='website' value={searchuser.website} onChange={(e) => handleAdvChange(e)} />
+                                {error.website && <Form.Text className='text-danger'>{error.website}</Form.Text>}
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                {!isEdit &&
+                                    <div className='d-flex h-100 justify-content-center align-items-end'>
+                                        <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
+                                            Reset
+                                        </Button>
+                                        <div className='position-relative'>
+                                            <CiSearch className='position-absolute text-white' style={{ left: "16px", top: '12px' }} />
+                                            <Button variant="success" className='mx-2 ps-4' type='submit'>Search</Button>
+                                        </div>
+                                    </div>
+                                }
+                            </Form.Group>
                         </Form.Group>
-                        <Form.Group className='form-group col-12 col-md-2'>
-                            <Form.Label className='mb-2'>Email</Form.Label>
-                            <Form.Control type='text' name='email' value={searchuser.email} onChange={(e) => handleAdvChange(e)} />
-                            {error.email && <Form.Text className='text-danger'>{error.email}</Form.Text>}
-                        </Form.Group>
-                        <Form.Group className='form-group col-12 col-md-2'>
-                            <Form.Label className='mb-2'>Phone</Form.Label>
-                            <Form.Control type='text' name='phone' value={searchuser.phone} onChange={(e) => handleAdvChange(e)} />
-                            {error.phone && <Form.Text className='text-danger'>{error.phone}</Form.Text>}
-                        </Form.Group>
-                        <Form.Group className='form-group col-12 col-md-2'>
-                            <Form.Label className='mb-2'>Website</Form.Label>
-                            <Form.Control type='text' name='website' value={searchuser.website} onChange={(e) => handleAdvChange(e)} />
-                            {error.website && <Form.Text className='text-danger'>{error.website}</Form.Text>}
-                        </Form.Group>
-                        <Form.Group className='form-group col-12 col-md-2'>
-                            {!isEdit &&
-                                <div className='d-flex h-100 justify-content-center align-items-end'>
-                                    <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
-                                        Reset
-                                    </Button>
-                                    <Button variant="success" className='mx-2' type='submit'>Search</Button>
-                                </div>
-                            }
-                        </Form.Group>
-                    </Form.Group>
-                </Form>
-            </div></Collapse>
+                    </Form>
+                </div></Collapse>
 
 
             <Modal
@@ -318,7 +354,7 @@ export default function Dash() {
                 </Modal.Body>
                 <Modal.Footer>
                     {isEdit && <>
-                        <Button variant="secondary" className='m-2' type='button' onClick={()=>reset()}>
+                        <Button variant="secondary" className='m-2' type='button' onClick={() => reset()}>
                             Reset
                         </Button>
                         <Button variant="warning" className='m-2' type='button' onClick={() => update()}>update</Button>
@@ -368,8 +404,8 @@ export default function Dash() {
                             <td>{user.phone}</td>
                             <td>{user.website}</td>
                             <td>
-                                <Button variant="warning" className='m-2' onClick={() => handleEdit(user.id)}>Edit</Button>
-                                <Button variant="danger" className='m-2' onClick={() => handleDelete(user.id)}>Delete</Button></td>
+                                <Button variant="warning" className='m-2' onClick={() => handleEdit(user.id)}><FaEdit /></Button>
+                                <Button variant="danger" className='m-2' onClick={() => handleDelete(user.id)}><MdDelete /></Button></td>
                         </tr> : ""
                     }
                     ) : <tr><td colSpan={6}>No Data Found</td></tr>}
