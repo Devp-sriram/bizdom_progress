@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { TiPlus } from "react-icons/ti";
 import Card from '../components/Card'
-import { Table, Button, Modal, Form, Pagination } from 'react-bootstrap'
+import { Table, Button, Modal, Form, Pagination ,Collapse } from 'react-bootstrap'
+import './Dash.css'
 
 export default function Dash() {
     const [userData, setUserData] = useState([]);
@@ -32,8 +33,8 @@ export default function Dash() {
     const [search, setSearch] = useState('');
     const [count, setCount] = useState(10);
 
-    
-    const [offset , setOffset] = useState(0);
+
+    const [offset, setOffset] = useState(0);
     const [pageCount, setPageCount] = useState(5)
     const [show, setShow] = useState(false);
     const [delShow, setDelShow] = useState(false);
@@ -42,6 +43,17 @@ export default function Dash() {
     const [isEdit, setIsEdit] = useState(0);
     const [isDelete, setIsDelete] = useState(0)
     const handleClose = () => setShow(false);
+    const handleCloseUp = () =>{
+           setIsEdit(0);
+        setUser({
+            id: "",
+            name: "",
+            email: "",
+            phone: "",
+            website: ""
+        })
+        handleClose()
+    }
     const handleShow = () => setShow(true);
 
     const handleDelHide = () => setDelShow(false);
@@ -69,12 +81,12 @@ export default function Dash() {
 
     const handleAdvSearch = (e) => {
         e.preventDefault();
-
+        setUserData(JSON.parse(localStorage.getItem('userData')))
         setUserData(prev =>
             prev.filter(item => {
                 return Object.keys(searchuser).every(key => {
                     const query = searchuser[key].trim().toLowerCase();
-                    if (!query) return true; // Skip empty search fields
+                    if (!query) return true;
 
                     const value = item[key] ? item[key].toString().toLowerCase() : "";
                     return value.includes(query);
@@ -122,6 +134,17 @@ export default function Dash() {
         const user = userData.find(user => user.id === isEdit);
         setUser(user);
     }
+    const resetAdv = () => {
+        setUserData(JSON.parse(localStorage.getItem('userData')));
+        setsearchUser({
+            id: "",
+            name: "",
+            email: "",
+            phone: "",
+            website: ""
+        })
+    }
+
     const update = () => {
         setUserData(prev =>
             prev.map(item => item.id === isEdit ? user : item)
@@ -185,26 +208,27 @@ export default function Dash() {
 
     return (
         <section className='w-100 m-4'>
-            <div className='d-flex justify-content-between'>
+            <div className='d-flex justify-content-between mb-4'>
                 <div className='d-flex gap-4'>
-                    <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded-pill ps-4 m-2' placeholder='search' />
-                    <Button variant="primary" className='m-2' onClick={() => setAdvShow(!advShow)}>
+                    <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded ps-4 my-2' placeholder='search' />
+                    <Button variant="primary" className='m-2 cus-ani' onClick={() => setAdvShow(!advShow)}>
                         AdvanceSearch
                     </Button>
                 </div>
-                <Button variant="primary" onClick={handleShow} className='m-2'>
+                <Button variant="primary" onClick={handleShow} className='m-2 cus-ani'>
                     <TiPlus /> Add user
                 </Button>
             </div>
-            {advShow && <div className='border rounded-3 my-5 p-2 text-start'>
+            <Collapse in={advShow}>
+            <div className='border rounded-3 my-4 p-2 text-start '>
                 <Form onSubmit={(e) => handleAdvSearch(e)}>
                     <Form.Group className='row py-2'>
-                        <Form.Group className='form-group col-12 col-md-2'>
+                        {/* <Form.Group className='form-group col-12 col-md-2'>
                             <Form.Label className='mb-2'>user ID</Form.Label>
                             <Form.Control type='number' name='id' value={searchuser.id} onChange={(e) => handleAdvChange(e)} />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className='form-group col-12 col-md-2'>
-                            <Form.Label className='mb-2'>user Name</Form.Label>
+                            <Form.Label className='mb-2'>Name</Form.Label>
                             <Form.Control type='text' name='name' value={searchuser.name} onChange={(e) => handleAdvChange(e)} />
                             {error.name && <Form.Text className='text-danger'>{error.name}</Form.Text>}
                         </Form.Group>
@@ -225,23 +249,23 @@ export default function Dash() {
                         </Form.Group>
                         <Form.Group className='form-group col-12 col-md-2'>
                             {!isEdit &&
-                                <div className='d-flex justify-content-center align-items-end'>
-                                    <Button variant="secondary" className='m-2' type='button'>
+                                <div className='d-flex h-100 justify-content-center align-items-end'>
+                                    <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
                                         Reset
                                     </Button>
-                                    <Button variant="success" className='m-2' type='submit'>Search</Button>
+                                    <Button variant="success" className='mx-2' type='submit'>Search</Button>
                                 </div>
                             }
                         </Form.Group>
                     </Form.Group>
                 </Form>
-            </div>}
+            </div></Collapse>
 
 
             <Modal
                 size="xl"
                 show={show}
-                onHide={handleClose}
+                onHide={isEdit ? handleCloseUp : handleClose}
                 backdrop="static"
                 keyboard={false}
             >
@@ -294,7 +318,7 @@ export default function Dash() {
                 </Modal.Body>
                 <Modal.Footer>
                     {isEdit && <>
-                        <Button variant="secondary" className='m-2' type='button'>
+                        <Button variant="secondary" className='m-2' type='button' onClick={()=>reset()}>
                             Reset
                         </Button>
                         <Button variant="warning" className='m-2' type='button' onClick={() => update()}>update</Button>
@@ -336,8 +360,8 @@ export default function Dash() {
                     </tr>
                 </thead>
                 <tbody>
-                    {userData.length > 0 ? userData?.map((user, i) => {
-                        return i < pageCount ? <tr key={user.id}>
+                    {userData?.length > 0 ? userData?.map((user, i) => {
+                        return i >= offset && i < pageCount ? <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
@@ -351,20 +375,27 @@ export default function Dash() {
                     ) : <tr><td colSpan={6}>No Data Found</td></tr>}
                 </tbody>
             </Table>
-            <Pagination>
-                {Array.from({ length: Math.ceil(userData.length / 5) }).map((_, i) => {
-                    const pageNumber = i + 1;
-                    return (
-                        <Pagination.Item
-                            key={pageNumber}
-                            active={pageNumber === active}
-                            onClick={() => setActive(pageNumber)}
-                        >
-                            {pageNumber}
-                        </Pagination.Item>
-                    );
-                })}
-            </Pagination>
+            <section className='w-100 d-flex justify-content-end'>
+                <Pagination>
+                    {Array.from({ length: Math.ceil(userData?.length / 5) }).map((_, i) => {
+                        const pageNumber = i;
+                        return (
+                            <Pagination.Item
+                                key={pageNumber}
+                                active={pageNumber === active}
+                                onClick={() => {
+                                    setOffset(pageNumber * 5)
+                                    setPageCount((pageNumber * 5) + 5)
+                                    setActive(pageNumber)
+                                }
+                                }
+                            >
+                                {pageNumber + 1}
+                            </Pagination.Item>
+                        );
+                    })}
+                </Pagination>
+            </section>
         </section>
     )
 }

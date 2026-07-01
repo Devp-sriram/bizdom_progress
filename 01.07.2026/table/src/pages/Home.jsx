@@ -12,13 +12,13 @@ const Home = () => {
         console.log(user)
     },[])
     return (
-        <>
+        <section className='main'>
             <Header username={user?.name}/>
             <section className='d-flex'>
                 <Sidebar/>
                 <Outlet/>
             </section>
-        </>
+        </section>
     )
 }
 

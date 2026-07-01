@@ -16,7 +16,7 @@ function Header({ username }) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    return <header className="d-flex px-4 p-3 justify-content-between border">
+    return <header className="d-flex px-4 p-3 justify-content-between">
         <div className="d-flex gap-2 align-items-center">
             <Button className='hamburger btn btn-light' onClick={handleShow}><HiOutlineMenu /></Button>
             <h2 className="mb-0">User Manager</h2>
@@ -32,7 +32,7 @@ function Header({ username }) {
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
-        <IconContext.Provider value={{ size: "2rem", className: "global-class-name" }}>
+        <IconContext.Provider value={{ size: "2rem", color : "white", className: "global-class-name" }}>
             <div>
                 <Dropdown>
                     <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
