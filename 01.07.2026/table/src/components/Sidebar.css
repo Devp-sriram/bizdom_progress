@@ -1,0 +1,28 @@
+aside {
+    display: none;
+    width: 12rem;
+    min-height: 100vh;
+}
+
+ul a {
+    text-decoration: none;
+    color: white
+}
+
+li {
+    border-radius: 10px;
+}
+
+ul a:hover {
+    color: white;
+
+    li {
+        background-color: var(--bs-secondary);
+    }
+}
+
+@media screen and ( width > 768px) {
+    aside {
+        display: block;
+    }
+}

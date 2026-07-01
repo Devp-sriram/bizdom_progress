@@ -67,7 +67,7 @@ function Employee() {
     if (validate()) {
       setEmployees(prev => [...prev, employee])
 
-      setCount(count + 1)
+      setCount(count+1)
 
       setEmployee({
         id: "",

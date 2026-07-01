@@ -1,0 +1,13 @@
+header{
+    background-color: rgba(209, 209, 209, 0.616);
+}
+
+@media screen and ( width > 768px) {
+    .hamburger {
+        display: none;
+    }
+}
+
+.username{
+    font-size: 12px;
+}
