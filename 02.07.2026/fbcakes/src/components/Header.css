@@ -13,8 +13,26 @@
     color: var(--brand);
 }
 
+.ham{
+    display: none;
+}
+
+
+
 @media screen and (width < 768px){
     .overhead{
         display: none;
     }
+    .deskNav{
+        display: none;
+    }
+    .navbar{
+        flex-direction: column;
+    }
+    .navbar .inpDiv{
+        width: 100%;
+    }
+    .ham{
+    display: block;
+}
 }

@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import { useState } from 'react'
 import 'swiper/css';
 import './Hero.css'
