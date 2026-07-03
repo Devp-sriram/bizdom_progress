@@ -11,6 +11,29 @@ import { MdHeight } from 'react-icons/md';
 function Header() {
 
     const [show, setShow] = useState(false);
+    const [showRec, setShowRec] = useState(false);
+    const [cakes, setCakes] = useState([{
+        id: 1,
+        name: 'black current',
+        url: 'https://bizdomfs.blob.core.windows.net/post-image/2b1d1d25-bc0f-467d-a4b7-77501c2b3132.webp'
+    }, {
+        id: 2,
+        name: 'black current Blast',
+        url: 'https://bizdomfs.blob.core.windows.net/post-image/5ee74136-75a8-4eef-a2a5-0809cd1ec819.webp'
+    }, {
+        id: 3,
+        name: 'black current Delight',
+        url: 'https://bizdomfs.blob.core.windows.net/post-image/7d2d55ca-9072-4687-a84c-377b8fbcbf97.webp'
+    }, {
+        id: 4,
+        name: 'black Forest',
+        url: 'https://bizdomfs.blob.core.windows.net/post-image/a5b060e1-222a-48d9-bbc6-ea99267f0205.webp'
+    }, {
+        id: 3,
+        name: 'black Forest Blast',
+        url: 'https://bizdomfs.blob.core.windows.net/post-image/8bc503b5-c23e-4b3f-b583-38c8eed50a6c.webp'
+    }
+    ]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -61,7 +84,15 @@ function Header() {
                 </div>
                 <div className='inpDiv position-relative'>
                     <CiSearch className='position-absolute' style={{ left: "10px", top: "20px" }} />
-                    <input type='text' placeholder='search ...' className='form-control p-2 ps-4 m-1 border rounded-pill ' />
+                    <input type='text' placeholder='search ...' onFocus={() => setShowRec(true)} onBlur={() => setShowRec(false)} className='form-control p-2 ps-4 m-1 border rounded-pill ' />
+                    {showRec && <div className='position-absolute zed bg-white rounded w-100 p-2'>
+                        {cakes.map(cake=>{
+                           return  <div className='d-flex gap-2 my-1 zedh'>
+                            <img src={cake.url} width={25} height={25} className='p-1'/>
+                            <p className='m-0 '>{cake.name}</p>
+                           </div>
+                        })}
+                    </div>}
                 </div>
                 <Nav className='deskNav'>
                     <Nav.Item>

@@ -58,6 +58,12 @@
 @media screen and (width < 768px){
     .hero{
     left: 25%;
-    top: 25%;
+    top: 40%;
 }
+    .lato{
+         letter-spacing: normal;
+    }
+    .herotext{
+        font-size: 24px;
+    }
 }

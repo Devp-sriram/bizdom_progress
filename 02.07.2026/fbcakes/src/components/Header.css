@@ -17,6 +17,13 @@
     display: none;
 }
 
+.zed{
+    z-index: 100;
+}
+
+.zedh:hover{
+    background-color: orangered;
+}
 
 
 @media screen and (width < 768px){

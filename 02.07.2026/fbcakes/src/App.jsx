@@ -7,6 +7,9 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Show from './components/Show'
 import Premium from './components/Premium'
+import Transparent  from './components/transparent';
+import Bake from './components/Bake'
+import Footer from './components/Footer';
 
 function App() {
 
@@ -16,6 +19,8 @@ function App() {
       <Hero/>
       <Show/>
       <Premium/>
+      <Transparent/>
+      <Footer/>
     </Container>
   )
 }
