@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect} from "react"
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
+import {Form} from 'react-bootstrap'
 
 export default function Order() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ export default function Order() {
                 total: "",
                 status: ""
             })
-            // navigate('./users')
+            navigate('/users')
         }
     }
     const validate = () => {
@@ -76,13 +77,12 @@ export default function Order() {
     }
 
     useEffect(() => {
-        if (orders && orders.length > 0) {
+        console.log(orders)
+        if (orders && orders?.length > 0) {
             console.log(orders)
             localStorage.setItem('orders', JSON.stringify(orders));
-        }else{
-            setOrders(JSON.parse(localStorage.getItem('orders')) || [])
         }
-    }, [orders]);
+    } , [orders])
 
     useEffect(() => {
         (count != 0) && localStorage.setItem('count', count.toString());
@@ -99,7 +99,7 @@ export default function Order() {
 
     return (
         <div className='w-100 p-4 page'>
-            <form className="form p-3 m-2 border rounded-5 text-start" onSubmit={(e) => handleSubmit(e)}>
+            <Form className=" p-3 m-2 border rounded-5 text-start" onSubmit={(e) => handleSubmit(e)}>
                 <h3 className="text-start mb-4"><FaPlusCircle />  Add Order</h3>
                 <div className="row w-100 mb-3">
                     <div className="form-group col-12 col-md-6">
@@ -149,7 +149,7 @@ export default function Order() {
                     <button className="btn border rounded-pill px-5">Reset</button>
                     <button className="btn btn-brand rounded-pill px-5" type="submit">Save</button>
                 </div>
-            </form>
+            </Form>
         </div>
     )
 }
