@@ -1,0 +1,35 @@
+.text-brand{
+    color : var(--brand)
+}
+
+.bg-brand{
+    background-color: var(--brand);
+    color: white;
+}
+
+.btn-brand{
+    --bs-btn-bg :var(--brand);
+    --bs-btn-border-bg :var(--brand);
+
+    --bs-btn-hover-bg :var(--brand);
+    --bs-btn-hover-border-bg :var(--brand);
+
+    --bs-btn-active-bg :var(--brand);
+    --bs-btn-active-border-bg :var(--brand);
+
+    --bs-btn-focus-bg :var(--brand);
+
+    --bs-btn-color:white;
+    --bs-btn-hover-color:white;
+    --bs-btn-active-color:white;
+}
+
+.page{
+    background-color: #f6f5fd;
+    height: 100vh;
+}
+
+input , select{
+    color: black;
+    background-color: #f6f5fd;
+}
