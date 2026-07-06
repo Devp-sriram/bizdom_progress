@@ -53,7 +53,8 @@ function Header({ username }) {
             <Offcanvas.Body>
                 <ul className="list-unstyled m-3 text-none ">
                     <Link to="/" onClick={handleClose}><li className='w-100 p-2 text-start'>Home</li></Link>
-                    <Link to="/users" onClick={handleClose}><li className='w-100 p-2 text-start'>Users</li></Link>
+                    <Link to="/products" onClick={handleClose}><li className='w-100 p-2 text-start mb-0'>product</li></Link>
+                    <Link to="/cart" onClick={handleClose}><li className='w-100 p-2 text-start mb-0'>cart</li></Link>
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
