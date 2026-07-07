@@ -15,7 +15,7 @@ export default function Product() {
         image: "",
         description: "",
         category: "",
-        price: ""
+        price: 0
     })
 
     const [error, setError] = useState({
@@ -45,7 +45,7 @@ export default function Product() {
                 image: "",
                 description: "",
                 category: "",
-                price: ""
+                price: 0
             })
             navigate('/admin')
         }

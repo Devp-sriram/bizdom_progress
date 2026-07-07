@@ -41,10 +41,14 @@ function Header() {
     }, [cart]);
 
     useEffect(() => {
-        setCreds(JSON.parse(localStorage.getItem('loggedIn')));
+        setCreds(JSON.parse(localStorage.getItem('loggedIn')) || {});
     }, [])
 
     console.log(cart)
+
+    const logout = () =>{
+        localStorage.removeItem('loggedIn')
+    }
 
     return <header className="d-flex px-4 p-3 justify-content-between border top">
         <div className="d-flex gap-2 align-items-center">
@@ -124,7 +128,7 @@ function Header() {
                         {creds?.name
                             ? <>
                                 <Dropdown.Item href="/admin" >Admin Panel</Dropdown.Item>
-                                <Dropdown.Item href="/login" >Logout</Dropdown.Item>
+                                <Dropdown.Item href="/login" onClick={()=>logout()}>Logout</Dropdown.Item>
                             </>
                             : <>
                                 <Dropdown.Item href="/signin">Signin</Dropdown.Item>

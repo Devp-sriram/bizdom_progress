@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
     const { cart, setCart } = useCart()
 
     function AddCart(product) {
-        setCart(prev => [{...product,qty:1}, ...prev,])
+        setCart(prev => [{ ...product, price: Number(product.price), qty: 1 }, ...prev,])
     }
     return (
         <Card key={product.id} style={{ width: '14rem' }} className='text-start'>
@@ -27,7 +27,7 @@ export default function ProductCard({ product }) {
 
             <Card.Body className='d-flex flex-column justify-content-between'>
                 <div>
-                    <Card.Title style={{fontSize: "20px"}}>{reduceLength(product.title , 24)}</Card.Title>
+                    <Card.Title style={{ fontSize: "20px" }}>{reduceLength(product.title, 24)}</Card.Title>
                     <Badge bg="success">{product.category}</Badge>
                 </div>
                 <div>

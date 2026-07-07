@@ -1,4 +1,4 @@
-import { useCart , useOrder} from '../context/context';
+import { useCart, useOrder } from '../context/context';
 import { Card, Button, Container, Badge } from 'react-bootstrap';
 import { reduceLength } from '../utils/len';
 
@@ -26,9 +26,9 @@ export default function Cart() {
 
   const addOrders = (cart) => {
     let order = {
-      cart : cart.filter(item => item && Object.keys(item).length > 0),
-      total : cartTotal,
-      paymemnt : "cod"
+      cart: cart.filter(item => item && Object.keys(item).length > 0),
+      total: cartTotal,
+      paymemnt: "cod"
     }
     setOrders(prev => [...prev, order])
     setCart([]);
@@ -89,7 +89,7 @@ export default function Cart() {
             <p>Total</p>
             <p>$ {cartTotal}</p>
           </div>
-          <Button className='w-100 mt-5'onClick={()=>addOrders(cart)}>Pay on Delivery</Button>
+          <Button className='w-100 mt-5' onClick={() => addOrders(cart)}>Pay on Delivery</Button>
         </div>
       </div>
     </Container>
