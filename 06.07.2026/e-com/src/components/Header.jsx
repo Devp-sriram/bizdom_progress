@@ -5,8 +5,8 @@ import { IconContext } from "react-icons";
 import './Header.css'
 
 import { useCart } from '../context/context'
-import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { useEffect, useState, useMemo } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import { reduceLength } from '../utils/len'
 
 import Button from 'react-bootstrap/Button';
@@ -14,9 +14,9 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
-
+    const navigate = useNavigate()
     const [show, setShow] = useState(false);
-    const [creds , setCreds] = useState({})
+    const [creds, setCreds] = useState({})
     const { cart, setCart } = useCart()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -35,9 +35,16 @@ function Header() {
             prev.map(item => item.id == id ? { ...item, qty: item.qty += 1 } : item)
         )
     }
-    useEffect(()=>{
+
+    const cartTotal = useMemo(() => {
+        return cart.filter(item => item && Object.keys(item).length > 0).reduce((acc, item) => acc + item.price, 0).toFixed(2);
+    }, [cart]);
+
+    useEffect(() => {
         setCreds(JSON.parse(localStorage.getItem('loggedIn')));
-    },[])
+    }, [])
+
+    console.log(cart)
 
     return <header className="d-flex px-4 p-3 justify-content-between border top">
         <div className="d-flex gap-2 align-items-center">
@@ -73,6 +80,7 @@ function Header() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu style={{ width: "16rem" }}>
+                        <h4 className="text-start p-2">Cart</h4>
                         {cart
                             .filter(item => item && Object.keys(item).length > 0)
                             .map(item => {
@@ -98,7 +106,10 @@ function Header() {
 
                                 </Dropdown.Item>
                             })}
-
+                        <div className="w-100 d-flex justify-content-between">
+                            <p className="m-2" >Total {cartTotal}</p>
+                            <Button variant="primary" className="m-2" onClick={()=>navigate('./cart')}>checkout</Button>
+                        </div>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Dropdown>
@@ -110,15 +121,15 @@ function Header() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        {creds?.name 
-                        ? <>
-                        <Dropdown.Item href="/admin" >Admin Panel</Dropdown.Item>
-                        <Dropdown.Item href="/login" >Logout</Dropdown.Item>
-                        </>
-                        : <>
-                         <Dropdown.Item href="/signin">Signin</Dropdown.Item>
-                          <Dropdown.Item href="/login">Login</Dropdown.Item>
-                        </>
+                        {creds?.name
+                            ? <>
+                                <Dropdown.Item href="/admin" >Admin Panel</Dropdown.Item>
+                                <Dropdown.Item href="/login" >Logout</Dropdown.Item>
+                            </>
+                            : <>
+                                <Dropdown.Item href="/signin">Signin</Dropdown.Item>
+                                <Dropdown.Item href="/login">Login</Dropdown.Item>
+                            </>
                         }
                     </Dropdown.Menu>
                 </Dropdown>

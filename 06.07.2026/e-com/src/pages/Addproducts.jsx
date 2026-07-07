@@ -3,9 +3,13 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 
-export default function Order() {
-    const navigate = useNavigate()
-    const [product, setproduct] = useState({
+import { useProduct } from '../context/context'
+
+export default function Product() {
+    const navigate = useNavigate();
+    const { products, setProducts } = useProduct()
+    const [count, setCount] = useState(Number(JSON.parse(localStorage.getItem('count'))) || 30);
+    const [product, setProduct] = useState({
         id: "",
         title: "",
         image: "",
@@ -23,28 +27,27 @@ export default function Order() {
         price: ""
     })
     const handleChange = (e) => {
-        setOrder(prev => ({ ...prev, [e.target.name]: e.target.value }))
+        setProduct(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
-            setOrders(prev => {
-                console.log(prev)
-                return [...prev, order]
+            setProducts(prev => {
+                return [product, ...prev]
             })
             setCount(count + 1);
 
-            setOrder({
+            setProduct({
                 id: "",
-                date: "",
-                name: "",
-                shop: "",
-                total: "",
-                status: ""
+                title: "",
+                image: "",
+                description: "",
+                category: "",
+                price: ""
             })
-            navigate('/users')
+            navigate('/admin')
         }
     }
     const validate = () => {
@@ -54,41 +57,34 @@ export default function Order() {
 
         const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
 
-        if (isEmpty(order.name)) {
-            error.name = "Name required";
-        } else if (isTooShort(order.name)) {
-            error.name = "Name must be at least 2 characters";
+        if (isEmpty(product.title)) {
+            error.title = "title required";
+        } else if (isTooShort(product.title)) {
+            error.title = "Name must be at least 2 characters";
         }
-        if (isEmpty(order.total)) {
-            error.total = "Total required";
+        if (isEmpty(product.image)) {
+            error.image = "image url required";
         }
 
-        if (isEmpty(order.date)) {
-            error.date = "Phone required";
+        if (isEmpty(product.description)) {
+            error.description = "description required";
 
         }
-        if (isEmpty(order.shop)) {
-            error.shop = "Website required";
+        if (isEmpty(product.category)) {
+            error.category = "Category required";
         }
         setError(error);
         return Object.keys(error).length === 0;
     }
 
     useEffect(() => {
-        console.log(orders)
-        if (orders && orders?.length > 0) {
-            console.log(orders)
-            localStorage.setItem('orders', JSON.stringify(orders));
-        }
-    }, [orders])
-
-    useEffect(() => {
-        (count != 0) && localStorage.setItem('count', count.toString());
+        console.log(count);
+        (count != 30) && localStorage.setItem('count', count.toString())
     }, [count]);
 
     useEffect(() => {
-        setOrder(prev => ({ ...prev, id: (count + 1) }))
-    }, [orders])
+        setProduct(prev => ({ ...prev, id: (count + 1) }))
+    }, [])
 
     useEffect(() => {
         console.log('mount')
@@ -98,54 +94,50 @@ export default function Order() {
     return (
         <div className='w-100 p-4 page'>
             <Form className=" p-3 m-2 border rounded-5 text-start" onSubmit={(e) => handleSubmit(e)}>
-                <h3 className="text-start mb-4"><FaPlusCircle />  Add Order</h3>
+                <h3 className="text-start mb-4"><FaPlusCircle />  Add Product</h3>
                 <div className="row w-100 mb-3">
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">Order Id</label>
-                        <input name='id' type="number" className="form-control rounded-pill w-100 p-2" value={order.id} onChange={(e) => handleChange(e)} />
+                        <label className="p-2">Product Id</label>
+                        <input name='id' type="number" className="form-control rounded-pill w-100 p-2" value={product.id} onChange={(e) => handleChange(e)} />
                     </div>
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">Order Date</label>
-                        <input type="date" name="date" className="form-control rounded-pill w-100 p-2" value={order.date} onChange={(e) => handleChange(e)} />
-                        {error.date && <p className="text-danger">{error.date}</p>}
+                        <label className="p-2">Product title</label>
+                        <input type="title" name="title" className="form-control rounded-pill w-100 p-2" value={product.title} onChange={(e) => handleChange(e)} />
+                        {error.title && <p className="text-danger">{error.title}</p>}
                     </div>
                 </div>
                 <div className="row w-100 mb-3">
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">Customer name</label>
-                        <input type="text" name='name' className="form-control rounded-pill w-100 p-2" value={order.name} onChange={(e) => handleChange(e)} />
-                        {error.name && <p className="text-danger">{error.name}</p>}
+                        <label className="p-2">Product Image</label>
+                        <input type="text" name='image' className="form-control rounded-pill w-100 p-2" value={product.image} onChange={(e) => handleChange(e)} />
+                        {error.image && <p className="text-danger">{error.image}</p>}
                     </div>
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">Shop</label>
-                        <select name='shop' className="form-select rounded-pill w-100 p-2" value={order.shop} onChange={(e) => handleChange(e)}>
-                            <option value="">Select Shop</option>
-                            <option>Karappakam</option>
-                            <option>Shozhilganallur</option>
-                            <option>pammal</option>
+                        <label className="p-2">Product category</label>
+                        <select name='category' className="form-select rounded-pill w-100 p-2" value={product.category} onChange={(e) => handleChange(e)}>
+                            <option value="">Select Category</option>
+                            <option>Mens Clothes</option>
+                            <option>Womens Fashions</option>
+                            <option>Electronics</option>
                         </select>
-                        {error.shop && <p className="text-danger">{error.shop}</p>}
+                        {error.category && <p className="text-danger">{error.category}</p>}
                     </div>
                 </div>
                 <div className="row w-100 mb-3">
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">Total</label>
-                        <input type="text" name="total" className="form-control rounded-pill w-100 p-2" value={order.total} onChange={(e) => handleChange(e)} />
-                        {error.total && <p className="text-danger">{error.total}</p>}
+                        <label className="p-2">Description</label>
+                        <input type="text" name="description" className="form-control rounded-pill w-100 p-2" value={product.description} onChange={(e) => handleChange(e)} />
+                        {error.description && <p className="text-danger">{error.description}</p>}
                     </div>
                     <div className="form-group col-12 col-md-6">
-                        <label className="p-2">status</label>
-                        <select name='status' className="form-select rounded-pill w-100 p-2" value={order.status} onChange={(e) => handleChange(e)}>
-                            <option>pending</option>
-                            <option>successful</option>
-                            <option>rejected</option>
-                        </select>
-                        {error.status && <p className="text-danger">{error.status}</p>}
+                        <label className="p-2">Price</label>
+                        <input type="number" name='price' className="form-control rounded-pill w-100 p-2" value={product.price} onChange={(e) => handleChange(e)} />
+                        {error.price && <p className="text-danger">{error.impriceage}</p>}
                     </div>
                 </div>
                 <div>
                     <button className="btn border rounded-pill px-5">Reset</button>
-                    <button className="btn btn-brand rounded-pill px-5" type="submit">Save</button>
+                    <button className="btn btn-primary rounded-pill px-5" type="submit">Save</button>
                 </div>
             </Form>
         </div>

@@ -9,6 +9,8 @@ import Signin from './pages/Signin';
 import Login from './pages/Login'
 import Admin from './pages/Admin';
 import TableProd from './pages/TableProd'
+import Addproducts from './pages/Addproducts'
+import Orders from './pages/Orders';
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path="/admin" element={<Admin />}>
               <Route index element={<TableProd/>}/>
+              <Route path="/admin/add" element={<Addproducts/>}/>
+              <Route path="/admin/orders" element={<Orders/>}/>
             </Route>
           </Route>
           <Route path="/signin" element={<Signin />} />
