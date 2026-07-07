@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import './Header.css'
 
 import { useCart } from '../context/context'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { reduceLength } from '../utils/len'
 
@@ -13,9 +13,10 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function Header({ username }) {
+function Header() {
 
     const [show, setShow] = useState(false);
+    const [creds , setCreds] = useState({})
     const { cart, setCart } = useCart()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,6 +35,9 @@ function Header({ username }) {
             prev.map(item => item.id == id ? { ...item, qty: item.qty += 1 } : item)
         )
     }
+    useEffect(()=>{
+        setCreds(JSON.parse(localStorage.getItem('loggedIn')));
+    },[])
 
     return <header className="d-flex px-4 p-3 justify-content-between border top">
         <div className="d-flex gap-2 align-items-center">
@@ -64,7 +68,7 @@ function Header({ username }) {
                     <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
                         <div>
                             <IoMdCart />
-                            {username && <p className="mb-0 username">{username}</p>}
+                            {creds?.name && <p className="mb-0 username">{creds.name}</p>}
                         </div>
                     </Dropdown.Toggle>
 
@@ -101,12 +105,21 @@ function Header({ username }) {
                     <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
                         <div>
                             <FaUserCircle />
-                            {username && <p className="mb-0 username">{username}</p>}
+                            {creds?.name && <p className="mb-0 username">{creds.name}</p>}
                         </div>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="/">Logout</Dropdown.Item>
+                        {creds?.name 
+                        ? <>
+                        <Dropdown.Item href="/admin" >Admin Panel</Dropdown.Item>
+                        <Dropdown.Item href="/login" >Logout</Dropdown.Item>
+                        </>
+                        : <>
+                         <Dropdown.Item href="/signin">Signin</Dropdown.Item>
+                          <Dropdown.Item href="/login">Login</Dropdown.Item>
+                        </>
+                        }
                     </Dropdown.Menu>
                 </Dropdown>
 

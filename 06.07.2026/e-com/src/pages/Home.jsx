@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 function Home() {
     return <>
-        <Header username={'admin'} />
+        <Header/>
          <Outlet/>
         <Footer />
     </>
