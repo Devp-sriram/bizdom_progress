@@ -3,10 +3,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+
 import Form from 'react-bootstrap/Form';
 
 export default function Signin() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const [showpw, setShowPw] = useState(false)
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -42,12 +47,19 @@ export default function Signin() {
         }
     }
     const validate = () => {
-       const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;;
-         const error = {};
-        if (!data.name) error.name = "Name required";
-        if (!data.email) error.email = "email required";
-        if (!emailRegex.test(data.email)) error.email = "not a valid email";
-        if (data.password.length < 8) error.password = "Password should be 8 or above characters";
+        const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;;
+        const error = {};
+        if (!data.name || !data.name.trim()) error.name = "Name required";
+        if (!data.email || !data.name.trim()) {
+            error.email = "Email required"
+        } else if (!emailRegex.test(data.email)) {
+            error.email = "not a valid email";
+        }
+        if (!data.password || !data.password.trim()) {
+            error.password = 'Password required'
+        } else if (data.password.length < 8) {
+            error.password = "Password should be 8 or above characters";
+        }
 
         setError(error);
         console.log(error);
@@ -69,7 +81,7 @@ export default function Signin() {
                 </Form.Group>
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Password</Form.Label>
-                    <Form.Control type='password' name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    <Form.Control type={showpw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
                     {error.password && <p className='text-danger'>{error.password}</p>}
                 </Form.Group>
                 <Form.Group className='m-2'>
