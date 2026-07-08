@@ -1,13 +1,13 @@
 import './Login.css'
 import { useState } from 'react'
-import { Link , useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 export default function Signin() {
     const navigate = useNavigate();
-    const [users , setUsers] = useState(JSON.parse(localStorage.getItem('auth')) || [])
+    const [users, setUsers] = useState(JSON.parse(localStorage.getItem('auth')) || [])
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -15,7 +15,7 @@ export default function Signin() {
     const [error, setError] = useState({
         email: "",
         password: "",
-        auth : ""
+        auth: ""
     })
 
     const handleChange = (e) => {
@@ -28,18 +28,19 @@ export default function Signin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let user = users.find(user=> user.email === data.email);
-        if(!user) {
-            setError(prev => ({...prev , auth:'User not found'}))
-            console.log(error)
-            return
-        }
-        if(validate(user)){ 
-            if(user.password === data.password){
+        let user = users.find(user => user.email === data.email);
+        if (validate()) {
+            if (!user) {
+                setError(prev => ({ ...prev, auth: 'User not found' }))
+                console.log(error)
+                return
+            }
+
+            if (user.password === data.password) {
                 localStorage.setItem('loggedIn', JSON.stringify(user))
                 navigate('/home')
-            }else{
-                setError(prev => ({...prev , auth:"Password doesn't match"}))
+            } else {
+                setError(prev => ({ ...prev, auth: "Password doesn't match" }))
             }
         }
     }
@@ -47,12 +48,16 @@ export default function Signin() {
     const validate = () => {
         const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;;
         const error = {};
-        if (!data?.email) error.email = "email required";
-        if(data.email){
-            if (!emailRegex.test(data?.email)) error.email = "not a valid email";
+        if (!data.email || !data.email.trim()) {
+            error.email = "Email required"
+        } else if (!emailRegex.test(data.email)) {
+            error.email = "not a valid email";
         }
-        if (data.password.length < 8) error.password = "Password should be 8 or above characters";
-        if(!data.password) error.password = 'Password Required'
+        if (!data.password || !data.password.trim()) {
+            error.password = 'Password required'
+        } else if (data.password.length < 8) {
+            error.password = "Password should be 8 or above characters";
+        }
 
         setError(error);
         return Object.keys(error).length === 0;
@@ -63,7 +68,7 @@ export default function Signin() {
                 <h3 className='my-3'>Login</h3>
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Email</Form.Label>
-                    <Form.Control  type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
+                    <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
                     {error.email && <p className='text-danger'>{error.email}</p>}
                 </Form.Group>
                 <Form.Group className='form-group m-2 text-start'>
