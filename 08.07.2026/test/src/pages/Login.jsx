@@ -4,9 +4,12 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 export default function Signin() {
     const navigate = useNavigate();
+    const [showPw, setShowPw] = useState(false)
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('auth')) || [])
     const [data, setData] = useState({
         email: "",
@@ -71,9 +74,12 @@ export default function Signin() {
                     <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
                     {error.email && <p className='text-danger'>{error.email}</p>}
                 </Form.Group>
-                <Form.Group className='form-group m-2 text-start'>
+                <Form.Group className='form-group m-2 text-start position-relative'>
                     <Form.Label className='p-2'>Password</Form.Label>
-                    <Form.Control type='password' name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    {showPw ? <FaEyeSlash onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
+                        : <FaEye onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
+                    }
                     {error.password && <p className='text-danger'>{error.password}</p>}
                 </Form.Group>
                 <Form.Group className='m-2'>

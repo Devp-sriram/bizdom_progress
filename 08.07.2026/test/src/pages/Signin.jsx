@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 export default function Signin() {
     const navigate = useNavigate();
 
-    const [showpw, setShowPw] = useState(false)
+    const [showPw, setShowPw] = useState(false)
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -79,9 +79,12 @@ export default function Signin() {
                     <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
                     {error.email && <p className='text-danger'>{error.email}</p>}
                 </Form.Group>
-                <Form.Group className='form-group m-2 text-start'>
+                <Form.Group className='form-group m-2 text-start position-relative'>
                     <Form.Label className='p-2'>Password</Form.Label>
-                    <Form.Control type={showpw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    { showPw ? <FaEyeSlash onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
+                        : <FaEye onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
+                    }
                     {error.password && <p className='text-danger'>{error.password}</p>}
                 </Form.Group>
                 <Form.Group className='m-2'>
