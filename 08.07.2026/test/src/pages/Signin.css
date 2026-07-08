@@ -1,0 +1,22 @@
+.outbox {
+    background: linear-gradient(90deg, #7dff9d 0%, #7dfce7 100%);
+    min-height: 100vh;
+}
+
+.box {
+    background-color: white;
+    width: 25%;
+    height: fit-content;
+}
+
+@media screen and (width < 1024px) {
+    .box {
+        width: 50%;
+    }
+}
+
+@media screen and (width < 768px) {
+    .box {
+        width: 100%;
+    }
+}
