@@ -40,7 +40,8 @@ export default function Dash() {
 
 
     const [offset, setOffset] = useState(0);
-    const [pageCount, setPageCount] = useState(5)
+    const [pageCount, setPageCount] = useState(5);
+
     const [show, setShow] = useState(false);
     const [delShow, setDelShow] = useState(false);
     const [advShow, setAdvShow] = useState(false);

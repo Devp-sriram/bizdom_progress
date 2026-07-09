@@ -1,8 +1,11 @@
-import { Table, Modal, Form, Button, Badge } from 'react-bootstrap'
+import { Table, Modal, Form, Button, Badge, Pagination, Dropdown, Collapse } from 'react-bootstrap'
 import { BiSolidEdit } from "react-icons/bi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import { toast } from 'react-toastify'
+import { CiSearch } from "react-icons/ci";
+import { GoStack } from "react-icons/go";
 
 import { useState, useEffect } from 'react'
 import { useProduct } from '../context/context'
@@ -13,7 +16,7 @@ import { reduceLength } from '../utils/len'
 export default function TableProd() {
 
     const navigate = useNavigate()
-    const { products, setProducts } = useProduct()
+    const { products, setProducts } = useProduct();
     const [category, setCategory] = useState([])
 
     const [showId, setShowId] = useState(0)
@@ -24,6 +27,21 @@ export default function TableProd() {
     const [showCreate, setShowCreate] = useState(0)
     const [showDel, setShowDel] = useState(false);
     const [showOpen, setShowOpen] = useState(false);
+
+    const [active, setActive] = useState(0)
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(5);
+    // const [perPage , setPerPage] = useState(5)
+
+    const [search, setSearch] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState(products)
+    const [searchProd, setSearchProd] = useState({
+        title: "",
+        brand: "",
+        category: "",
+        price: ""
+    })
+    const [advShow, setAdvShow] = useState(false);
 
 
     const [count, setCount] = useState(Number(JSON.parse(localStorage.getItem('count'))) || 30);
@@ -67,6 +85,36 @@ export default function TableProd() {
     const handleDelClose = () => setShowDel(false);
     const handleDelShow = () => setShowDel(true);
 
+    const handleAdvChange = (e) => {
+        setSearchProd(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleAdvSearch = (e) => {
+        e.preventDefault();
+        setFilteredProducts(products)
+        setFilteredProducts(prev =>
+            prev.filter(item => {
+                return Object.keys(searchProd).every(key => {
+                    const query = searchProd[key].trim().toLowerCase();
+                    if (!query) return true;
+
+                    const value = item[key] ? item[key].toString().toLowerCase() : "";
+                    return value.includes(query);
+                });
+            })
+        );
+    };
+
+    const resetAdv = () => {
+        setFilteredProducts(products);
+        setSearchProd({
+            title: "",
+            brand: "",
+            category: "",
+            price: ""
+        })
+    }
+
     const handleOpenClose = () => {
         setShowOpen(false);
         setProduct({
@@ -101,6 +149,17 @@ export default function TableProd() {
         setProduct(product)
     }
 
+    const handleSearch = () => {
+        if (search.length == 0) {
+            setFilteredProducts(products)
+        } else {
+            setFilteredProducts(products)
+            setFilteredProducts(prev =>
+                prev.filter(item => Object.values(item).join('').toLowerCase().includes(search.toLowerCase()))
+            )
+        }
+    }
+
     const handleDelete = () => {
         console.log(delId)
         setProducts(prev =>
@@ -118,6 +177,7 @@ export default function TableProd() {
         })
         setDelId(0);
         handleDelClose()
+        toast.success('Product deleted successfully');
     }
     const handleChange = (e) => {
         setProduct(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -137,6 +197,7 @@ export default function TableProd() {
         } else {
             setNewProduct(prev => ({ ...prev, [name]: value }));
         }
+
     }
     const handleNewSubmit = (e) => {
         e.preventDefault()
@@ -156,7 +217,19 @@ export default function TableProd() {
                 price: ""
             })
             handleCreateClose()
+            toast('🦄 Wow so easy!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            toast.success('Product created successfully');
         }
+
     }
 
     const handleSubmit = (e) => {
@@ -180,6 +253,7 @@ export default function TableProd() {
                 price: ""
             })
             handleClose()
+            toast.success('Product updated successfully');
         }
     }
     const newValidate = () => {
@@ -258,16 +332,71 @@ export default function TableProd() {
     }, [count]);
 
     useEffect(() => {
+        handleSearch()
+    }, [search])
+
+    useEffect(() => {
         setNewProduct(prev => ({ ...prev, id: (count + 1) }))
     }, [])
 
-    useEffect(() => {
-        console.log(newProduct)
-    }, [newProduct])
-
     return (
         <div className='w-100 m-3 text-start'>
-            <Button onClick={() => handleCreateOpen()} className='m-2'> Add New Product</Button>
+            <div className='d-flex justify-content-between mb-4'>
+                <div className='d-flex gap-4'>
+                    <div className='position-relative'>
+                        <CiSearch className='position-absolute' style={{ left: "8px", top: '23px' }} />
+                        <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded ps-4 my-2' placeholder='search' />
+                    </div>
+                    <Button variant="primary" className='m-2 cus-ani' onClick={() => setAdvShow(!advShow)}>
+                        <div className='d-flex gap-2'>
+                            <GoStack className='m-1' /> AdvanceSearch
+                        </div>
+                    </Button>
+                </div>
+            </div>
+            <Collapse in={advShow}>
+                <div className='border rounded-3 my-4 p-2 text-start '>
+                    <Form onSubmit={(e) => handleAdvSearch(e)}>
+                        <Form.Group className='row py-2'>
+                            {/* <Form.Group className='form-group col-12 col-md-2'>
+                                        <Form.Label className='mb-2'>user ID</Form.Label>
+                                        <Form.Control type='number' name='id' value={searchProd.id} onChange={(e) => handleAdvChange(e)} />
+                                    </Form.Group> */}
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Title</Form.Label>
+                                <Form.Control type='text' name='title' value={searchProd.title} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Category</Form.Label>
+                                <Form.Control type='text' name='category' value={searchProd.category} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Brand</Form.Label>
+                                <Form.Control type='text' name='brand' value={searchProd.brand} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Price</Form.Label>
+                                <Form.Control type='number' name='price' value={searchProd.price} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <div className='d-flex h-100 justify-content-center align-items-end'>
+                                    <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
+                                        Reset
+                                    </Button>
+                                    <div className='position-relative'>
+                                        <CiSearch className='position-absolute text-white' style={{ left: "16px", top: '12px' }} />
+                                        <Button variant="success" className='mx-2 ps-4' type='submit'>Search</Button>
+                                    </div>
+                                </div>
+
+                            </Form.Group>
+                        </Form.Group>
+                    </Form>
+                </div>
+            </Collapse>
+
+
+            <Button onClick={() => handleCreateOpen()} className='m-2 d-flex gap-2'><FaPlusCircle className="m-1" />Add New Product</Button>
             {/* show model */}
             <Modal size="xl" show={showOpen} onHide={handleOpenClose}>
                 <Modal.Header closeButton>
@@ -464,8 +593,9 @@ export default function TableProd() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map(product => {
-                        return <tr key={product.id}>
+                    {/* {userData?.length > 0 ? userData?.map((user, i) => { */}
+                    {filteredProducts?.length > 0 ? filteredProducts.map(((product, i) => {
+                        return i >= offset && i < limit ? <tr key={product.id}>
                             <td>{product.id}</td>
                             <td style={{ width: "200px", height: "100px" }} ><img src={product?.images[0]} style={{
                                 height: "200px",
@@ -474,7 +604,7 @@ export default function TableProd() {
                                 objectPosition: "center",
                                 backgroundColor: "#f8f9fa"
                             }} /></td>
-                            <td style={{ width: "300px" }}>{reduceLength(product.title, 34)}</td>
+                            <td>{reduceLength(product.title, 34)}</td>
                             {/* <td>{product.category}</td>
                             <td style={{ width: "500px" }}>{product.brand}</td> */}
                             <td>{product.stock}</td>
@@ -484,10 +614,42 @@ export default function TableProd() {
                                 <Button className='bg-warning text-white m-2' onClick={() => openEditModel(product.id)}><BiSolidEdit /></Button>
                                 <Button className='btn-danger m-2' onClick={() => openDeleteModel(product.id)}><MdDelete /></Button>
                             </td>
-                        </tr>
-                    })}
+                        </tr> : ""
+                    })) : <tr><td colSpan={6}>No Data Found</td></tr>
+                    }
                 </tbody>
             </Table>
+            <section className='w-100 d-flex justify-content-end gap-3'>
+                {/* <Dropdown className='m-2'>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
+                        Items per page : {limit}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                         <Dropdown.Item onClick={() => setLimit(5)}>5</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(10)}>10</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(15)}>15</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown> */}
+                <Pagination>
+                    {Array.from({ length: Math.ceil(filteredProducts?.length / 5) }).map((_, i) => {
+                        const pageNumber = i;
+                        return (
+                            <Pagination.Item
+                                key={pageNumber}
+                                active={pageNumber === active}
+                                onClick={() => {
+                                    setOffset(pageNumber * 5)
+                                    setLimit((pageNumber * 5) + 5)
+                                    setActive(pageNumber)
+                                }
+                                }
+                            >
+                                {pageNumber + 1}
+                            </Pagination.Item>
+                        );
+                    })}
+                </Pagination>
+            </section>
         </div>
     )
 }

@@ -1,11 +1,17 @@
-import { Table, Modal, Form, Button, Badge } from 'react-bootstrap'
 import { BiSolidEdit } from "react-icons/bi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
+import { GoStack } from "react-icons/go";
+
+
+import { Table, Modal, Form, Button, Badge, Pagination } from 'react-bootstrap'
 
 import { useState, useEffect } from 'react'
 import { useUser } from '../context/context'
+
+import { toast } from 'react-toastify'
 
 export default function TableProd() {
     const { users, setUsers } = useUser()
@@ -19,6 +25,10 @@ export default function TableProd() {
     const [show, setShow] = useState(false);
     const [showDel, setShowDel] = useState(false);
     const [showOpen, setShowOpen] = useState(false);
+
+    const [active, setActive] = useState(0)
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(5);
 
     const [user, setUser] = useState({
         id: "",
@@ -95,7 +105,8 @@ export default function TableProd() {
             address: {},
         })
         setDelId(0);
-        handleDelClose()
+        handleDelClose();
+        toast.success('User deleted successfully');
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -131,6 +142,7 @@ export default function TableProd() {
                 address: {},
             })
             handleClose()
+            toast.success('User updated successfully');
         }
     }
 
@@ -152,12 +164,13 @@ export default function TableProd() {
                 price: ""
             })
             handleCreateClose()
+            toast.success('User created successfully');
         }
     }
 
     const validate = () => {
         const error = {};
-        
+
         const isEmpty = (value) => !value || value.trim() === "";
 
         const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
@@ -197,7 +210,7 @@ export default function TableProd() {
 
     return (
         <div className='w-100 m-3 text-start'>
-            <Button onClick={() => handleCreateOpen()} className='m-2'> Add New Users</Button>
+            <Button onClick={() => handleCreateOpen()} className='m-2 d-flex gap-2'><FaPlusCircle className="m-1" /> Add New User</Button>
 
             {/* Open model */}
             <Modal show={showOpen} onHide={handleOpenClose}>
@@ -271,7 +284,7 @@ export default function TableProd() {
             {/* Edit model */}
             <Modal size="xl" show={show} onHide={() => handleClose()}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Product</Modal.Title>
+                    <Modal.Title>Edit User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/*//id,firstName,lastName,email,phone,address */}
@@ -350,12 +363,12 @@ export default function TableProd() {
                         {/* <th>email</th>
                         <th>phone</th> */}
                         <th>city</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map(user => {
-                        return <tr key={user.id}>
+                    {users.length > 0 ? users.map((user, i) => {
+                        return (i > offset && i < limit) && <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
@@ -368,9 +381,40 @@ export default function TableProd() {
                                 <Button className='btn-danger m-2' onClick={() => openDeleteModel(user.id)}><MdDelete /></Button>
                             </td>
                         </tr>
-                    })}
+                    }) : <tr><td colSpan={5}>No User Data</td></tr>}
                 </tbody>
             </Table>
+            <section className='w-100 d-flex justify-content-end gap-3'>
+                {/* <Dropdown className='m-2'>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
+                        Items per page : {limit}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                         <Dropdown.Item onClick={() => setLimit(5)}>5</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(10)}>10</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(15)}>15</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown> */}
+                <Pagination>
+                    {Array.from({ length: Math.ceil(users?.length / 5) }).map((_, i) => {
+                        const pageNumber = i;
+                        return (
+                            <Pagination.Item
+                                key={pageNumber}
+                                active={pageNumber === active}
+                                onClick={() => {
+                                    setOffset(pageNumber * 5)
+                                    setLimit((pageNumber * 5) + 5)
+                                    setActive(pageNumber)
+                                }
+                                }
+                            >
+                                {pageNumber + 1}
+                            </Pagination.Item>
+                        );
+                    })}
+                </Pagination>
+            </section>
         </div>
     )
 }
