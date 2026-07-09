@@ -27,7 +27,7 @@ export default function Signin() {
         const { name, value } = e.target;
         setData(prev => ({
             ...prev,
-            [name]: value
+            [name]: name == 'email' || name == 'password' ? value.trim() : value
         }))
     }
 
@@ -67,26 +67,26 @@ export default function Signin() {
     };
     return (
         <section className='outbox d-flex justify-content-center align-items-center'>
-            <Form onSubmit={(e) => handleSubmit(e)} className='box border form rounded m-2'>
-                <h3 className='my-3'>Signin</h3>
+            <Form onSubmit={(e) => handleSubmit(e)} className='box border form rounded m-2 text-start'>
+                <h3 className='my-3 text-center'>Signin</h3>
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Name</Form.Label>
                     <Form.Control type='text' name='name' value={data.name} onChange={(e) => handleChange(e)} />
-                    {error.name && <p className='text-danger'>{error.name}</p>}
                 </Form.Group>
+                    {error.name && <p className='text-danger ms-2'>{error.name}</p>}
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Email</Form.Label>
                     <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
-                    {error.email && <p className='text-danger'>{error.email}</p>}
                 </Form.Group>
+                    {error.email && <p className='text-danger ms-2'>{error.email}</p>}
                 <Form.Group className='form-group m-2 text-start position-relative'>
                     <Form.Label className='p-2'>Password</Form.Label>
                     <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
                     { showPw ? <FaEyeSlash onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
                         : <FaEye onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
                     }
-                    {error.password && <p className='text-danger'>{error.password}</p>}
                 </Form.Group>
+                    {error.password && <p className='text-danger ms-2'>{error.password}</p>}
                 <Form.Group className='m-2'>
                     <button type='submit' className='w-100 btn btn-primary'>Submit</button>
                     <Form.Text>Already signed up login here <Link to='/'>here</Link></Form.Text>

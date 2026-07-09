@@ -25,7 +25,7 @@ export default function Signin() {
         const { name, value } = e.target;
         setData(prev => ({
             ...prev,
-            [name]: value
+            [name]: value.trim()
         }))
     }
 
@@ -67,25 +67,25 @@ export default function Signin() {
     };
     return (
         <section className='outbox d-flex justify-content-center align-items-center'>
-            <Form onSubmit={(e) => handleSubmit(e)} className='box border form rounded m-2'>
-                <h3 className='my-3'>Login</h3>
+            <Form onSubmit={(e) => handleSubmit(e)} className='box border form rounded m-2 text-start'>
+                <h3 className='my-3 text-center'>Login</h3>
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Email</Form.Label>
                     <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
-                    {error.email && <p className='text-danger'>{error.email}</p>}
                 </Form.Group>
+                    {error.email && <p className='text-danger ms-2'>{error.email}</p>}
                 <Form.Group className='form-group m-2 text-start position-relative'>
                     <Form.Label className='p-2'>Password</Form.Label>
                     <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
                     {showPw ? <FaEyeSlash onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
                         : <FaEye onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
                     }
-                    {error.password && <p className='text-danger'>{error.password}</p>}
                 </Form.Group>
-                <Form.Group className='m-2'>
+                    {error.password && <p className='text-danger ms-2'>{error.password}</p>}
+                <Form.Group className='m-2 text-center'>
                     {error.auth && <p className='text-danger'>{error.auth}</p>}
                     <Button type='submit' className='w-100 btn btn-primary'>Submit</Button>
-                    <Form.Text>New user? signin here <Link to='/signin'>here</Link></Form.Text>
+                    <Form.Text >New user? signin <Link to='/signin'>here</Link></Form.Text>
                 </Form.Group>
             </Form>
         </section>

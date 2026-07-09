@@ -53,14 +53,14 @@ function Header() {
         </div>
 
 
-        <Offcanvas show={show} onHide={handleClose} className='bg-secondary'>
+        <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header closeButton>
             </Offcanvas.Header>
             <Offcanvas.Body>
                 <ul className="list-unstyled m-3 text-none ">
-                    <Link to="/home"><li className='w-100 p-2 text-start'>Home</li></Link>
-                    <Link to="/home/users"><li className='w-100 p-2 text-start'>Users</li></Link>
-                    <Link to="/home/products"><li className='w-100 p-2 text-start'>Products</li></Link>
+                    <Link to="/home" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Home</li></Link>
+                    <Link to="/home/users" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Users</li></Link>
+                    <Link to="/home/products" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Products</li></Link>
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
