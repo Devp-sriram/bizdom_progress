@@ -217,16 +217,6 @@ export default function TableProd() {
                 price: ""
             })
             handleCreateClose()
-            toast('🦄 Wow so easy!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
             toast.success('Product created successfully');
         }
 
@@ -338,6 +328,10 @@ export default function TableProd() {
     useEffect(() => {
         setNewProduct(prev => ({ ...prev, id: (count + 1) }))
     }, [])
+
+    useEffect(()=>{
+        setFilteredProducts(products)  
+    },[products])
 
     return (
         <div className='w-100 m-3 text-start'>
