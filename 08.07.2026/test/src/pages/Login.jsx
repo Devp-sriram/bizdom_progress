@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
-export default function Signin() {
+export default function Login() {
     const navigate = useNavigate();
     const [showPw, setShowPw] = useState(false)
     const [users, setUsers] = useState(JSON.parse(localStorage.getItem('auth')) || [])
