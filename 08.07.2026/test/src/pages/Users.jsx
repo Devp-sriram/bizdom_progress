@@ -1,11 +1,17 @@
-import { Table, Modal, Form, Button, Badge } from 'react-bootstrap'
 import { BiSolidEdit } from "react-icons/bi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
+import { GoStack } from "react-icons/go";
+
+
+import { Table, Modal, Form, Button, Badge, Pagination, Collapse } from 'react-bootstrap'
 
 import { useState, useEffect } from 'react'
 import { useUser } from '../context/context'
+
+import { toast } from 'react-toastify'
 
 export default function TableProd() {
     const { users, setUsers } = useUser()
@@ -19,6 +25,19 @@ export default function TableProd() {
     const [show, setShow] = useState(false);
     const [showDel, setShowDel] = useState(false);
     const [showOpen, setShowOpen] = useState(false);
+
+    const [active, setActive] = useState(0)
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(5);
+
+    const [search, setSearch] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState(users)
+    const [searchUser, setSearchUser] = useState({
+        firstName: '',
+        lastName: "",
+        email: "",
+    })
+    const [advShow, setAdvShow] = useState(false);
 
     const [user, setUser] = useState({
         id: "",
@@ -80,6 +99,64 @@ export default function TableProd() {
         setUser(user)
     }
 
+    const handleAdvChange = (e) => {
+        setSearchUser(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleAdvSearch = (e) => {
+        e.preventDefault();
+        setFilteredUsers(users)
+        setFilteredUsers(prev =>
+            prev.filter(item => {
+                return Object.keys(searchUser).every(key => {
+                    const query = searchUser[key].trim().toLowerCase();
+                    if (!query) return true;
+
+                    const value = item[key] ? item[key].toString().toLowerCase() : "";
+                    return value.includes(query);
+                });
+            })
+        );
+    };
+
+    const resetAdv = () => {
+        setFilteredUsers(users);
+        setSearchUser({
+            title: "",
+            brand: "",
+            category: "",
+            price: ""
+        })
+    }
+
+    const handleSearch = () => {
+        if (search.length == 0) {
+            setFilteredUsers(users)
+        } else {
+            setFilteredUsers(users)
+            const flatern = (item) => {
+                console.log(Array.isArray(Object.values(item)) ? Object.values(item).join('') : item)
+                return Array.isArray(Object.values(item)) ? Object.values(item).join('') : item
+                // const jsonString = JSON.stringify(item);
+                // console.log(jsonString)
+                // if (!jsonString) return "";
+
+                // const cleanText = jsonString
+                //     .replace(/["{}[\],:]/g, '')
+                //     .toLowerCase();
+                // return cleanText
+            };
+            setFilteredUsers(prev => {
+                return prev.filter(item => {
+                    // console.log(Object.values(flatern(item)))
+                    return Object.values(item).join('').toLowerCase().includes(search.toLowerCase())
+                })
+
+            }
+            )
+        }
+    }
+
     const handleDelete = () => {
         console.log(delId)
         setUsers(prev =>
@@ -95,7 +172,8 @@ export default function TableProd() {
             address: {},
         })
         setDelId(0);
-        handleDelClose()
+        handleDelClose();
+        toast.success('User deleted successfully');
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -131,6 +209,7 @@ export default function TableProd() {
                 address: {},
             })
             handleClose()
+            toast.success('User updated successfully');
         }
     }
 
@@ -152,12 +231,13 @@ export default function TableProd() {
                 price: ""
             })
             handleCreateClose()
+            toast.success('User created successfully');
         }
     }
 
     const validate = () => {
         const error = {};
-        
+
         const isEmpty = (value) => !value || value.trim() === "";
 
         const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
@@ -191,13 +271,80 @@ export default function TableProd() {
     useEffect(() => {
         setUser(prev => ({ ...prev, id: (count + 1) }))
     }, [])
+
+
+    useEffect(() => {
+        handleSearch()
+    }, [search])
     // useEffect(()=>{
     //     console.log(user)
     // },[user])
 
+    useEffect(()=>{
+        console.log(filteredUsers)
+        setFilteredUsers(users)
+    },[users])
+
     return (
         <div className='w-100 m-3 text-start'>
-            <Button onClick={() => handleCreateOpen()} className='m-2'> Add New Users</Button>
+
+            <div className='d-flex justify-content-between mb-4'>
+                <div className='d-flex gap-4'>
+                    <div className='position-relative'>
+                        <CiSearch className='position-absolute' style={{ left: "8px", top: '23px' }} />
+                        <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='form-control rounded ps-4 my-2' placeholder='search' />
+                    </div>
+                    <Button variant="primary" className='m-2 cus-ani' onClick={() => setAdvShow(!advShow)}>
+                        <div className='d-flex gap-2'>
+                            <GoStack className='m-1' /> AdvanceSearch
+                        </div>
+                    </Button>
+                </div>
+            </div>
+            <Collapse in={advShow}>
+                <div className='border rounded-3 my-4 p-2 text-start '>
+                    <Form onSubmit={(e) => handleAdvSearch(e)}>
+                        <Form.Group className='row py-2'>
+                            {/* <Form.Group className='form-group col-12 col-md-2'>
+                                        <Form.Label className='mb-2'>user ID</Form.Label>
+                                        <Form.Control type='number' name='id' value={searchUser.id} onChange={(e) => handleAdvChange(e)} />
+                                    </Form.Group> */}
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Title</Form.Label>
+                                <Form.Control type='text' name='title' value={searchUser.title} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Category</Form.Label>
+                                <Form.Control type='text' name='category' value={searchUser.category} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Brand</Form.Label>
+                                <Form.Control type='text' name='brand' value={searchUser.brand} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <Form.Label className='mb-2'>Price</Form.Label>
+                                <Form.Control type='number' name='price' value={searchUser.price} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <div className='d-flex h-100 justify-content-center align-items-end'>
+                                    <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
+                                        Reset
+                                    </Button>
+                                    <div className='position-relative'>
+                                        <CiSearch className='position-absolute text-white' style={{ left: "16px", top: '12px' }} />
+                                        <Button variant="success" className='mx-2 ps-4' type='submit'>Search</Button>
+                                    </div>
+                                </div>
+
+                            </Form.Group>
+                        </Form.Group>
+                    </Form>
+                </div>
+            </Collapse>
+
+
+
+            <Button onClick={() => handleCreateOpen()} className='m-2 d-flex gap-2'><FaPlusCircle className="m-1" /> Add New User</Button>
 
             {/* Open model */}
             <Modal show={showOpen} onHide={handleOpenClose}>
@@ -271,7 +418,7 @@ export default function TableProd() {
             {/* Edit model */}
             <Modal size="xl" show={show} onHide={() => handleClose()}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Product</Modal.Title>
+                    <Modal.Title>Edit User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {/*//id,firstName,lastName,email,phone,address */}
@@ -350,12 +497,12 @@ export default function TableProd() {
                         {/* <th>email</th>
                         <th>phone</th> */}
                         <th>city</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map(user => {
-                        return <tr key={user.id}>
+                    {filteredUsers.length > 0 ? filteredUsers.map((user, i) => {
+                        return (i >= offset && i < limit) && <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
@@ -368,9 +515,40 @@ export default function TableProd() {
                                 <Button className='btn-danger m-2' onClick={() => openDeleteModel(user.id)}><MdDelete /></Button>
                             </td>
                         </tr>
-                    })}
+                    }) : <tr><td colSpan={5}>No User Data</td></tr>}
                 </tbody>
             </Table>
+            <section className='w-100 d-flex justify-content-end gap-3'>
+                {/* <Dropdown className='m-2'>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
+                        Items per page : {limit}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                         <Dropdown.Item onClick={() => setLimit(5)}>5</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(10)}>10</Dropdown.Item>
+                         <Dropdown.Item onClick={() => setLimit(15)}>15</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown> */}
+                <Pagination>
+                    {Array.from({ length: Math.ceil(filteredUsers?.length / 5) }).map((_, i) => {
+                        const pageNumber = i;
+                        return (
+                            <Pagination.Item
+                                key={pageNumber}
+                                active={pageNumber === active}
+                                onClick={() => {
+                                    setOffset(pageNumber * 5)
+                                    setLimit((pageNumber * 5) + 5)
+                                    setActive(pageNumber)
+                                }
+                                }
+                            >
+                                {pageNumber + 1}
+                            </Pagination.Item>
+                        );
+                    })}
+                </Pagination>
+            </section>
         </div>
     )
 }
