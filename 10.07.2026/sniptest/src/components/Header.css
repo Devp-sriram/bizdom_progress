@@ -1,0 +1,9 @@
+@media screen and ( width > 768px) {
+    .hamburger {
+        display: none;
+    }
+}
+
+.username{
+    font-size: 12px;
+}
