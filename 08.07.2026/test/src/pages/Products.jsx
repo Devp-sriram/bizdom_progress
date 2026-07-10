@@ -1,8 +1,7 @@
 import { Table, Modal, Form, Button, Badge, Pagination, Dropdown, Collapse } from 'react-bootstrap'
 import { BiSolidEdit } from "react-icons/bi";
-import { FaPlusCircle } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
+import { FaPlusCircle, FaEye } from "react-icons/fa";
+import { MdDelete, MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { toast } from 'react-toastify'
 import { CiSearch } from "react-icons/ci";
 import { GoStack } from "react-icons/go";
@@ -31,7 +30,7 @@ export default function TableProd() {
     const [active, setActive] = useState(0)
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(5);
-    // const [perPage , setPerPage] = useState(5)
+    const [perPage, setPerPage] = useState(limit)
 
     const [search, setSearch] = useState('');
     const [filteredProducts, setFilteredProducts] = useState(products)
@@ -329,9 +328,13 @@ export default function TableProd() {
         setNewProduct(prev => ({ ...prev, id: (count + 1) }))
     }, [])
 
-    useEffect(()=>{
-        setFilteredProducts(products)  
-    },[products])
+    useEffect(() => {
+        setFilteredProducts(products)
+    }, [products])
+
+    useEffect(() => {
+        setPerPage(limit)
+    }, [limit])
 
     return (
         <div className='w-100 m-3 text-start'>
@@ -589,7 +592,7 @@ export default function TableProd() {
                 <tbody>
                     {/* {userData?.length > 0 ? userData?.map((user, i) => { */}
                     {filteredProducts?.length > 0 ? filteredProducts.map(((product, i) => {
-                        return i >= offset && i < limit ? <tr key={product.id}>
+                        return i >= offset && i < perPage ? <tr key={product.id}>
                             <td>{product.id}</td>
                             <td style={{ width: "200px", height: "100px" }} ><img src={product?.images[0]} style={{
                                 height: "200px",
@@ -613,27 +616,43 @@ export default function TableProd() {
                     }
                 </tbody>
             </Table>
-            <section className='w-100 d-flex justify-content-end gap-3'>
-                {/* <Dropdown className='m-2'>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
-                        Items per page : {limit}
+            <section className='w-100 d-flex justify-content-end gap-2 '>
+                <Dropdown className='mx-2'>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center p-2 bg-primary text-white border-0">
+                        {limit}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                         <Dropdown.Item onClick={() => setLimit(5)}>5</Dropdown.Item>
-                         <Dropdown.Item onClick={() => setLimit(10)}>10</Dropdown.Item>
-                         <Dropdown.Item onClick={() => setLimit(15)}>15</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(5)
+                            setOffset(0)
+                            setActive(0)
+                        }}>5</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(10)
+                            setOffset(0)
+                            setActive(0)
+                        }}>10</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(15)
+                            setOffset(0)
+                            setActive(0)
+                        }}>15</Dropdown.Item>
                     </Dropdown.Menu>
-                </Dropdown> */}
+                </Dropdown>
+                <div className='d-flex gap-2 mb-3'>
+                    <Button className='btn-light text-primary'> <MdOutlineKeyboardArrowLeft/> </Button>
+                </div>
                 <Pagination>
-                    {Array.from({ length: Math.ceil(filteredProducts?.length / 5) }).map((_, i) => {
+
+                    {Array.from({ length: Math.ceil(filteredProducts?.length / limit) }).map((_, i) => {
                         const pageNumber = i;
                         return (
                             <Pagination.Item
                                 key={pageNumber}
                                 active={pageNumber === active}
                                 onClick={() => {
-                                    setOffset(pageNumber * 5)
-                                    setLimit((pageNumber * 5) + 5)
+                                    setOffset(pageNumber * limit)
+                                    setPerPage((pageNumber * limit) + limit)
                                     setActive(pageNumber)
                                 }
                                 }
@@ -643,6 +662,10 @@ export default function TableProd() {
                         );
                     })}
                 </Pagination>
+                <div className='d-flex gap-2 mb-3'>
+                    <Button className='btn-light text-primary'> <MdOutlineKeyboardArrowRight/> </Button>
+                </div>
+
             </section>
         </div>
     )

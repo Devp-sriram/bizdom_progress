@@ -46,7 +46,7 @@ function Header() {
         localStorage.removeItem('loggedIn')
     }
 
-    return <header className="d-flex px-4 p-3 justify-content-between border top">
+    return <header className="d-flex px-4 p-3 justify-content-between border top bg-primary-subtle">
         <div className="d-flex gap-2 align-items-center">
             <Button className='hamburger btn btn-light' onClick={handleShow}><HiOutlineMenu /></Button>
             <h2 className="mb-0 text-brand ">Admin console</h2>

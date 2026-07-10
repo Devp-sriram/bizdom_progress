@@ -1,10 +1,8 @@
 import { BiSolidEdit } from "react-icons/bi";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { GoStack } from "react-icons/go";
-
 
 import { Table, Modal, Form, Button, Badge, Pagination, Collapse } from 'react-bootstrap'
 
@@ -280,10 +278,10 @@ export default function TableProd() {
     //     console.log(user)
     // },[user])
 
-    useEffect(()=>{
-        console.log(filteredUsers)
+    useEffect(() => {
+        // console.log(filteredUsers)
         setFilteredUsers(users)
-    },[users])
+    }, [users])
 
     return (
         <div className='w-100 m-3 text-start'>

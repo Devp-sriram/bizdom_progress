@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import { FaEyeSlash } from "react-icons/fa";
-import { FaEye } from "react-icons/fa";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 import Form from 'react-bootstrap/Form';
 
@@ -73,20 +72,20 @@ export default function Signin() {
                     <Form.Label className='p-2'>Name</Form.Label>
                     <Form.Control type='text' name='name' value={data.name} onChange={(e) => handleChange(e)} />
                 </Form.Group>
-                    {error.name && <p className='text-danger ms-2'>{error.name}</p>}
+                {error.name && <p className='text-danger ms-2'>{error.name}</p>}
                 <Form.Group className='form-group m-2 text-start'>
                     <Form.Label className='p-2'>Email</Form.Label>
                     <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
                 </Form.Group>
-                    {error.email && <p className='text-danger ms-2'>{error.email}</p>}
+                {error.email && <p className='text-danger ms-2'>{error.email}</p>}
                 <Form.Group className='form-group m-2 text-start position-relative'>
                     <Form.Label className='p-2'>Password</Form.Label>
                     <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
-                    { showPw ? <FaEyeSlash onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
-                        : <FaEye onClick={()=>setShowPw(!showPw)} className='position-absolute' style={{right:"10px", bottom:'10px'}}/>
+                    {showPw ? <FaEyeSlash onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
+                        : <FaEye onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
                     }
                 </Form.Group>
-                    {error.password && <p className='text-danger ms-2'>{error.password}</p>}
+                {error.password && <p className='text-danger ms-2'>{error.password}</p>}
                 <Form.Group className='m-2'>
                     <button type='submit' className='w-100 btn btn-primary'>Submit</button>
                     <Form.Text>Already signed up login here <Link to='/'>here</Link></Form.Text>

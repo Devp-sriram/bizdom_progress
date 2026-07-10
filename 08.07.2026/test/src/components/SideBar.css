@@ -19,7 +19,7 @@ ul a:hover {
     color: white;
 
     li {
-        background-color: var(--brand);
+        background-color: var(--bs-primary);
     }
 }
 

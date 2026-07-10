@@ -4,8 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { FaEyeSlash } from "react-icons/fa";
-import { FaEye } from "react-icons/fa";
+import { FaEyeSlash , FaEye} from "react-icons/fa";
 
 export default function Login() {
     const navigate = useNavigate();
