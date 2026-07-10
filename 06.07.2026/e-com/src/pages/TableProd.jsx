@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { Table, Modal, Form, Button, Badge } from 'react-bootstrap'
 import { useProduct } from '../context/context'
 import { reduceLength } from '../utils/len'
-import './TableProd'
 import { BiSolidEdit } from "react-icons/bi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import './TableProd'
 
 export default function TableProd() {
     const { products, setProducts } = useProduct()

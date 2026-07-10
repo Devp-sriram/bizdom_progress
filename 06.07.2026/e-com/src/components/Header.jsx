@@ -26,7 +26,6 @@ function Header() {
         setCart(prev =>
             prev.map(item => item.id == id ? item.qty > 1 ? { ...item, qty: item.qty -= 1 } : {} : item)
         )
-
     }
 
     const AddQty = (e, id) => {
@@ -35,9 +34,8 @@ function Header() {
             prev.map(item => item.id == id ? { ...item, qty: item.qty += 1 } : item)
         )
     }
-
     const cartTotal = useMemo(() => {
-        return cart.filter(item => item && Object.keys(item).length > 0).reduce((acc, item) => acc + item.price, 0).toFixed(2);
+        return cart.filter(item => item && Object.keys(item).length > 0).reduce((acc, item) => acc + item.price * item?.qty, 0).toFixed(2);
     }, [cart]);
 
     useEffect(() => {
@@ -46,7 +44,7 @@ function Header() {
 
     console.log(cart)
 
-    const logout = () =>{
+    const logout = () => {
         localStorage.removeItem('loggedIn')
     }
 
@@ -83,7 +81,7 @@ function Header() {
                         </div>
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu style={{ width: "16rem" }}>
+                    <Dropdown.Menu style={{ width: "18rem" }}>
                         <h4 className="text-start p-2">Cart</h4>
                         {cart
                             .filter(item => item && Object.keys(item).length > 0)
@@ -99,7 +97,8 @@ function Header() {
                                     <div className="w-100">
                                         <h6>{reduceLength(item?.title, 16)}</h6>
                                         <div className="d-flex justify-content-between">
-                                            <p className="mb-0">$ {item.price}</p>
+                                            <p className="mb-0">x {item?.qty || 1}</p>
+                                            <p className="mb-0">$ {item.price * item?.qty}</p>
                                             <div className="d-flex align-items-cenetr justify-content-center">
                                                 <Button onClick={(e) => SubQty(e, item.id)}>-</Button>
                                                 <p className="m-1">{item?.qty}</p>
@@ -112,7 +111,7 @@ function Header() {
                             })}
                         <div className="w-100 d-flex justify-content-between">
                             <p className="m-2" >Total {cartTotal}</p>
-                            <Button variant="primary" className="m-2" onClick={()=>navigate('./cart')}>checkout</Button>
+                            <Button variant="primary" className="m-2" onClick={() => navigate('./cart')}>checkout</Button>
                         </div>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -128,7 +127,7 @@ function Header() {
                         {creds?.name
                             ? <>
                                 <Dropdown.Item href="/admin" >Admin Panel</Dropdown.Item>
-                                <Dropdown.Item href="/login" onClick={()=>logout()}>Logout</Dropdown.Item>
+                                <Dropdown.Item href="/login" onClick={() => logout()}>Logout</Dropdown.Item>
                             </>
                             : <>
                                 <Dropdown.Item href="/signin">Signin</Dropdown.Item>
