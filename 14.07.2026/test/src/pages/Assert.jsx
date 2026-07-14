@@ -20,6 +20,8 @@ export default function TableUser() {
     const [edit, setEdit] = useState(0);
     const [delId, setDelId] = useState(0);
 
+    const [prevAssigne , setPrevAssinge] = useState(0)
+
     const [showCreate, setShowCreate] = useState(0)
     const [show, setShow] = useState(false);
     const [showDel, setShowDel] = useState(false);
@@ -91,6 +93,7 @@ export default function TableUser() {
         handleShow();
         const assert = asserts.find(assert => assert.id === id);
         setAssert(assert)
+        setPrevAssinge(assert.assignedTo)
     }
 
     const openDeleteModel = (id) => {
@@ -172,9 +175,9 @@ export default function TableUser() {
         }
     }
     const reassignAssert = (assert) => {
-        const prevAssert = employees.find(emp => emp.id == assert.assignedTo)
-        console.log(prevAssert)
-        if (prevAssert.asserts.includes(assert.assignedTo)) {
+        const prevEmp = employees.find(emp => emp.id == assert.assignedTo)
+        const assertLessEmp = prevEmp?.asserts.filter(item => item != assert.id)
+        if (prevEmp.asserts.includes(assert.assignedTo)) {
 
             setEmployees(prev =>
                 prev.map(emp => {
