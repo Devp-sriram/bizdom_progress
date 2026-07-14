@@ -222,7 +222,7 @@ export default function TableUser() {
     const validate = () => {
         console.log('valildating')
         const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
-        const phoneRegex = /^[6-9]\d{9}$/;
+        const phoneRegex = /^[6-9]\d{10}$/;
         const error = {};
         const isEmpty = (value) => !value || value.trim() === "";
         const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
@@ -479,7 +479,7 @@ export default function TableUser() {
                             <td>{employee.id}</td>
                             <td>{employee.name}</td>
                             <td>{employee.department}</td>
-                            <td><ul className="list-unstyled">{employee.asserts.length > 0 ? employee.asserts.map(assert => {
+                            <td><ul className="list-unstyled">{employee?.asserts?.length > 0 ? employee.asserts.map(assert => {
                                 return <li className="bg-primary-subtle p-2 m-1">{assert} - {assertMap[assert]}</li>
                             }) : <li> - </li>}</ul></td>
                             <td>
