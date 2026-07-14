@@ -6,7 +6,8 @@ import Dash from './pages/Dash';
 import Login from './pages/Login';
 import Signin from './pages/Signin';
 
-import Employees from './pages/Employee'
+import Employees from './pages/Employee';
+import Asserts from './pages/Assert'
 
 function App() {
 
@@ -14,9 +15,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/home" element={<Home />}>
+          <Route path="/home" element={<Home />} >
             <Route index element={<Dash />} />
             <Route path="/home/employees" element={<Employees/>} />
+            <Route path="/home/asserts" element={<Asserts/>} />
           </Route>
          <Route path="/signin" element={<Signin />} />
          <Route path="/" element={<Login />} />

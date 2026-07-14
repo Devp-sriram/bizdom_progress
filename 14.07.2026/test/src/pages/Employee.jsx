@@ -1,5 +1,5 @@
-import { MdDelete, MdOutlineEmail , MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { FaPlusCircle, FaEye ,FaPhoneAlt  } from "react-icons/fa";
+import { MdDelete, MdOutlineEmail, MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { FaPlusCircle, FaEye, FaPhoneAlt, FaUsers } from "react-icons/fa";
 import { BiSolidEdit } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
 import { GoStack } from "react-icons/go";
@@ -12,7 +12,8 @@ import { useEmployee, useAssert } from '../context/context'
 import { toast } from 'react-toastify'
 
 export default function TableUser() {
-    const { employees, setEmployees } = useEmployee()
+    const { employees, setEmployees } = useEmployee();
+    const { asserts } = useAssert()
 
     const [count, setCount] = useState(Number(JSON.parse(localStorage.getItem('count'))) || 0);
     const [showId, setShowId] = useState(0)
@@ -98,6 +99,13 @@ export default function TableUser() {
     const handleAdvChange = (e) => {
         setSearchEmployees(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
+
+    const assertMap = useMemo(() => {
+        return asserts.reduce((acc, emp) => {
+            acc[emp.id] = emp.name;
+            return acc;
+        }, {});
+    }, [asserts]);
 
     const handleAdvSearch = (e) => {
         e.preventDefault();
@@ -212,7 +220,7 @@ export default function TableUser() {
     }
 
     const validate = () => {
-         console.log('valildating')
+        console.log('valildating')
         const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
         const phoneRegex = /^[6-9]\d{9}$/;
         const error = {};
@@ -231,8 +239,8 @@ export default function TableUser() {
         }
         if (isEmpty(employee.phone)) {
             error.phone = "phone required";
-        } else if (phoneRegex.test(employee.phone)){
-             error.phone = "phone number not Valid";
+        } else if (phoneRegex.test(employee.phone)) {
+            error.phone = "phone number not Valid";
         }
         if (isEmpty(employee.department)) {
             error.department = "department required";
@@ -284,15 +292,27 @@ export default function TableUser() {
                         <Form.Group className='row py-2'>
                             <Form.Group className='form-group col-12 col-md-2'>
                                 <Form.Label className='mb-2'>Name</Form.Label>
-                                <Form.Control type='text' name='title' value={searchEmployees.name} onChange={(e) => handleAdvChange(e)} />
+                                <Form.Control type='text' name='name' value={searchEmployees.name} onChange={(e) => handleAdvChange(e)} />
                             </Form.Group>
                             <Form.Group className='form-group col-12 col-md-2'>
                                 <Form.Label className='mb-2'>Email</Form.Label>
-                                <Form.Control type='text' name='category' value={searchEmployees.email} onChange={(e) => handleAdvChange(e)} />
+                                <Form.Control type='text' name='email' value={searchEmployees.email} onChange={(e) => handleAdvChange(e)} />
                             </Form.Group>
                             <Form.Group className='form-group col-12 col-md-2'>
                                 <Form.Label className='mb-2'>Department</Form.Label>
-                                <Form.Control type='text' name='brand' value={searchEmployees.department} onChange={(e) => handleAdvChange(e)} />
+                                <Form.Control type='text' name='department' value={searchEmployees.department} onChange={(e) => handleAdvChange(e)} />
+                            </Form.Group>
+                            <Form.Group className='form-group col-12 col-md-2'>
+                                <div className='d-flex h-100 justify-content-center align-items-end'>
+                                    <Button variant="secondary" className='mx-2' type='button' onClick={() => resetAdv()}>
+                                        Reset
+                                    </Button>
+                                    <div className='position-relative'>
+                                        <CiSearch className='position-absolute text-white' style={{ left: "16px", top: '12px' }} />
+                                        <Button variant="success" className='mx-2 ps-4' type='submit'>Search</Button>
+                                    </div>
+                                </div>
+
                             </Form.Group>
                         </Form.Group>
                     </Form>
@@ -379,7 +399,7 @@ export default function TableUser() {
                 </Modal.Header>
                 <Modal.Body>
                     {/*//id,firstName,lastName,email,phone,address */}
-                   <Form className="text-start" onSubmit={(e) => handleSubmit(e)}>
+                    <Form className="text-start" onSubmit={(e) => handleSubmit(e)}>
                         <div className="row w-100 mb-3">
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Employee Id</label>
@@ -427,7 +447,7 @@ export default function TableUser() {
             </Modal>
             {/* delete model */}
             <Modal size="xl" show={showDel} onHide={handleDelClose}>
-               <Modal.Header closeButton>
+                <Modal.Header closeButton>
                     <Modal.Title>{employee.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='d-flex gap-2'>
@@ -435,7 +455,6 @@ export default function TableUser() {
                         <Badge>{employee.department}</Badge>
                         <p><MdOutlineEmail /> : {employee.email}</p>
                         <p><FaPhoneAlt /> : {employee.phone}</p>
-
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -450,6 +469,7 @@ export default function TableUser() {
                         <th >id</th>
                         <th>name</th>
                         <th>department</th>
+                        <th>Asserts</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -459,6 +479,9 @@ export default function TableUser() {
                             <td>{employee.id}</td>
                             <td>{employee.name}</td>
                             <td>{employee.department}</td>
+                            <td><ul className="list-unstyled">{employee.asserts.length > 0 ? employee.asserts.map(assert => {
+                                return <li className="bg-primary-subtle p-2 m-1">{assert} - {assertMap[assert]}</li>
+                            }) : <li> - </li>}</ul></td>
                             <td>
                                 <Button className='bg-success text-white m-2' onClick={() => openShowModel(employee.id)}><FaEye /></Button>
                                 <Button className='bg-warning text-white m-2' onClick={() => openEditModel(employee.id)}><BiSolidEdit /></Button>

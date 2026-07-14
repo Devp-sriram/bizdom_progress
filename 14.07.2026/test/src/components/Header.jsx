@@ -36,8 +36,8 @@ function Header() {
             <Offcanvas.Body>
                 <ul className="list-unstyled m-3 text-none ">
                     <Link to="/home" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Home</li></Link>
-                    <Link to="/home/employees" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Users</li></Link>
-                    <Link to="/home/products" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Products</li></Link>
+                    <Link to="/home/employees" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Employees</li></Link>
+                    <Link to="/home/asserts" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Asserts</li></Link>
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
