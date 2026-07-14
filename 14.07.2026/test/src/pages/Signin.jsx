@@ -1,0 +1,96 @@
+import './Signin.css'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { FaEyeSlash, FaEye } from "react-icons/fa";
+
+import Form from 'react-bootstrap/Form';
+
+export default function Signin() {
+    const navigate = useNavigate();
+
+    const [showPw, setShowPw] = useState(false)
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+    const [error, setError] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData(prev => ({
+            ...prev,
+            [name]: name == 'email' || name == 'password' ? value.trim() : value
+        }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()) {
+            let users = JSON.parse(localStorage.getItem('auth')) || [];
+            console.log(users)
+            users.push(data)
+            localStorage.setItem('auth', JSON.stringify(users))
+            setData({
+                name: "",
+                email: "",
+                password: ""
+            })
+            navigate('/')
+        }
+    }
+    const validate = () => {
+        const emailRegex = /^[A-Za-z0-9_%+-]+(?:\.[A-Za-z0-9_%+-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;;
+        const error = {};
+        if (!data.name || !data.name.trim()) error.name = "Name required";
+        if (!data.email || !data.name.trim()) {
+            error.email = "Email required"
+        } else if (!emailRegex.test(data.email)) {
+            error.email = "not a valid email";
+        }
+        if (!data.password || !data.password.trim()) {
+            error.password = 'Password required'
+        } else if (data.password.length < 8) {
+            error.password = "Password should be 8 or above characters";
+        }
+
+        setError(error);
+        console.log(error);
+        return Object.keys(error).length === 0;
+    };
+    return (
+        <section className='outbox d-flex justify-content-center align-items-center'>
+            <Form onSubmit={(e) => handleSubmit(e)} className='box border form rounded m-2 text-start'>
+                <h3 className='my-3 text-center'>Signin</h3>
+                <Form.Group className='form-group m-2 text-start'>
+                    <Form.Label className='p-2'>Name</Form.Label>
+                    <Form.Control type='text' name='name' value={data.name} onChange={(e) => handleChange(e)} />
+                </Form.Group>
+                {error.name && <p className='text-danger ms-2'>{error.name}</p>}
+                <Form.Group className='form-group m-2 text-start'>
+                    <Form.Label className='p-2'>Email</Form.Label>
+                    <Form.Control type='text' name='email' value={data.email} onChange={(e) => handleChange(e)} />
+                </Form.Group>
+                {error.email && <p className='text-danger ms-2'>{error.email}</p>}
+                <Form.Group className='form-group m-2 text-start position-relative'>
+                    <Form.Label className='p-2'>Password</Form.Label>
+                    <Form.Control type={showPw ? 'text' : 'password'} name='password' value={data.password} onChange={(e) => handleChange(e)} />
+                    {showPw ? <FaEyeSlash onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
+                        : <FaEye onClick={() => setShowPw(!showPw)} className='position-absolute' style={{ right: "10px", bottom: '10px' }} />
+                    }
+                </Form.Group>
+                {error.password && <p className='text-danger ms-2'>{error.password}</p>}
+                <Form.Group className='m-2'>
+                    <button type='submit' className='w-100 btn btn-primary'>Submit</button>
+                    <Form.Text>Already signed up login here <Link to='/'>here</Link></Form.Text>
+                </Form.Group>
+            </Form>
+        </section>
+    )
+}
