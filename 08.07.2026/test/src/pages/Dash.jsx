@@ -1,8 +1,6 @@
-import { FaUsers } from "react-icons/fa";
-import { FaDropbox } from "react-icons/fa";
-import { FaBox } from "react-icons/fa";
+import { FaUsers, FaDropbox, FaBox } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";
-import { Card } from 'react-bootstrap'
+import Card from 'react-bootstrap/Card'
 
 import { useProduct, useUser } from "../context/context";
 

@@ -1,42 +1,19 @@
+import { IconContext } from "react-icons";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMdCart } from "react-icons/io";
 import { HiOutlineMenu } from "react-icons/hi";
-import { IconContext } from "react-icons";
-import './Header.css'
+import { Button, Offcanvas, Dropdown } from 'react-bootstrap';
 
-// import { useCart } from '../context/context'
 import { useEffect, useState, useMemo } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-// import { reduceLength } from '../utils/len'
 
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
     const navigate = useNavigate()
     const [show, setShow] = useState(false);
     const [creds, setCreds] = useState({})
-    // const { cart, setCart } = useCart()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const SubQty = (e, id) => {
-        e.stopPropagation()
-        setCart(prev =>
-            prev.map(item => item.id == id ? item.qty > 1 ? { ...item, qty: item.qty -= 1 } : {} : item)
-        )
-    }
-
-    const AddQty = (e, id) => {
-        e.stopPropagation()
-        setCart(prev =>
-            prev.map(item => item.id == id ? { ...item, qty: item.qty += 1 } : item)
-        )
-    }
-    // const cartTotal = useMemo(() => {
-    //     return cart.filter(item => item && Object.keys(item).length > 0).reduce((acc, item) => acc + item.price * item?.qty, 0).toFixed(2);
-    // }, [cart]);
 
     useEffect(() => {
         setCreds(JSON.parse(localStorage.getItem('loggedIn')) || {});
@@ -48,7 +25,7 @@ function Header() {
 
     return <header className="d-flex px-4 p-3 justify-content-between border top bg-primary-subtle">
         <div className="d-flex gap-2 align-items-center">
-            <Button className='hamburger btn btn-light' onClick={handleShow}><HiOutlineMenu /></Button>
+            <Button className='d-md-none btn btn-light' onClick={handleShow}><HiOutlineMenu /></Button>
             <h2 className="mb-0 text-brand ">Admin console</h2>
         </div>
 
@@ -58,9 +35,9 @@ function Header() {
             </Offcanvas.Header>
             <Offcanvas.Body>
                 <ul className="list-unstyled m-3 text-none ">
-                    <Link to="/home" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Home</li></Link>
-                    <Link to="/home/users" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Users</li></Link>
-                    <Link to="/home/products" onClick={()=>handleClose()}><li className='w-100 p-2 text-start'>Products</li></Link>
+                    <Link to="/home" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Home</li></Link>
+                    <Link to="/home/users" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Users</li></Link>
+                    <Link to="/home/products" onClick={() => handleClose()}><li className='w-100 p-2 text-start'>Products</li></Link>
                 </ul>
             </Offcanvas.Body>
         </Offcanvas>
@@ -71,7 +48,7 @@ function Header() {
                     <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
                         <div>
                             <FaUserCircle />
-                            {creds?.name && <p className="mb-0 username">{creds.name}</p>}
+                            {creds?.name && <p className="mb-0" style={{ fontSize: "12px" }}>{creds.name}</p>}
                         </div>
                     </Dropdown.Toggle>
 

@@ -1,17 +1,17 @@
-import { BiSolidEdit } from "react-icons/bi";
+import { MdDelete, MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { FaPlusCircle, FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
 import { GoStack } from "react-icons/go";
 
-import { Table, Modal, Form, Button, Badge, Pagination, Collapse } from 'react-bootstrap'
+import { Table, Modal, Form, Button, Badge, Pagination, Collapse, Dropdown } from 'react-bootstrap'
 
 import { useState, useEffect } from 'react'
 import { useUser } from '../context/context'
 
 import { toast } from 'react-toastify'
 
-export default function TableProd() {
+export default function TableUser() {
     const { users, setUsers } = useUser()
 
     const [count, setCount] = useState(Number(JSON.parse(localStorage.getItem('count'))) || 30);
@@ -27,6 +27,7 @@ export default function TableProd() {
     const [active, setActive] = useState(0)
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(5);
+    const [perPage, setPerPage] = useState(limit)
 
     const [search, setSearch] = useState('');
     const [filteredUsers, setFilteredUsers] = useState(users)
@@ -270,18 +271,18 @@ export default function TableProd() {
         setUser(prev => ({ ...prev, id: (count + 1) }))
     }, [])
 
-
     useEffect(() => {
         handleSearch()
     }, [search])
-    // useEffect(()=>{
-    //     console.log(user)
-    // },[user])
 
     useEffect(() => {
         // console.log(filteredUsers)
         setFilteredUsers(users)
     }, [users])
+
+    useEffect(() => {
+        setPerPage(limit)
+    }, [limit])
 
     return (
         <div className='w-100 m-3 text-start'>
@@ -500,7 +501,7 @@ export default function TableProd() {
                 </thead>
                 <tbody>
                     {filteredUsers.length > 0 ? filteredUsers.map((user, i) => {
-                        return (i >= offset && i < limit) && <tr key={user.id}>
+                        return (i >= offset && i < perPage) && <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
@@ -516,27 +517,48 @@ export default function TableProd() {
                     }) : <tr><td colSpan={5}>No User Data</td></tr>}
                 </tbody>
             </Table>
-            <section className='w-100 d-flex justify-content-end gap-3'>
-                {/* <Dropdown className='m-2'>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center m-0 p-0 bg-transparent border-0">
-                        Items per page : {limit}
+            <section className='w-100 d-flex justify-content-end gap-2 '>
+                <Dropdown className='mx-2'>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="d-flex align-items-center p-2 bg-primary text-white border-0">
+                        {limit}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                         <Dropdown.Item onClick={() => setLimit(5)}>5</Dropdown.Item>
-                         <Dropdown.Item onClick={() => setLimit(10)}>10</Dropdown.Item>
-                         <Dropdown.Item onClick={() => setLimit(15)}>15</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(5)
+                            setOffset(0)
+                            setActive(0)
+                        }}>5</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(10)
+                            setOffset(0)
+                            setActive(0)
+                        }}>10</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {
+                            setLimit(15)
+                            setOffset(0)
+                            setActive(0)
+                        }}>15</Dropdown.Item>
                     </Dropdown.Menu>
-                </Dropdown> */}
+                </Dropdown>
+                <div className='d-flex gap-2 mb-3'>
+                    <Button className='btn-light text-primary'
+                        onClick={() => {
+                            //  setPerPage(offset - perPage - limit)
+                            //  setOffset(offset - perPage)
+                            //  setActive(active +limit)
+                        }}
+                    > <MdOutlineKeyboardArrowLeft /> </Button>
+                </div>
                 <Pagination>
-                    {Array.from({ length: Math.ceil(filteredUsers?.length / 5) }).map((_, i) => {
+                    {Array.from({ length: Math.ceil(filteredUsers?.length / limit) }).map((_, i) => {
                         const pageNumber = i;
                         return (
                             <Pagination.Item
                                 key={pageNumber}
                                 active={pageNumber === active}
                                 onClick={() => {
-                                    setOffset(pageNumber * 5)
-                                    setLimit((pageNumber * 5) + 5)
+                                    setOffset(pageNumber * limit)
+                                    setPerPage((pageNumber * limit) + limit)
                                     setActive(pageNumber)
                                 }
                                 }
@@ -546,6 +568,13 @@ export default function TableProd() {
                         );
                     })}
                 </Pagination>
+                <div className='d-flex gap-2 mb-3'>
+                    <Button className='btn-light text-primary' onClick={() => {
+                        //  setPerPage(offset + perPage + limit)
+                        //  setOffset(offset + perPage)
+                    }}> <MdOutlineKeyboardArrowRight /> </Button>
+                </div>
+
             </section>
         </div>
     )

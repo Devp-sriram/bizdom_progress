@@ -1,20 +1,21 @@
-import { Table, Modal, Form, Button, Badge, Pagination, Dropdown, Collapse } from 'react-bootstrap'
-import { BiSolidEdit } from "react-icons/bi";
-import { FaPlusCircle, FaEye } from "react-icons/fa";
 import { MdDelete, MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { toast } from 'react-toastify'
+import { FaPlusCircle, FaEye } from "react-icons/fa";
+import { BiSolidEdit } from "react-icons/bi";
 import { CiSearch } from "react-icons/ci";
 import { GoStack } from "react-icons/go";
+
+import { Table, Modal, Form, Button, Badge, Pagination, Dropdown, Collapse } from 'react-bootstrap'
 
 import { useState, useEffect } from 'react'
 import { useProduct } from '../context/context'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
 
 import { reduceLength } from '../utils/len'
 
 export default function TableProd() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const { products, setProducts } = useProduct();
     const [category, setCategory] = useState([])
 
@@ -42,18 +43,7 @@ export default function TableProd() {
     })
     const [advShow, setAdvShow] = useState(false);
 
-
     const [count, setCount] = useState(Number(JSON.parse(localStorage.getItem('count'))) || 30);
-    const [newProduct, setNewProduct] = useState({
-        id: "",
-        images: [],
-        title: "",
-        brand: "",
-        category: "",
-        stock: "",
-        price: ""
-    })
-
 
     const [product, setProduct] = useState({
         id: "",
@@ -179,34 +169,22 @@ export default function TableProd() {
         toast.success('Product deleted successfully');
     }
     const handleChange = (e) => {
-        setProduct(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
-    const handleNewChange = (e) => {
-        const { name, value } = e.target;
-
+        const { name, value } = e.target
         if (name === 'images') {
-            setNewProduct(prev => {
-                return ({
-                    ...prev,
-                    images: [value]
-                })
-            }
-            );
+            setProduct(prev => ({ ...prev, [name]: [value] }))
         } else {
-            setNewProduct(prev => ({ ...prev, [name]: value }));
+            setProduct(prev => ({ ...prev, [name]: value }))
         }
-
     }
+
     const handleNewSubmit = (e) => {
         e.preventDefault()
-        if (newValidate()) {
-            console.log(newProduct)
+        if (validate()) {
             setProducts(prev => {
-                return [newProduct, ...prev]
+                return [product, ...prev]
             })
             setCount(count + 1);
-            setNewProduct({
+            setProduct({
                 id: "",
                 images: [],
                 title: "",
@@ -223,8 +201,8 @@ export default function TableProd() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(edit)
-        console.log(product)
+        // console.log(edit)
+        // console.log(product)
         if (validate()) {
             setProducts(prev =>
                 prev.map(item =>
@@ -244,38 +222,6 @@ export default function TableProd() {
             handleClose()
             toast.success('Product updated successfully');
         }
-    }
-    const newValidate = () => {
-        const error = {};
-        const isEmpty = (value) => !value || value.trim() === "";
-        const isTooShort = (value, minLength = 2) => value && value.trim().length < minLength;
-
-        if (isEmpty(newProduct.title)) {
-            error.title = "title required";
-        } else if (isTooShort(newProduct.title)) {
-            error.title = "Name must be at least 2 characters";
-        }
-        if (isEmpty(newProduct.images[0])) {
-            error.image = "image url required";
-        }
-
-        if (isEmpty(newProduct.brand)) {
-            error.brand = "brand required";
-
-        }
-        if (isEmpty(newProduct.stock)) {
-            error.stock = "stock required";
-
-        }
-        if (isEmpty(newProduct.price)) {
-            error.price = "price required";
-
-        }
-        if (isEmpty(newProduct.category)) {
-            error.category = "Category required";
-        }
-        setError(error);
-        return Object.keys(error).length === 0;
     }
 
     const validate = () => {
@@ -325,7 +271,7 @@ export default function TableProd() {
     }, [search])
 
     useEffect(() => {
-        setNewProduct(prev => ({ ...prev, id: (count + 1) }))
+        setProduct(prev => ({ ...prev, id: (count + 1) }))
     }, [])
 
     useEffect(() => {
@@ -335,6 +281,14 @@ export default function TableProd() {
     useEffect(() => {
         setPerPage(limit)
     }, [limit])
+
+
+    // useEffect(()=>{
+    //     console.log('limit',limit);
+    //     console.log('offset',offset);
+    //     console.log('perPage',perPage);
+    //     console.log('active',active);
+    // },[limit,offset,perPage,active])
 
     return (
         <div className='w-100 m-3 text-start'>
@@ -402,9 +356,9 @@ export default function TableProd() {
                 <Modal.Body className='d-flex gap-2'>
                     <div className='w-50 d-flex flex-wrap'>
                         {product?.images?.map(item => {
-                            return < img src={item} className='w-50 border'
+                            return < img src={item} className='border'
                                 style={{
-                                    height: "200px",
+                                    height: "300px",
                                     width: "100%",
                                     objectFit: "contain",
                                     objectPosition: "center",
@@ -433,23 +387,23 @@ export default function TableProd() {
                         <div className="row w-100 mb-3">
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Product Id</label>
-                                <input name='id' type="number" className="form-control rounded-pill w-100 p-2" value={newProduct.id} onChange={(e) => handleNewChange(e)} />
+                                <input name='id' type="number" className="form-control rounded-pill w-100 p-2" value={product.id} onChange={(e) => handleChange(e)} />
                             </div>
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Product title</label>
-                                <input type="title" name="title" className="form-control rounded-pill w-100 p-2" value={newProduct.title} onChange={(e) => handleNewChange(e)} />
+                                <input type="title" name="title" className="form-control rounded-pill w-100 p-2" value={product.title} onChange={(e) => handleChange(e)} />
                                 {error.title && <p className="text-danger">{error.title}</p>}
                             </div>
                         </div>
                         <div className="row w-100 mb-3">
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Product Image</label>
-                                <input type="text" name='images' className="form-control rounded-pill w-100 p-2" value={newProduct.images} onChange={(e) => handleNewChange(e)} />
+                                <input type="text" name='images' className="form-control rounded-pill w-100 p-2" value={product.images[0]} onChange={(e) => handleChange(e)} />
                                 {error.image && <p className="text-danger">{error.image}</p>}
                             </div>
                             <div className="form-group col-12 col-md-6">
-                                <label className="p-2">Product Brand</label>
-                                <select name='category' className="form-select rounded-pill w-100 p-2" value={newProduct.category} onChange={(e) => handleNewChange(e)}>
+                                <label className="p-2">Category</label>
+                                <select name='category' className="form-select rounded-pill w-100 p-2" value={product.category} onChange={(e) => handleChange(e)}>
                                     <option value="">Select Category</option>
                                     {category.map(cat => {
                                         return <option value={cat}>{cat}</option>
@@ -461,19 +415,19 @@ export default function TableProd() {
                         <div className="row w-100 mb-3">
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Brand</label>
-                                <input type="text" name="brand" className="form-control rounded-pill w-100 p-2" value={newProduct.brand} onChange={(e) => handleNewChange(e)} />
+                                <input type="text" name="brand" className="form-control rounded-pill w-100 p-2" value={product.brand} onChange={(e) => handleChange(e)} />
                                 {error.brand && <p className="text-danger">{error.brand}</p>}
                             </div>
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Price</label>
-                                <input type="number" name='price' className="form-control rounded-pill w-100 p-2" value={newProduct.price} onChange={(e) => handleNewChange(e)} />
+                                <input type="number" name='price' className="form-control rounded-pill w-100 p-2" value={product.price} onChange={(e) => handleChange(e)} />
                                 {error.price && <p className="text-danger">{error.price}</p>}
                             </div>
                         </div>
                         <div className="row w-100 mb-3">
                             <div className="form-group col-12 col-md-6">
                                 <label className="p-2">Stocks</label>
-                                <input type="number" name='stock' className="form-control rounded-pill w-100 p-2" value={newProduct.stock} onChange={(e) => handleNewChange(e)} />
+                                <input type="number" name='stock' className="form-control rounded-pill w-100 p-2" value={product.stock} onChange={(e) => handleChange(e)} />
                                 {error.stock && <p className="text-danger">{error.stock}</p>}
                             </div>
                         </div>
@@ -576,21 +530,17 @@ export default function TableProd() {
             </Modal>
 
             <Table bordered hover >
-                <thead className='bg-primary text-white'>
+                <thead>
                     <tr>
-                        {/* {id,images,title,brand,category,stock,price} */}
-                        <th >id</th>
-                        <th>images</th>
-                        <th>title</th>
-                        {/* <th>category</th>
-                        <th>brand</th> */}
-                        <th>stock</th>
-                        <th>price</th>
-                        <th>Actions</th>
+                        <th className='bg-primary-subtle'>Id</th>
+                        <th className='bg-primary-subtle'>Images</th>
+                        <th className='bg-primary-subtle'>Title</th>
+                        <th className='bg-primary-subtle'>Stock</th>
+                        <th className='bg-primary-subtle'>Price</th>
+                        <th className='bg-primary-subtle'>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {userData?.length > 0 ? userData?.map((user, i) => { */}
                     {filteredProducts?.length > 0 ? filteredProducts.map(((product, i) => {
                         return i >= offset && i < perPage ? <tr key={product.id}>
                             <td>{product.id}</td>
@@ -640,7 +590,13 @@ export default function TableProd() {
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className='d-flex gap-2 mb-3'>
-                    <Button className='btn-light text-primary'> <MdOutlineKeyboardArrowLeft/> </Button>
+                    <Button className='btn-light text-primary'
+                        onClick={() => {
+                            //  setPerPage(offset - perPage - limit)
+                            //  setOffset(offset - perPage)
+                            //  setActive(active +limit)
+                        }}
+                    > <MdOutlineKeyboardArrowLeft /> </Button>
                 </div>
                 <Pagination>
 
@@ -663,7 +619,10 @@ export default function TableProd() {
                     })}
                 </Pagination>
                 <div className='d-flex gap-2 mb-3'>
-                    <Button className='btn-light text-primary'> <MdOutlineKeyboardArrowRight/> </Button>
+                    <Button className='btn-light text-primary' onClick={() => {
+                        //  setPerPage(offset + perPage + limit)
+                        //  setOffset(offset + perPage)
+                    }}> <MdOutlineKeyboardArrowRight /> </Button>
                 </div>
 
             </section>
