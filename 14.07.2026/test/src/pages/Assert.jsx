@@ -6,7 +6,7 @@ import { GoStack } from "react-icons/go";
 
 import { Table, Modal, Form, Button, Badge, Pagination, Collapse, Dropdown } from 'react-bootstrap'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useEmployee, useAssert } from '../context/context'
 
 import { toast } from 'react-toastify'
@@ -174,31 +174,31 @@ export default function TableUser() {
             setAssert(prev => ({ ...prev, [name]: value }));
         }
     }
-    const reassignAssert = (assert) => {
-        const prevEmp = employees.find(emp => emp.id == assert.assignedTo)
-        const assertLessEmp = prevEmp?.asserts.filter(item => item != assert.id)
-        if (prevEmp.asserts.includes(assert.assignedTo)) {
+    // const reassignAssert = (assert) => {
+    //     const prevEmp = employees.find(emp => emp.id == assert.assignedTo)
+    //     const assertLessEmp = prevEmp?.asserts.filter(item => item != assert.id)
+    //     if (prevEmp.asserts.includes(assert.assignedTo)) {
 
-            setEmployees(prev =>
-                prev.map(emp => {
-                    return emp.id == assert.assignedTo ? { ...emp, asserts: emp.asserts.filter(item => item != assert.id) } : emp
-                })
-            )
-            if (assert.assignedTo != 0) {
-                setEmployees(prev =>
-                    prev.map(emp => {
-                        return emp.id == assert.assignedTo ? emp.asserts.pop(assert.id) : emp
-                    })
-                )
-            }
-            // setEmployees(prev =>
-            //     prev.map(emp => {
-            //         return emp.id == assert.assignedTo ? emp.asserts.pop(assert.id) : emp
-            //     })
-            // )
-            // employees.find(emp => emp.id === prev.assignedTo)
-        }
-    }
+    //         setEmployees(prev =>
+    //             prev.map(emp => {
+    //                 return emp.id == assert.assignedTo ? { ...emp, asserts: emp.asserts.filter(item => item != assert.id) } : emp
+    //             })
+    //         )
+    //         if (assert.assignedTo != 0) {
+    //             setEmployees(prev =>
+    //                 prev.map(emp => {
+    //                     return emp.id == assert.assignedTo ? emp.asserts.pop(assert.id) : emp
+    //                 })
+    //             )
+    //         }
+    //         // setEmployees(prev =>
+    //         //     prev.map(emp => {
+    //         //         return emp.id == assert.assignedTo ? emp.asserts.pop(assert.id) : emp
+    //         //     })
+    //         // )
+    //         // employees.find(emp => emp.id === prev.assignedTo)
+    //     }
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -221,23 +221,19 @@ export default function TableUser() {
         }
     }
 
-    const assignAssert = (assert) => {
-        setEmployees(prev =>
-            prev.map(item =>
-                item.id == assert.assignedTo ?
-                    item.asserts ? { ...item, asserts: [...item.asserts, assert.id] } : { ...item, asserts: [assert.id] }
-                    : item
-            )
-        )
-    }
+    // const assignAssert = (assert) => {
+    //     setEmployees(prev =>
+    //         prev.map(item =>
+    //             item.id == assert.assignedTo ?
+    //                 item.asserts ? { ...item, asserts: [...item.asserts, assert.id] } : { ...item, asserts: [assert.id] }
+    //                 : item
+    //         )
+    //     )
+    // }
 
     const handleNewSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
-
-            if (assert.assignedTo != 'available') {
-                assignAssert(assert);
-            }
 
             setAsserts(prev => {
                 return [assert, ...prev]

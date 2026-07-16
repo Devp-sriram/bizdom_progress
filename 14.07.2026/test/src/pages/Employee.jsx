@@ -6,7 +6,7 @@ import { GoStack } from "react-icons/go";
 
 import { Table, Modal, Form, Button, Badge, Pagination, Collapse, Dropdown } from 'react-bootstrap'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useEmployee, useAssert } from '../context/context'
 
 import { toast } from 'react-toastify'
@@ -100,12 +100,23 @@ export default function TableUser() {
         setSearchEmployees(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
+    const assertLinkMap = useMemo(() => {
+        return asserts.reduce((acc, assert) => {
+            acc[assert.assignedTo] = [...acc[assert.assignedTo],assert.id]
+            return acc
+        }, {});
+    }, [asserts])
+
     const assertMap = useMemo(() => {
         return asserts.reduce((acc, emp) => {
             acc[emp.id] = emp.name;
             return acc;
         }, {});
     }, [asserts]);
+
+    useEffect(()=>{
+        console.log(assertLinkMap)
+    },[assertLinkMap])
 
     const handleAdvSearch = (e) => {
         e.preventDefault();
