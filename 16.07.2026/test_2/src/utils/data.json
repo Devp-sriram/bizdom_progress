@@ -1,0 +1,83 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Essence Mascara Lash Princess",
+      "category": "beauty",
+      "price": 9.99,
+      "taxPercentage": 5,
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966,",
+      "stock": "5",
+      "status": "avilable",
+      "images": [
+        "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp"
+    },
+    {
+      "id": 11,
+      "title": "Annibale Colombo Bed",
+      "category": "home",
+      "price": 1899.99,
+      "taxPercentage": 5,
+      "stock": "5",
+      "status": "avilable",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966,",
+      "images": [
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/3.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp"
+    },
+    {
+      "id": 12,
+      "title": "Men's 513 Dark Blue Slim Straight Fit Mid Rise Jeans",
+      "category": "fashion",
+      "price": 2499.99,
+      "taxPercentage": 5,
+      "stock": "5",
+      "status": "avilable",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966,",
+      "images": [
+        "https://americanrag.com/cdn/shop/files/1033131.webp?v=1780513399&width=767",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/3.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp"
+    },
+    {
+      "id": 13,
+      "title": "189 cm (75) LG NANO 4K UHD AI TV NU870 2026",
+      "category": "electronics",
+      "price": 299.99,
+      "taxPercentage": 5,
+      "stock": "5",
+      "status": "avilable",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966,",
+      "images": [
+        "https://www.lg.com/content/dam/channel/wcms/1-channel/in/ms/lgcom/2026/tv-audio-video/tv/nano-4k-uhd/nu85/gp1/gallery/75-nu85/gallery/new/75NU870BPLA-2010x1334-1-v.jpg/jcr:content/renditions/thum-1600x1062.jpeg?w=800",
+        "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/3.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/thumbnail.webp"
+    },
+    {
+      "id": 25,
+      "title": "Green Bell Pepper",
+      "category": "home",
+      "price": 1.29,
+      "taxPercentage": 5,
+      "stock": "5",
+      "status": "avilable",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966,",
+      "images": [
+        "https://cdn.dummyjson.com/product-images/groceries/green-bell-pepper/1.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/groceries/green-bell-pepper/thumbnail.webp"
+    }
+  ],
+  "total": 194,
+  "skip": 0,
+  "limit": 30
+}

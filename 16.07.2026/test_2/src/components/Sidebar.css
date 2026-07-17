@@ -1,0 +1,14 @@
+li {
+    width: 100%;
+    border-radius: 20px;
+}
+
+li:hover {
+    background-color: var(--brand);
+    color: white;
+}
+
+.active {
+    background-color: var(--brand);
+    color: white;
+}
