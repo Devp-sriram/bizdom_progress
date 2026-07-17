@@ -70,7 +70,7 @@ export default function Cart() {
 
     return (
         <div style={{ fontWeight: '600' }}>
-            <header className='w-100 d-flex justify-content-between p-3 border-bottom ' style={{ height: "80px" }}>
+            <header className='w-100 d-flex justify-content-between p-3 border-bottom position-fixed bg-white' style={{ height: "80px" }}>
                 <div className="d-flex gap-3 align-items-center">
                     <IconContext value={{ size: '44px' , color:'var(--brand)'}}>
                         <GoArrowLeft onClick={() => navigate('/products')} />
@@ -92,12 +92,12 @@ export default function Cart() {
                 </div>
             </header>
 
-            <div className='w-50 mx-auto'>
+            <div className='w-100 mx-auto p-2' style={{ maxWidth: '500px' , marginTop:'80px'}}>
 
                 <div className="m-3">
-                    <div className="d-flex gap-3">
-                        <h2>My Cart</h2>
-                        <p>{`(${cartitem} items)`}</p>
+                    <div className="d-flex gap-3 align-items-center">
+                        <h2 className="m-0">My Cart</h2>
+                        <p className="m-0">{`(${cartitem} items)`}</p>
                     </div>
                     {cart?.map(product =>
                         <div key={product.id} className="d-flex border-bottom py-2 text-start" style={{ width: '100%', }}>
@@ -120,7 +120,7 @@ export default function Cart() {
                                         <p className='m-0'>₹ {product.price.toFixed(2) * (product.qty || 1)}</p>
                                     </div>
 
-                                    <div className="d-flex gap-2 h-100 align-items-center">
+                                    <div className="d-flex flex-column flex-md-row gap-2 h-100 align-items-center">
                                         <div className='d-flex align-items-center rounded-3 py-1 px-2 border' style={{ height: 'fit-content' }}>
                                             <TiMinus className="p-1 border-end" onClick={() => descreaseQty(product.id)} />
                                             <p className="m-0 px-1">

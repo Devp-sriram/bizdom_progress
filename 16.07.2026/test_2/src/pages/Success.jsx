@@ -1,36 +1,53 @@
 import { useEffect, useState } from "react"
 import { Badge } from "react-bootstrap"
 import { IconContext } from 'react-icons'
-import {BsBag} from 'react-icons/bs'
+import { BsBag } from 'react-icons/bs'
 import { useNavigate } from "react-router-dom";
+import party from "party-js";
 
 export default function Success() {
     const navigate = useNavigate()
     const [orderId, setOrderId] = useState(Number(localStorage.getItem('orderId')) || 1000);
-    const [finalAmount , setFinalAmount] = useState('')
+    const [finalAmount, setFinalAmount] = useState('')
 
-    useEffect(()=>{
+    useEffect(() => {
         setFinalAmount(localStorage.getItem('finalAmount') || '')
-    },[])
+    }, [])
 
-    useEffect(()=>{
-        setTimeout(()=>{
+    useEffect(() => {
+        setTimeout(() => {
             navigate('/redirect')
-        },2000)
-    },[])
+        }, 2000)
+    }, [])
+
+    useEffect(() => {
+        const topLeftSource = new party.Rect(0, 0, 0, 0);
+        party.sparkles(topLeftSource, {
+            shapes: ["square", "circle"],
+            count: party.variation.range(20, 30),
+            speed: party.variation.range(300, 600),
+        });
+
+        const topRightSource = new party.Rect(window.innerWidth, 0, 0, 0);
+        party.sparkles(topRightSource, {
+            shapes: ["square", "circle"],
+            count: party.variation.range(20, 30),
+            speed: party.variation.range(300, 600),
+        });
+    }, [])
 
     return (
         <div className='w-100 d-flex justify-content-center align-items-start' style={{ height: '100vh' }}>
             <div className='w-100 p-2 my-5 ' style={{ maxWidth: "500px" }}>
-                <img src="tick.webp" alt="tick" width={200} height={200} />
-                <h4 className="my-2 text-success" style={{fontSize:'24px'}}>Payment Successful</h4>
-                <p className="my-4" style={{fontSize:'20px'}}>Thank you for shopping with SOS <br/>
+                <img src="./tick.webp" alt="tick" width={200} height={200} />
+                <h4 className="my-2 text-success" style={{ fontSize: '24px' }}>Payment Successful</h4>
+                <p className="my-4" style={{ fontSize: '20px' }}>Thank you for shopping with SOS <br />
                     Your Order has been places Successfully</p>
                 <h3>order ID</h3>
                 <span className="text-brand bg-light border rounded w-100 p-1 px-2" style={{ fontSize: '20px' }}>SOS{orderId}</span>
                 {finalAmount && <p className="my-2">You paid ₹ {finalAmount}</p>}
-                <div className="position-relative my-3 mx-auto" style={{width:'fit-content'}}>
-                    <IconContext value={{ size: '120px',  color:'var(--brand)'}}>
+                <div className="position-relative my-3 mx-auto" style={{ width: 'fit-content' }}>
+                    <IconContext value={{ size: '120px', color: 'var(--brand)' }}>
                         <div className='d-flex flex-column align-items-center gap-5'>
                             <BsBag />
                         </div>

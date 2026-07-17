@@ -28,8 +28,8 @@ export default function Success() {
     }, [count, navigate]);
 
     return (
-        <div className='w-100 d-flex justify-content-center align-items-start' style={{ height: '100vh' }}>
-            <div className='p-2 my-5 ' style={{ minWidth: "500px" }}>
+        <div className='w-100 d-flex justify-content-center align-items-start p-2' style={{ height: '100vh' }}>
+            <div className='w-100 p-2 my-5 ' style={{ maxWidth: "500px" }}>
                 <img src="tick.webp" alt="tick" width={200} height={200} />
                 <h4 className="my-2 text-success"  style={{fontSize:'24px'}} >Redirecting.. </h4>
                 <p className="my-4"  style={{fontSize:'20px'}} >You will be redirect to home screen in </p>
