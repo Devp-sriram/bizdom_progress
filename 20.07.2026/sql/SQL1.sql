@@ -95,19 +95,15 @@ ALTER TABLE products
 ADD created_at DATETIME2 DEFAULT CURRENT_TIMESTAMP
 
 
-CREATE PROCEDURE order_product
- @qty INT,
- @id INT
+CREATE PROCEDURE order_product @qty INT,
+@id INT
 AS
 BEGIN
-  IF EXISTS
-    (
-    SELECT
-      *
-    FROM products p
-    WHERE p.id = @id
-    AND p.stock >= @qty
-    )
+  IF EXISTS (SELECT
+        *
+      FROM products p
+      WHERE p.id = @id
+      AND p.stock >= @qty)
   BEGIN
     UPDATE products
     SET stock = stock - @qty
@@ -117,8 +113,17 @@ END
 GO
 
 
-EXEC order_product 2 , 2
+EXEC order_product 2
+                  ,2
 
 SELECT
   *
 FROM products p
+
+
+SELECT
+  COUNT(*)
+ ,department
+FROM employees
+WHERE salary > 100
+GROUP BY department
